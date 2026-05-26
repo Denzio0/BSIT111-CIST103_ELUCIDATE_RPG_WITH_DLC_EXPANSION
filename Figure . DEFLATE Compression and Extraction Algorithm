@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="M7b4JY0e5WXMRG3c-MZi">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="710fpeP0kEJaAU1K0er5-4" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=30;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-1" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start;fillColor=none;fontFamily=Times New Roman;" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Start: DEFLATE Compression and&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Extraction Algorithm&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="60" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-6" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-3" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Define temp_download.zip and temp_extract" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-8" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-5" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Retrieve ZIP archive using&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;gdown.download()&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-10" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-9" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-12" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-11" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-7" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="File&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;exists&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;and&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;gt; 10,000 bytes?&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="110" x="75" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-9" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Display: &#39;PACKAGE INVALID OR CORRUPTED - ABORTING&#39;" vertex="1">
+          <mxGeometry height="60" width="140" x="240" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-14" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="710fpeP0kEJaAU1K0er5-13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-11" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Decompress contents into temporary extraction folder" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-16" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="RatFY9W_G5SJ3CxqUKIR-1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="710fpeP0kEJaAU1K0er5-13" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Identify destination path" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-5" edge="1" parent="1" source="RatFY9W_G5SJ3CxqUKIR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="RatFY9W_G5SJ3CxqUKIR-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-1" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Remove any existing destination file or&lt;div&gt;directory&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-6" edge="1" parent="1" source="RatFY9W_G5SJ3CxqUKIR-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="RatFY9W_G5SJ3CxqUKIR-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-2" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Move new files into place using shutil.move()" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-7" edge="1" parent="1" source="RatFY9W_G5SJ3CxqUKIR-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="RatFY9W_G5SJ3CxqUKIR-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-3" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Delete temporary ZIP file and extraction folder" vertex="1">
+          <mxGeometry height="60" width="135" x="62.5" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-10" edge="1" parent="1" source="RatFY9W_G5SJ3CxqUKIR-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="RatFY9W_G5SJ3CxqUKIR-9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-4" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Display: &#39;PACKAGE INSTALLATION COMPLETE&#39;&#39;" vertex="1">
+          <mxGeometry height="60" width="140" x="60" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="RatFY9W_G5SJ3CxqUKIR-9" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start;fillColor=none;fontFamily=Times New Roman;" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;End&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="60" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="3nHwkbxVA-lng4myBzOw-1" edge="1" parent="1" source="710fpeP0kEJaAU1K0er5-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="RatFY9W_G5SJ3CxqUKIR-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="310" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

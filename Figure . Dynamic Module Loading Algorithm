@@ -1,0 +1,156 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="EfQ_fLmI-3OmvULwKdyU">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-6" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-7" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-1" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start;fillColor=none;fontFamily=Times New Roman;" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Start: Dynamic Module Loading&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237)); background-color: transparent;&quot;&gt;&amp;nbsp;Algorithm&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="10" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-13" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-7" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="User clicks PLAY" vertex="1">
+          <mxGeometry height="60" width="140" x="10" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-14" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-8" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Execute&lt;div&gt;from main import *&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="13" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-15" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-9" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Call elucidate() to&amp;nbsp;&lt;div&gt;initialize game loop&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="13" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-16" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-10" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Register PLAYER_CLASSES" vertex="1">
+          <mxGeometry height="60" width="135" x="13" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-3" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80.5" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-11" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Load&lt;div&gt;PLAYER_SPRITES&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="13" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-19" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-18" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-23" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-16" value="No">
+          <mxGeometry relative="1" x="0.1998" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-12" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Player selected&lt;div&gt;&#39;Mercenary&#39;?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="110" x="204.5" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-18" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Store class name of &#39;Mercenary&#39; inside Player object" vertex="1">
+          <mxGeometry height="60" width="135" x="369.5" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-23" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-22" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-20" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Link animation frames for Idle, Walk, and Attack states" vertex="1">
+          <mxGeometry height="60" width="135" x="540" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="iJ3yDFqAkC79h4DJQkdP-22" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start;fillColor=none;fontFamily=Times New Roman;" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;End&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="709.5" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-13" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-4" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Display character&lt;div&gt;selection screen&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="10" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-6" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Store class name of&lt;div&gt;&#39;Merchant&#39; inside Player object&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="369.5" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-9" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-7" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Player selects&lt;div&gt;&#39;Merchant&#39;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="189.5" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="D" vertex="1">
+          <mxGeometry height="80" width="80" x="40" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-15" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="D" vertex="1">
+          <mxGeometry height="80" width="80" x="220" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-24" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-18" value="No">
+          <mxGeometry relative="1" x="0.1998" y="1" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-29" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-17" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-16" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Player selected&lt;div&gt;&#39;Cultist&#39;?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="110" x="204.5" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-36" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-17" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Store class name of&lt;div&gt;&#39;Cultist&#39; inside Player object&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="369.5" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-25" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-20" value="No">
+          <mxGeometry relative="1" x="0.1998" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-30" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-19" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-18" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Player selected&lt;div&gt;&#39;Priest&#39;?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="110" x="204.5" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-37" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-20" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-19" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Store class name of&lt;div&gt;&#39;Priest&#39; inside Player object&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="135" x="369.5" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-27" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-7" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-31" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;" target="P0eLHVaHnXMoa1XU135z-21" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-20" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Player selected&lt;div&gt;&#39;Shaman&#39;?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="110" x="204.5" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-38" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-21" parent="1" style="whiteSpace=wrap;html=1;fontFamily=Times New Roman;fillColor=none;dashed=0;" value="Store class name of &#39;Shaman&#39; inside Player object" vertex="1">
+          <mxGeometry height="60" width="135" x="369.5" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-35" edge="1" parent="1" source="iJ3yDFqAkC79h4DJQkdP-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" target="iJ3yDFqAkC79h4DJQkdP-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P0eLHVaHnXMoa1XU135z-39" edge="1" parent="1" source="P0eLHVaHnXMoa1XU135z-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;fontFamily=Times New Roman;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="iJ3yDFqAkC79h4DJQkdP-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="677" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

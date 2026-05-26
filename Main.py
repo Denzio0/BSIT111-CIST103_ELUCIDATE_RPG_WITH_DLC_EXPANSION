@@ -1,0 +1,202 @@
+import pygame
+import random
+import sys
+import math
+import time
+import binascii
+from datetime import datetime
+
+#key1 : 616c70686120312e30  // Alpha
+#key2 : 6265746120312e30    // Beta
+#key3 : 7465737461726561    // Test Area
+
+#main
+def elucidate(key):
+	#initiation
+	pygame.init()
+	
+	sc_782d61786973, sc_792d61786973 = 1275, 710
+	screen = pygame.display.set_mode((sc_782d61786973, sc_792d61786973))
+	pygame.display.set_caption("Elucidate RPG")
+	
+	
+	#initiation of variables
+	clock = pygame.time.Clock()
+	
+	walls = []
+	
+	fonts = {}
+	
+	sys_bg_color = (0, 0, 0)
+	sys_bd_color_sc_area = (180, 180, 180)
+	
+	#define main functions
+	def tick(n):
+		clock.tick(n)
+		
+	def exit():
+		pygame.quit()
+		sys.exit()
+	
+	def display():
+		pygame.display.flip()
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				exit()
+		tick(60)
+	
+	def get_font(size):
+		if size not in fonts:
+			fonts[size] = pygame.font.SysFont("Times New Roman", size)
+		return fonts[size]
+	
+	def sys_main_746578742d746f2d686578(v74657874):
+		try:
+			v74657874 = v74657874.replace(" ","")
+			bytes_object = bytes.fromhex(v74657874)
+			return bytes_object.decode('utf-8')
+		except ValueError:
+			return "there was an error while generating this text."
+	
+	#define general functions
+	def static_text(text,color,position,size):
+		t = sys_main_746578742d746f2d686578(text)
+		font = get_font(size)
+		text_surface = font.render(t,True,color)
+		screen.blit(text_surface,position)
+	
+	def tuple_static_text(*t,color,position,size):
+		font = get_font(size)
+		text_surface = font.render(" ".join(map(str,t)),True,color)
+		screen.blit(text_surface,position)
+	
+	def ambient(file, loop):
+		pygame.mixer.music.load(file)
+		pygame.mixer.music.play(loop)
+	
+	def sys_gen_706c617974657374():
+		pygame.draw.rect(screen, (80, 80, 80), (0, 0, sc_782d61786973, sc_792d61786973), 1)
+		mouse_782d61786973, mouse_792d61786973 = pygame.mouse.get_pos()
+		pygame.draw.rect(screen, (0, 255, 0),(mouse_782d61786973 - 10, mouse_792d61786973, 20, 1))
+		pygame.draw.rect(screen, (0, 255, 0),(mouse_782d61786973, mouse_792d61786973 - 10, 1, 20))
+		tuple_static_text((mouse_782d61786973, mouse_792d61786973), color = (0, 255, 0),position = (mouse_782d61786973 + 10, mouse_792d61786973),size=15)
+		tuple_static_text((clock), color = (0, 255, 0),position = (mouse_782d61786973 + 10, mouse_792d61786973 + 15),size=15)
+	
+	def sys_gen_loading(n):
+		ambient("music/elucidate_the_wait.wav", -1)
+		screen.fill(sys_bg_color)
+		image = pygame.image.load("images/elucidate_title.png").convert()
+		resized_image = pygame.transform.scale(image, (int(1275), int(710)))
+		screen.blit(resized_image, (0, 0))
+		static_text("4c6f6164696e672e2e2e", (255, 255, 255), (20, sc_792d61786973 - 55), 40)
+		display()
+		time.sleep(n)
+	
+	def resolve_collision(mover, obstacle):
+		if not mover.colliderect(obstacle):
+			return mover.x, mover.y
+		overlap_left = mover.right - obstacle.left
+		overlap_right = obstacle.right - mover.left
+		overlap_top = mover.bottom - obstacle.top
+		overlap_bot = obstacle.bottom - mover.top
+		min_x = overlap_left if overlap_left < overlap_right else -overlap_right
+		min_y = overlap_top if overlap_top < overlap_bot else -overlap_bot
+		if abs(min_x) < abs(min_y):
+			return mover.x - min_x, mover.y
+		else:
+			return mover.x, mover.y - min_y
+	
+	#class template
+	class Player:
+		def __init__(self,class_name,x=1,y=1):
+			self.class_name = class_name
+			self.x=float(x)
+			self.y=float(y)
+			self.size=40
+			self.dx=0
+			self.dy=0
+			if class_name=="mercenary":
+				self.speed=6
+				self.color=(160,0,0)
+			elif class_name=="cultist":
+				self.speed=5
+				self.color=(120,0,120)
+			elif class_name=="priest":
+				self.speed=4
+				self.color=(220,220,220)
+			elif class_name=="shaman":
+				self.speed=4
+				self.color=(0,120,120)
+			elif class_name=="merchant":
+				self.speed=3
+				self.color=(120,80,0)
+			else:
+				self.speed=5
+				self.color=(120,0,0)
+		def rect(self):
+			return pygame.Rect(int(self.x),int(self.y),self.size,self.size)
+		def input(self):
+			keys=pygame.key.get_pressed()
+			self.dx=0
+			self.dy=0
+			if keys[pygame.K_w]: self.dy-=self.speed
+			if keys[pygame.K_s]: self.dy+=self.speed
+			if keys[pygame.K_a]: self.dx-=self.speed
+			if keys[pygame.K_d]: self.dx+=self.speed
+			if keys[pygame.K_UP]: self.dy-=self.speed
+			if keys[pygame.K_DOWN]: self.dy+=self.speed
+			if keys[pygame.K_LEFT]: self.dx-=self.speed
+			if keys[pygame.K_RIGHT]: self.dx+=self.speed
+		def move(self):
+			self.x+=self.dx
+			for w in walls:
+				self.x,self.y=resolve_collision(self.rect(),w)
+			self.y+=self.dy
+			for w in walls:
+				self.x,self.y=resolve_collision(self.rect(),w)
+		def border(self,PLAY_W,PLAY_H):
+			if self.x<1:
+				self.x=PLAY_W-self.size-1
+			elif self.x+self.size>PLAY_W-1:
+				self.x=1
+			if self.y<1:
+				self.y=PLAY_H-self.size-1
+			elif self.y+self.size>PLAY_H-1:
+				self.y=1
+		def draw(self):
+			pygame.draw.rect(screen,self.color,self.rect())
+	
+	#define class template
+	def player(class_name,x=1,y=1):
+		return Player(class_name,x,y)
+	
+	#define Game Menus
+	def sys_main():
+		sys_gen_loading(5)
+		ambient("music/elucidate_calm.wav", -1)
+		
+		bg_random = random.randint(1,1)
+		
+		img_656c756369646174655f6d656e755f6267 = pygame.image.load("images/elucidate_menu_bg_001.png").convert()
+		img_656c756369646174655f6d656e755f6267 = pygame.transform.scale(img_656c756369646174655f6d656e755f6267, (int(1275), int(710)))
+		
+		if key == '7465737461726561':
+			while True:
+				screen.fill(sys_bg_color)
+				pygame.draw.rect(screen, (140, 0, 0), (0, 0, sc_782d61786973, sc_792d61786973), 1)
+				
+				screen.blit(img_656c756369646174655f6d656e755f6267, (0, 0))
+				
+				static_text("54455354494e472041524541", color = (255, 255, 255), position = (5, 550), size = 40)
+				
+				sys_gen_706c617974657374()
+				display()
+			
+	#define World Areas
+	
+	
+	#main loop
+	while True:
+		sys_main()
+	
+elucidate('7465737461726561')
