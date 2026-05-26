@@ -1,0 +1,14 @@
+    verify("sprites/npc_e_s2_corrupted_cultist/elucidate_idle_corrupted2_cultist_npc_up.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/Copy-of-elucidate_idle_corrupted2_cultist_npc_up.png")
+    verify("sprites/npc_e_s2_corrupted_cultist/elucidate_idle_corrupted2_cultist_npc_right.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/Copy-of-elucidate_idle_corrupted2_cultist_npc_right.png")
+    verify("sprites/npc_e_s2_corrupted_cultist/elucidate_idle_corrupted2_cultist_npc_left.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/Copy-of-elucidate_idle_corrupted2_cultist_npc_left.png")
+    verify("sprites/npc_e_s2_corrupted_cultist/elucidate_idle_corrupted2_cultist_npc_down.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/Copy-of-elucidate_idle_corrupted2_cultist_npc_down.png")
+
+    verify("sprites/npc_e_luminarian_spy/elucidate_walk_church_spy_npc_right_001.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/elucidate_walk_church_spy_npc_right_001.png")
+
+    verify("sprites/npc_n_ghost_memories/elucidate_idle_ghost_memory2_npc_left.png",
+           "http://elucidatewebstorage.unaux.com/wp-content/uploads/2026/04/elucidate_idle_ghost_memory2_npc_left.png")

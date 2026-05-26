@@ -1,0 +1,4114 @@
+        elif state == "map_01":
+            screen.blit(_scaled_images["l_i_inside_the_wall"], (-world_x, -world_y))
+            walls = _get_walls(state)
+            entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map02 = pygame.Rect(447, 541, 122, 16)
+            if p.get_rect().colliderect(warp_map02):
+                p.x = 921
+                p.y = 548
+                state = "map_02"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_02":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            walls = _get_walls(state)
+            entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map01 = pygame.Rect(907, 476, 89, 77)
+            if p.get_rect().colliderect(warp_map01):
+                p.x = 485
+                p.y = 474
+                state = "map_01"
+            warp_to_theocratic_capital1 = pygame.Rect(0, 489, 25, 282)
+            if p.get_rect().colliderect(warp_to_theocratic_capital1):
+                p.x = 1153
+                p.y = 1102
+                state = "map_07"
+            warp_map03 = pygame.Rect(2204, 440, 15, 356)
+            if p.get_rect().colliderect(warp_map03):
+                p = player(user_class, (screen_x / 2) - 36, (screen_y / 2) - 36, 6375, 3550)
+                p.x = 350
+                p.y = 30
+                state = "map_03"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_03":
+            screen.blit(_scaled_images["l_o_inner_military_district"], (-world_x, -world_y))
+            walls = area_walls["map_03"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map_02 = pygame.Rect(243, 0, 199, 8)
+            if p.get_rect().colliderect(warp_map_02):
+                p.x = 2111
+                p.y = 635
+                state = "map_02"
+            warp_to_barracks1 = pygame.Rect(1023, 213, 56, 64)
+            if p.get_rect().colliderect(warp_to_barracks1):
+                p.x = 1281
+                p.y = 303
+                state = "map_04"
+            warp_to_barracks2 = pygame.Rect(1274, 212, 60, 51)
+            if p.get_rect().colliderect(warp_to_barracks2):
+                p.x = 734
+                p.y = 237
+                state = "map_04"
+            warp_to_barracks3 = pygame.Rect(1609, 210, 57, 53)
+            if p.get_rect().colliderect(warp_to_barracks3):
+                p.x = 172
+                p.y = 281
+                state = "map_04"
+            warp_to_church_outpost = pygame.Rect(2572, 636, 36, 181)
+            if p.get_rect().colliderect(warp_to_church_outpost):
+                p.x = 49
+                p.y = 421
+                state = "map_05"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_04":
+            screen.blit(_scaled_images["l_i_barracks_hall"], (-world_x, -world_y))
+            walls = area_walls["map_04"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_inner_military1 = pygame.Rect(1268, 91, 61, 77)
+            if p.get_rect().colliderect(warp_to_inner_military1):
+                p.x = 1028
+                p.y = 393
+                state = "map_03"
+            warp_to_inner_military2 = pygame.Rect(718, 89, 73, 78)
+            if p.get_rect().colliderect(warp_to_inner_military2):
+                p.x = 1276
+                p.y = 422
+                state = "map_03"
+            warp_to_inner_military3 = pygame.Rect(170, 168, 60, 30)
+            if p.get_rect().colliderect(warp_to_inner_military3):
+                p.x = 1619
+                p.y = 413
+                state = "map_03"
+
+        elif state == "map_05":
+            screen.blit(_scaled_images["l_o_church_outpost"], (-world_x, -world_y))
+            walls = area_walls["map_05"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chapel = pygame.Rect(624, 398, 45, 47)
+            if p.get_rect().colliderect(warp_to_chapel):
+                p.x = 629
+                p.y = 234
+                state = "map_06"
+            warp_to_theocratic_capital2 = pygame.Rect(838, -14, 150, 58)
+            if p.get_rect().colliderect(warp_to_theocratic_capital2):
+                p.x = 1157
+                p.y = 1151
+                state = "map_07"
+
+        elif state == "map_06":
+            screen.blit(_scaled_images["l_i_church_chapel"], (-world_x, -world_y))
+            walls = area_walls["map_06"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_church_outpost2 = pygame.Rect(606, 80, 77, 54)
+            if p.get_rect().colliderect(warp_to_church_outpost2):
+                p.x = 618
+                p.y = 506
+                state = "map_05"
+
+        elif state == "map_07":
+            screen.blit(_scaled_images["l_o_cathedral_plaza"], (-world_x, -world_y))
+            walls = area_walls["map_07"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_walled = pygame.Rect(798, 1210, 762, 11)
+            if p.get_rect().colliderect(warp_to_walled):
+                p.x = 80
+                p.y = 600
+                state = "map_02"
+            warp_to_administrative_wing = pygame.Rect(2, 549, 33, 122)
+            if p.get_rect().colliderect(warp_to_administrative_wing):
+                p.x = 578
+                p.y = 585
+                state = "map_08"
+            warp_to_main_cathedral = pygame.Rect(1084, 107, 177, 22)
+            if p.get_rect().colliderect(warp_to_main_cathedral):
+                p.x = 637
+                p.y = 649
+                state = "map_09"
+            warp_to_home_village1 = pygame.Rect(2301, 553, 51, 115)
+            if p.get_rect().colliderect(warp_to_home_village1):
+                p.x = 53
+                p.y = 645
+                state = "map_11"
+
+        elif state == "map_08":
+            screen.blit(_scaled_images["l_i_church_administrative_wing"], (-world_x, -world_y))
+            walls = area_walls["map_08"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_theocratic_capital3 = pygame.Rect(559, 642, 85, 31)
+            if p.get_rect().colliderect(warp_to_theocratic_capital3):
+                p.x = 101
+                p.y = 579
+                state = "map_07"
+
+        elif state == "map_09":
+            screen.blit(_scaled_images["l_i_main_cathedral"], (-world_x, -world_y))
+            walls = area_walls["map_09"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_theocratic_capital4 = pygame.Rect(626, 725, 82, 20)
+            if p.get_rect().colliderect(warp_to_theocratic_capital4):
+                p.x = 1154
+                p.y = 168
+                state = "map_07"
+
+        elif state == "map_11":
+            screen.blit(_scaled_images["l_o_home_village_entry"], (-world_x, -world_y))
+            walls = area_walls["map_11"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chiefs_office = pygame.Rect(2034, 364, 58, 56)
+            if p.get_rect().colliderect(warp_to_chiefs_office):
+                p.x = 622
+                p.y = 372
+                state = "map_12"
+            warp_to_headmaster_office = pygame.Rect(932, 327, 57, 52)
+            if p.get_rect().colliderect(warp_to_headmaster_office):
+                p.x = 518
+                p.y = 98
+                state = "map_13"
+            warp_to_home_village_center1= pygame.Rect(189, -2, 177, 26)
+            if p.get_rect().colliderect(warp_to_home_village_center1):
+                p.x = 49
+                p.y = 440
+                state = "map_14"
+            warp_to_old_orphanage2 = pygame.Rect(143, 1165, 247, 22)
+            if p.get_rect().colliderect(warp_to_old_orphanage2):
+                p.x = 1008
+                p.y = 777
+                state = "map_15"
+            warp_to_village_market1 = pygame.Rect(2347, 549, 23, 171)
+            if p.get_rect().colliderect(warp_to_village_market1):
+                p.x = 42
+                p.y = 513
+                state = "map_17"
+            warp_to_capitalagain = pygame.Rect(-6, 632, 42, 102)
+            if p.get_rect().colliderect(warp_to_capitalagain):
+                p.x = 2200
+                p.y = 589
+                state = "map_07"
+
+        elif state == "map_12":
+            screen.blit(_scaled_images["l_i_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_12"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_entry3 = pygame.Rect(564, 456, 117, 20)
+            if p.get_rect().colliderect(warp_to_home_village_entry3):
+                p.x = 2035
+                p.y = 477
+                state = "map_11"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_13":
+            screen.blit(_scaled_images["l_i_headmaster_office"], (-world_x, -world_y))
+            walls = area_walls["map_13"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_entry4 = pygame.Rect(491, 6, 82, 44)
+            if p.get_rect().colliderect(warp_to_home_village_entry4):
+                p.x = 944
+                p.y = 466
+                state = "map_11"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_14":
+            screen.blit(_scaled_images["l_o_home_village_center"], (-world_x, -world_y))
+            walls = area_walls["map_14"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_old_orphanage1 = pygame.Rect(108, 814, 99, 26)
+            if p.get_rect().colliderect(warp_to_old_orphanage1):
+                p.x = 654
+                p.y = 56
+                state = "map_15"
+            warp_to_home_village_entry2 = pygame.Rect(1060, 920, 238, 34)
+            if p.get_rect().colliderect(warp_to_home_village_entry2):
+                p.x = 236
+                p.y = 144
+                state = "map_11"
+            warp_to_ext_chiefs_home= pygame.Rect(1432, 449, 41, 75)
+            if p.get_rect().colliderect(warp_to_ext_chiefs_home):
+                p.x = 81
+                p.y = 835
+                state = "map_20"
+
+        elif state == "map_15":
+            screen.blit(_scaled_images["l_o_the_old_orphanage"], (-world_x, -world_y))
+            walls = area_walls["map_15"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_center2 = pygame.Rect(607, 3, 207, 21)
+            if p.get_rect().colliderect(warp_to_home_village_center2):
+                p.x = 128
+                p.y = 735
+                state = "map_14"
+            warp_to_home_village_entry1= pygame.Rect(1121, 928, 169, 13)
+            if p.get_rect().colliderect(warp_to_home_village_entry1):
+                p.x = 295
+                p.y = 996
+                state = "map_11"
+            warp_to_play_room = pygame.Rect(1143, 394, 63, 60)
+            if p.get_rect().colliderect(warp_to_play_room):
+                p.x = 620
+                p.y = 112
+                state = "map_16"
+
+        elif state == "map_16":
+            screen.blit(_scaled_images["l_i_the_play_room"], (-world_x, -world_y))
+            walls = area_walls["map_16"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_old_orphanage2 = pygame.Rect(607, 6, 94, 67)
+            if p.get_rect().colliderect(warp_to_old_orphanage2):
+                p.x = 1166
+                p.y = 513
+                state = "map_15"
+
+        elif state == "map_17":
+            screen.blit(_scaled_images["f_o_village_market"], (-world_x, -world_y))
+            walls = area_walls["map_17"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chiefs_office = pygame.Rect(419, -1, 103, 49)
+            if p.get_rect().colliderect(warp_to_chiefs_office):
+                p.x = 890
+                p.y = 930
+                state = "map_20"
+            warp_to_port1 = pygame.Rect(1805, 168, 15, 127)
+            if p.get_rect().colliderect(warp_to_port1):
+                p.x = 1248
+                p.y = 1442
+                state = "map_29"
+            warp_to_port2 = pygame.Rect(1805, 168, 15, 127)
+            if p.get_rect().colliderect(warp_to_port2):
+                p.x = 1248
+                p.y = 1442
+                state = "map_29"
+            warp_to_deep_terror = pygame.Rect(417, 984, 99, 30)
+            if p.get_rect().colliderect(warp_to_deep_terror):
+                p.x = 77
+                p.y = 587
+                state = "map_18"
+            home_village_entry5 = pygame.Rect(1, 485, 23, 87)
+            if p.get_rect().colliderect(home_village_entry5):
+                p.x = 2243
+                p.y = 605
+                state = "map_11"
+
+        elif state == "map_18":
+            screen.blit(_scaled_images["f_o_deep_terror_zone"], (-world_x, -world_y))
+            walls = area_walls["map_18"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_village_market2 = pygame.Rect(-4, 578, 30, 121)
+            if p.get_rect().colliderect(warp_to_village_market2):
+                p.x = 441
+                p.y = 910
+                state = "map_17"
+            warp_to_anomaly = pygame.Rect(1790, 584, 20, 138)
+            if p.get_rect().colliderect(warp_to_anomaly):
+                p.x = 1384
+                p.y = 70
+                state = "map_19"
+
+        elif state == "map_19":
+            screen.blit(_scaled_images["t_o_anomaly_forest"], (-world_x, -world_y))
+            walls = area_walls["map_19"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_deepagain = pygame.Rect(1352, -6, 109, 21)
+            if p.get_rect().colliderect(warp_to_deepagain):
+                p.x = 1279
+                p.y = 637
+                state = "map_18"
+
+        elif state == "map_20":
+            screen.blit(_scaled_images["f_o_outside_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_20"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_village_market3 = pygame.Rect(830, 987, 173, 30)
+            if p.get_rect().colliderect(warp_to_village_market3):
+                p.x = 447
+                p.y = 88
+                state = "map_17"
+            warp_to_home_village_center3 = pygame.Rect(-6, 746, 17, 129)
+            if p.get_rect().colliderect(warp_to_home_village_center3):
+                p.x = 1258
+                p.y = 436
+                state = "map_14"
+            warp_to_int_chiefs_home1 = pygame.Rect(876, 640, 68, 59)
+            if p.get_rect().colliderect(warp_to_int_chiefs_home1):
+                p.x = 338
+                p.y = 474
+                state = "map_21"
+
+        elif state == "map_21":
+            screen.blit(_scaled_images["f_i_inside_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_21"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_out_chief_home = pygame.Rect(296, 543, 126, 17)
+            if p.get_rect().colliderect(warp_to_out_chief_home):
+                p.x = 890
+                p.y = 748
+                state = "map_20"
+            warp_to_tribe_tunnel1 = pygame.Rect(818, 161, 87, 89)
+            if p.get_rect().colliderect(warp_to_tribe_tunnel1):
+                p.x = 42
+                p.y = 320
+                state = "map_22"
+
+        elif state == "map_22":
+            screen.blit(_scaled_images["f_i_tunnel_passage_to_tribe"], (-world_x, -world_y))
+            walls = area_walls["map_22"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_int_chiefs_home2 = pygame.Rect(-9, 280, 29, 101)
+            if p.get_rect().colliderect(warp_to_int_chiefs_home2):
+                p.x = 855
+                p.y = 272
+                state = "map_21"
+            warp_to_tribe_parameter1 = pygame.Rect(1166, 268, 39, 133)
+            if p.get_rect().colliderect(warp_to_tribe_parameter1):
+                p.x = 993
+                p.y = 452
+                state = "map_23"
+
+        elif state == "map_23":
+            screen.blit(_scaled_images["t_o_tribe_perimeter"], (-world_x, -world_y))
+            walls = area_walls["map_23"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_tribe_tunnel2 = pygame.Rect(976, 507, 115, 41)
+            if p.get_rect().colliderect(warp_to_tribe_tunnel2):
+                p.x = 1067
+                p.y = 297
+                state = "map_22"
+            warp_to_tribe_settlement1 = pygame.Rect(1012, 7, 85, 61)
+            if p.get_rect().colliderect(warp_to_tribe_settlement1):
+                p.x = 52
+                p.y = 617
+                state = "map_24"
+
+        elif state == "map_24":
+            screen.blit(_scaled_images["t_o_tribe_settlement"], (-world_x, -world_y))
+            walls = area_walls["map_24"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_tribe_parameter2 = pygame.Rect(-2, 613, 27, 98)
+            if p.get_rect().colliderect(warp_to_tribe_parameter2):
+                p.x = 1023
+                p.y = 162
+                state = "map_23"
+            warp_to_healing_hut = pygame.Rect(1047, 332, 58, 50)
+            if p.get_rect().colliderect(warp_to_healing_hut):
+                p.x = 373
+                p.y = 535
+                state = "map_25"
+            warp_to_storage1 = pygame.Rect(1497, 341, 120, 57)
+            if p.get_rect().colliderect(warp_to_storage1):
+                p.x = 823
+                p.y = 254
+                state = "map_26"
+
+        elif state == "map_25":
+            screen.blit(_scaled_images["t_i_healing_hut"], (-world_x, -world_y))
+            walls = area_walls["map_25"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_tribe_settlement2 = pygame.Rect(320, 610, 177, 56)
+            if p.get_rect().colliderect(warp_to_tribe_settlement2):
+                p.x = 1048
+                p.y = 433
+                state = "map_24"
+
+        elif state == "map_26":
+            screen.blit(_scaled_images["t_i_storage_cave"], (-world_x, -world_y))
+            walls = area_walls["map_26"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_tribe_settlement3 = pygame.Rect(778, 157, 63, 43)
+            if p.get_rect().colliderect(warp_to_tribe_settlement3):
+                p.x = 1426
+                p.y = 491
+                state = "map_24"
+            warp_to_escape_route1 = pygame.Rect(1609, 330, 101, 218)
+            if p.get_rect().colliderect(warp_to_escape_route1):
+                p.x = 42
+                p.y = 170
+                state = "map_27"
+
+        elif state == "map_27":
+            screen.blit(_scaled_images["t_i_escape_route"], (-world_x, -world_y))
+            walls = area_walls["map_27"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_storage2 = pygame.Rect(1, 159, 12, 85)
+            if p.get_rect().colliderect(warp_to_storage2):
+                p.x = 1559
+                p.y = 449
+                state = "map_26"
+            warp_to_frontier1 = pygame.Rect(1655, 255, 62, 281)
+            if p.get_rect().colliderect(warp_to_frontier1):
+                p.x = 42
+                p.y = 722
+                state = "map_28"
+
+        elif state == "map_28":
+            screen.blit(_scaled_images["l_o_corrupted_frontier"], (-world_x, -world_y))
+            walls = area_walls["map_28"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_storage2 = pygame.Rect(-3, 716, 24, 91)
+            if p.get_rect().colliderect(warp_to_storage2):
+                p.x = 1584
+                p.y = 385
+                state = "map_27"
+            warp_to_port3 = pygame.Rect(2860, 1012, 25, 191)
+            if p.get_rect().colliderect(warp_to_port3):
+                p.x = 448
+                p.y = 1424
+                state = "map_29"
+
+        elif state == "map_29":
+            screen.blit(_scaled_images["l_o_harbor_district"], (-world_x, -world_y))
+            walls = area_walls["map_29"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_frontier2 = pygame.Rect(394, 1480, 139, 42)
+            if p.get_rect().colliderect(warp_to_frontier2):
+                p.x = 2693
+                p.y = 1145
+                state = "map_28"
+            warp_to_village_market4 = pygame.Rect(1220, 1497, 99, 31)
+            if p.get_rect().colliderect(warp_to_village_market4):
+                p.x = 1724
+                p.y = 512
+                state = "map_17"
+            warp_to_customs = pygame.Rect(1833, 524, 75, 51)
+            if p.get_rect().colliderect(warp_to_customs):
+                p.x = 401
+                p.y = 171
+                state = "map_30"
+            warp_to_clearance = pygame.Rect(2216, 593, 69, 57)
+            if p.get_rect().colliderect(warp_to_clearance):
+                p.x = 61
+                p.y = 591
+                state = "map_31"
+            warp_to_merchant_quarter1 = pygame.Rect(2657, 1173, 22, 259)
+            if p.get_rect().colliderect(warp_to_merchant_quarter1):
+                p.x = 514
+                p.y = 86
+                state = "map_32"
+
+        elif state == "map_30":
+            screen.blit(_scaled_images["l_i_customs_office"], (-world_x, -world_y))
+            walls = area_walls["map_30"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_port4 = pygame.Rect(308, 0, 175, 55)
+            if p.get_rect().colliderect(warp_to_port4):
+                p.x = 1859
+                p.y = 652
+                state = "map_29"
+
+        elif state == "map_31":
+            screen.blit(_scaled_images["l_i_clearance_office"], (-world_x, -world_y))
+            walls = area_walls["map_31"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_port5 = pygame.Rect(35, 678, 109, 33)
+            if p.get_rect().colliderect(warp_to_port5):
+                p.x = 2241
+                p.y = 731
+                state = "map_29"
+
+        elif state == "map_32":
+            screen.blit(_scaled_images["l_o_merchant_quarter"], (-world_x, -world_y))
+            walls = area_walls["map_32"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_port6 = pygame.Rect(402, -3, 204, 43)
+            if p.get_rect().colliderect(warp_to_port6):
+                p.x = 2559
+                p.y = 1232
+                state = "map_29"
+            warp_to_guildhall = pygame.Rect(1070, 224, 82, 88)
+            if p.get_rect().colliderect(warp_to_guildhall):
+                p.x = 817
+                p.y = 780
+                state = "map_33"
+            warp_to_grillbys = pygame.Rect(2046, 527, 48, 56)
+            if p.get_rect().colliderect(warp_to_grillbys):
+                p.x = 934
+                p.y = 764
+                state = "map_34"
+            warp_to_ship = pygame.Rect(1523, 1210, 113, 31)
+            if p.get_rect().colliderect(warp_to_ship):
+                p.x = 1290
+                p.y = 742
+                state = "map_35"
+
+        elif state == "map_33":
+            screen.blit(_scaled_images["l_i_merchant_guild_hall"], (-world_x, -world_y))
+            walls = area_walls["map_33"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_merchant_quarter2 = pygame.Rect(772, 861, 122, 44)
+            if p.get_rect().colliderect(warp_to_merchant_quarter2):
+                p.x = 1087
+                p.y = 360
+                state = "map_32"
+
+        elif state == "map_34":
+            screen.blit(_scaled_images["l_i_merchant_tavern"], (-world_x, -world_y))
+            walls = area_walls["map_34"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_merchant_quarter3 = pygame.Rect(889, 838, 141, 19)
+            if p.get_rect().colliderect(warp_to_merchant_quarter3):
+                p.x = 2054
+                p.y = 634
+                state = "map_32"
+
+        elif state == "map_35":
+            screen.blit(_scaled_images["l_i_the_ship"], (-world_x, -world_y))
+            walls = area_walls["map_35"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_lowerdeck = pygame.Rect(764, 623, 65, 76)
+            if p.get_rect().colliderect(warp_to_lowerdeck):
+                p.x = 1044
+                p.y = 56
+                state = "map_36"
+
+        elif state == "map_36":
+            screen.blit(_scaled_images["l_i_ship_lower_part"], (-world_x, -world_y))
+            walls = area_walls["map_36"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_upperrdeck = pygame.Rect(990, 2, 166, 17)
+            if p.get_rect().colliderect(warp_to_upperrdeck):
+                p.x = 766
+                p.y = 540
+                state = "map_35"
+            warp_to_coastal = pygame.Rect(1310, 630, 60, 37)
+            if p.get_rect().colliderect(warp_to_coastal):
+                p.x = 541
+                p.y = 573
+                state = "map_37"
+
+        elif state == "map_37":
+            screen.blit(_scaled_images["c_o_coastal_landing"], (-world_x, -world_y))
+            walls = area_walls["map_37"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_cultvillage1 = pygame.Rect(1833, 537, 50, 151)
+            if p.get_rect().colliderect(warp_to_cultvillage1):
+                p.x = 138
+                p.y = 1437
+                state = "map_38"
+
+        elif state == "map_38":
+            screen.blit(_scaled_images["c_o_cult_village"], (-world_x, -world_y))
+            walls = area_walls["map_38"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_coastalback = pygame.Rect(-2, 1460, 96, 227)
+            if p.get_rect().colliderect(warp_to_coastalback):
+                p.x = 1728
+                p.y = 603
+                state = "map_37"
+            warp_to_inner_sanctum = pygame.Rect(2944, 769, 53, 208)
+            if p.get_rect().colliderect(warp_to_inner_sanctum):
+                p.x = 918
+                p.y = 923
+                state = "map_40"
+            warp_to_encounter = pygame.Rect(2444, 1617, 202, 62)
+            if p.get_rect().colliderect(warp_to_encounter):
+                p.x = 100
+                p.y = 485
+                state = "map_39"
+
+        elif state == "map_39":
+            screen.blit(_scaled_images["c_o_cult_funeris_encounter"], (-world_x, -world_y))
+            walls = area_walls["map_39"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_cultvillage2 = pygame.Rect(0, 410, 41, 198)
+            if p.get_rect().colliderect(warp_to_cultvillage2):
+                p.x = 2534
+                p.y = 1413
+                state = "map_38"
+
+        elif state == "map_40":
+            screen.blit(_scaled_images["c_i_inner_sanctum"], (-world_x, -world_y))
+            walls = area_walls["map_40"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_cultvillage3 = pygame.Rect(888, 1008, 102, 39)
+            if p.get_rect().colliderect(warp_to_cultvillage3):
+                p.x = 2830
+                p.y = 832
+                state = "map_38"
+            warp_to_cultfortress = pygame.Rect(903, 89, 70, 51)
+            if p.get_rect().colliderect(warp_to_cultfortress):
+                p.x = 75
+                p.y = 508
+                state = "map_41"
+
+        elif state == "map_41":
+            screen.blit(_scaled_images["c_i_cult_leader_fortress"], (-world_x, -world_y))
+            walls = area_walls["map_41"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_backinnersanc = pygame.Rect(-6, 447, 41, 158)
+            if p.get_rect().colliderect(warp_to_backinnersanc):
+                p.x = 917
+                p.y = 174
+                state = "map_40"
+            warp_to_battle1 = pygame.Rect(1120, 1005, 196, 43)
+            if p.get_rect().colliderect(warp_to_battle1):
+                p.x = 80
+                p.y = 512
+                state = "map_42"
+            #warp_to_battle2 = pygame.Rect(1120, 1005, 196, 43)
+            #if p.get_rect().colliderect(warp_to_battle2):
+                #p.x = 80
+                #p.y = 512
+                #state = "map_43"
+
+
+
+
+area_walls = {
+        "map_01":
+            [
+
+                pygame.Rect(125, 72, 725, 139),
+                pygame.Rect(748, 199, 90, 140),
+                pygame.Rect(697, 212, 70, 134),
+                pygame.Rect(642, 214, 52, 119),
+                pygame.Rect(546, 377, 60, 39),
+                pygame.Rect(611, 351, 61, 51),
+                pygame.Rect(779, 342, 57, 144),
+                pygame.Rect(834, 198, 32, 324),
+                pygame.Rect(569, 483, 271, 76),
+                pygame.Rect(137, 478, 309, 82),
+                pygame.Rect(342, 230, 86, 144),
+                pygame.Rect(123, 200, 43, 276),
+                pygame.Rect(165, 265, 64, 131),
+                pygame.Rect(171, 396, 47, 57),
+                pygame.Rect(451, 210, 114, 45),
+            ],
+        "map_02":
+            [
+                pygame.Rect(2210, 427, 23, 376),
+                pygame.Rect(-42, 485, 42, 301),
+                pygame.Rect(0, 2, 160, 441),
+                pygame.Rect(-3, 443, 108, 44),
+                pygame.Rect(146, -18, 306, 42),
+                pygame.Rect(557, 28, 217, 94),
+                pygame.Rect(450, 34, 113, 148),
+                pygame.Rect(556, 123, 102, 76),
+                pygame.Rect(456, 181, 115, 34),
+                pygame.Rect(851, 1, 171, 318),
+                pygame.Rect(737, 163, 69, 93),
+                pygame.Rect(451, -7, 1777, 22),
+                pygame.Rect(1020, 9, 1196, 145),
+                pygame.Rect(2213, 23, 11, 141),
+                pygame.Rect(2160, 251, 64, 175),
+                pygame.Rect(2145, 292, 18, 42),
+                pygame.Rect(2144, 374, 26, 40),
+                pygame.Rect(1190, 325, 51, 119),
+                pygame.Rect(1213, 449, 94, 38),
+                pygame.Rect(1236, 304, 122, 145),
+                pygame.Rect(1398, 308, 113, 143),
+                pygame.Rect(1379, 399, 28, 25),
+                pygame.Rect(1550, 305, 117, 143),
+                pygame.Rect(1530, 409, 18, 39),
+                pygame.Rect(1530, 442, 73, 37),
+                pygame.Rect(1713, 301, 132, 144),
+                pygame.Rect(1674, 394, 40, 30),
+                pygame.Rect(1688, 426, 43, 37),
+                pygame.Rect(1734, 448, 33, 31),
+                pygame.Rect(1785, 459, 75, 22),
+                pygame.Rect(1846, 384, 16, 52),
+                pygame.Rect(1886, 303, 118, 126),
+                pygame.Rect(1911, 428, 69, 29),
+                pygame.Rect(1988, 448, 50, 33),
+                pygame.Rect(2014, 313, 30, 52),
+                pygame.Rect(2008, 359, 36, 39),
+                pygame.Rect(1994, 397, 45, 40),
+                pygame.Rect(1017, 159, 84, 162),
+                pygame.Rect(1099, 159, 83, 76),
+                pygame.Rect(1253, 163, 116, 61),
+                pygame.Rect(1253, 213, 40, 27),
+                pygame.Rect(1313, 216, 41, 22),
+                pygame.Rect(1437, 167, 102, 47),
+                pygame.Rect(1580, 172, 122, 57),
+                pygame.Rect(1757, 166, 105, 42),
+                pygame.Rect(1801, 148, 41, 22),
+                pygame.Rect(1789, 191, 84, 30),
+                pygame.Rect(1810, 214, 39, 18),
+                pygame.Rect(1892, 150, 119, 60),
+                pygame.Rect(2126, 162, 54, 47),
+                pygame.Rect(2198, 150, 28, 55),
+                pygame.Rect(2212, 154, 7, 353),
+                pygame.Rect(2169, 426, 39, 30),
+                pygame.Rect(2183, 455, 8, 77),
+                pygame.Rect(989, 450, 104, 109),
+                pygame.Rect(1015, 311, 87, 149),
+                pygame.Rect(1096, 388, 33, 50),
+                pygame.Rect(1085, 439, 38, 47),
+                pygame.Rect(840, 682, 237, 560),
+                pygame.Rect(577, 308, 306, 182),
+                pygame.Rect(597, 462, 172, 51),
+                pygame.Rect(465, 340, 37, 74),
+                pygame.Rect(454, 414, 119, 122),
+                pygame.Rect(528, 336, 36, 94),
+                pygame.Rect(600, 488, 8, 60),
+                pygame.Rect(782, 471, 18, 56),
+                pygame.Rect(803, 463, 101, 83),
+                pygame.Rect(878, 313, 147, 161),
+                pygame.Rect(432, 716, 166, 71),
+                pygame.Rect(549, 679, 72, 48),
+                pygame.Rect(573, 698, 134, 191),
+                pygame.Rect(597, 880, 90, 36),
+                pygame.Rect(547, 797, 36, 69),
+                pygame.Rect(493, 786, 31, 74),
+                pygame.Rect(-27, 755, 150, 474),
+                pygame.Rect(116, 850, 25, 396),
+                pygame.Rect(388, 1088, 107, 147),
+                pygame.Rect(686, 1006, 150, 105),
+                pygame.Rect(747, 1124, 82, 109),
+                pygame.Rect(619, 1138, 64, 47),
+                pygame.Rect(582, 1182, 161, 64),
+                pygame.Rect(388, 1225, 460, 19),
+                pygame.Rect(126, 1210, 262, 34),
+                pygame.Rect(706, 798, 129, 80),
+                pygame.Rect(804, 748, 46, 54),
+                pygame.Rect(824, 725, 24, 36),
+                pygame.Rect(658, 911, 38, 24),
+                pygame.Rect(713, 870, 51, 82),
+                pygame.Rect(1077, 766, 55, 75),
+                pygame.Rect(1078, 857, 49, 30),
+                pygame.Rect(1067, 864, 149, 126),
+                pygame.Rect(1068, 981, 213, 134),
+                pygame.Rect(1299, 960, 89, 39),
+                pygame.Rect(1240, 813, 187, 82),
+                pygame.Rect(1428, 942, 44, 109),
+                pygame.Rect(1306, 1037, 107, 78),
+                pygame.Rect(1074, 1130, 1153, 116),
+                pygame.Rect(2135, 785, 88, 112),
+                pygame.Rect(2141, 886, 83, 97),
+                pygame.Rect(2057, 928, 45, 120),
+                pygame.Rect(2119, 1076, 97, 55),
+                pygame.Rect(2207, 971, 19, 161),
+                pygame.Rect(1887, 802, 169, 97),
+                pygame.Rect(1871, 834, 35, 42),
+                pygame.Rect(1934, 938, 43, 23),
+                pygame.Rect(1962, 960, 62, 40),
+                pygame.Rect(1885, 968, 32, 42),
+                pygame.Rect(1930, 1028, 130, 88),
+                pygame.Rect(1828, 1029, 92, 59),
+                pygame.Rect(1793, 1067, 102, 56),
+                pygame.Rect(1747, 1079, 77, 47),
+                pygame.Rect(1729, 944, 43, 121),
+                pygame.Rect(1624, 1034, 102, 83),
+                pygame.Rect(1510, 1050, 91, 62),
+                pygame.Rect(1556, 966, 41, 54),
+                pygame.Rect(1630, 954, 57, 35),
+                pygame.Rect(1606, 941, 47, 27),
+                pygame.Rect(1582, 818, 159, 75),
+                pygame.Rect(1544, 865, 45, 28),
+                pygame.Rect(1534, 894, 29, 13),
+                pygame.Rect(2212, 722, 8, 67),
+                pygame.Rect(815, 887, 49, 47),
+                pygame.Rect(763, 476, 26, 43),
+                pygame.Rect(1064, 668, 27, 83),
+                pygame.Rect(1076, 748, 16, 28),
+                pygame.Rect(1401, 443, 47, 33),
+                pygame.Rect(1242, 175, 10, 60),
+                pygame.Rect(2178, 177, 11, 49),
+                pygame.Rect(1003, 638, 25, 58),
+                pygame.Rect(1029, 654, 37, 35),
+                pygame.Rect(997, 626, 13, 64),
+
+            ],
+        "map_03":
+            [
+                pygame.Rect(2605, 626, 27, 218),
+                pygame.Rect(0, 0, 232, 622),
+                pygame.Rect(232, 458, 51, 175),
+                pygame.Rect(0, 620, 118, 665),
+                pygame.Rect(120, 925, 74, 177),
+                pygame.Rect(380, 892, 60, 79),
+                pygame.Rect(1, 1280, 1933, 180),
+                pygame.Rect(453, 509, 16, 608),
+                pygame.Rect(441, 0, 478, 282),
+                pygame.Rect(920, 1, 1689, 196),
+                pygame.Rect(926, 195, 91, 178),
+                pygame.Rect(1076, 197, 197, 150),
+                pygame.Rect(1332, 200, 274, 133),
+                pygame.Rect(1669, 202, 150, 111),
+                pygame.Rect(1715, 304, 137, 73),
+                pygame.Rect(1935, 196, 676, 163),
+                pygame.Rect(1837, 195, 98, 56),
+                pygame.Rect(2365, 366, 245, 274),
+                pygame.Rect(475, 506, 796, 175),
+                pygame.Rect(477, 685, 148, 327),
+                pygame.Rect(1244, 679, 29, 344),
+                pygame.Rect(1244, 679, 29, 344),
+                pygame.Rect(1269, 490, 90, 137),
+                pygame.Rect(1183, 819, 58, 82),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(939, 1015, 334, 127),
+                pygame.Rect(1521, 495, 302, 144),
+                pygame.Rect(1864, 506, 189, 133),
+                pygame.Rect(1880, 653, 105, 142),
+                pygame.Rect(1729, 1240, 160, 42),
+                pygame.Rect(1625, 986, 312, 173),
+                pygame.Rect(1579, 791, 373, 186),
+                pygame.Rect(2193, 964, 411, 489),
+                pygame.Rect(2106, 1061, 69, 136),
+                pygame.Rect(2147, 958, 45, 105),
+                pygame.Rect(473, 1013, 321, 127),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(939, 1015, 334, 127),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(926, 195, 91, 178),
+                pygame.Rect(1076, 197, 197, 150),
+                pygame.Rect(1332, 200, 274, 133),
+                pygame.Rect(1669, 202, 150, 111),
+                pygame.Rect(1715, 304, 137, 73),
+                pygame.Rect(323, 1257, 38, 15),
+                pygame.Rect(319, 1261, 43, 17),
+                pygame.Rect(327, 1252, 27, 21),
+                pygame.Rect(324, 1255, 9, 10),
+                pygame.Rect(357, 1267, 5, 11),
+                pygame.Rect(312, 1268, 11, 6),
+                pygame.Rect(452, 1224, 8, 15),
+                pygame.Rect(460, 1238, 12, 17),
+                pygame.Rect(467, 1249, 6, 20),
+                pygame.Rect(401, 1251, 9, 15),
+                pygame.Rect(404, 1267, 13, 13),
+                pygame.Rect(413, 1278, 11, 8),
+                pygame.Rect(1786, 1183, 15, 67),
+                pygame.Rect(1774, 1197, 11, 55),
+                pygame.Rect(1763, 1211, 15, 45),
+                pygame.Rect(1799, 1194, 8, 58),
+                pygame.Rect(1807, 1202, 9, 56),
+                pygame.Rect(259, 103, 23, 60),
+                pygame.Rect(235, 101, 67, 12),
+                pygame.Rect(236, 105, 21, 26),
+                pygame.Rect(2531, 814, 74, 141),
+                pygame.Rect(2467, 854, 61, 96),
+                pygame.Rect(2435, 880, 34, 51),
+                pygame.Rect(2067, 805, 106, 129),
+                pygame.Rect(2215, 829, 81, 111),
+                pygame.Rect(2300, 880, 37, 8),
+                pygame.Rect(2294, 905, 34, 9),
+                pygame.Rect(2025, 846, 42, 79),
+                pygame.Rect(2078, 928, 34, 24),
+                pygame.Rect(2110, 1302, 19, 61),
+                pygame.Rect(2129, 1303, 38, 33),
+                pygame.Rect(1937, 1305, 51, 19),
+                pygame.Rect(1959, 1313, 26, 56),
+                pygame.Rect(2125, 1230, 13, 65),
+                pygame.Rect(2135, 1228, 9, 72),
+                pygame.Rect(2142, 1238, 10, 60),
+                pygame.Rect(2144, 1240, 30, 67),
+                pygame.Rect(2157, 1246, 22, 210),
+                pygame.Rect(704, 807, 125, 85),
+                pygame.Rect(729, 700, 68, 42),
+                pygame.Rect(913, 686, 81, 61),
+                pygame.Rect(901, 698, 23, 41),
+                pygame.Rect(1022, 858, 11, 126),
+                pygame.Rect(1039, 861, 16, 125),
+                pygame.Rect(999, 905, 35, 79),
+                pygame.Rect(1066, 864, 21, 121),
+                pygame.Rect(1116, 870, 41, 111),
+                pygame.Rect(1088, 917, 33, 58),
+                pygame.Rect(1102, 712, 82, 47),
+                pygame.Rect(1170, 634, 43, 52),
+                pygame.Rect(608, 931, 121, 71),
+                pygame.Rect(507, 928, 105, 72),
+                pygame.Rect(1000, 454, 52, 106),
+                pygame.Rect(990, 486, 19, 81),
+                pygame.Rect(1045, 479, 18, 80),
+                pygame.Rect(610, 456, 57, 109),
+                pygame.Rect(590, 497, 36, 74),
+                pygame.Rect(602, 476, 11, 33),
+                pygame.Rect(670, 492, 10, 76),
+                pygame.Rect(663, 485, 13, 73),
+                pygame.Rect(1933, 1432, 246, 26),
+            ],
+        "map_04":
+            [
+                pygame.Rect(-39, 390, 36, 119),
+                pygame.Rect(0, 0, 689, 183),
+                pygame.Rect(0, 257, 136, 837),
+                pygame.Rect(0, 184, 28, 257),
+                pygame.Rect(253, 262, 143, 401),
+                pygame.Rect(664, 426, 177, 137),
+                pygame.Rect(690, 0, 92, 93),
+                pygame.Rect(136, 825, 1359, 836),
+                pygame.Rect(791, 0, 476, 194),
+                pygame.Rect(1267, 0, 231, 91),
+                pygame.Rect(1129, 332, 146, 117),
+                pygame.Rect(1050, 478, 215, 179),
+                pygame.Rect(1329, 90, 164, 826),
+                pygame.Rect(421, 171, 107, 86),
+                pygame.Rect(588, 173, 64, 65),
+                pygame.Rect(575, 193, 28, 53),
+                pygame.Rect(645, 184, 26, 57),
+                pygame.Rect(266, 168, 74, 47),
+                pygame.Rect(161, 101, 7, 104),
+                pygame.Rect(149, 108, 11, 93),
+                pygame.Rect(138, 125, 20, 92),
+                pygame.Rect(53, 159, 96, 44),
+                pygame.Rect(24, 185, 89, 58),
+            ],
+        "map_05":
+            [
+                pygame.Rect(737, 890, 268, 17),
+                pygame.Rect(975, 0, 593, 452),
+                pygame.Rect(1568, 0, 98, 165),
+                pygame.Rect(1666, 0, 49, 602),
+                pygame.Rect(1424, 590, 270, 900),
+                pygame.Rect(0, 589, 265, 135),
+                pygame.Rect(989, 723, 483, 904),
+                pygame.Rect(0, 0, 201, 387),
+                pygame.Rect(0, 504, 50, 572),
+                pygame.Rect(201, 0, 665, 110),
+                pygame.Rect(292, 110, 136, 281),
+                pygame.Rect(427, 110, 190, 351),
+                pygame.Rect(604, 110, 216, 280),
+                pygame.Rect(673, 390, 142, 82),
+                pygame.Rect(283, 534, 136, 209),
+                pygame.Rect(566, 765, 137, 906),
+                pygame.Rect(711, 594, 35, 905),
+                pygame.Rect(530, 840, 29, 908),
+                pygame.Rect(674, 720, 41, 772),
+                pygame.Rect(491, 567, 217, 89),
+                pygame.Rect(759, 49, 110, 115),
+                pygame.Rect(61, 718, 40, 46),
+                pygame.Rect(65, 767, 144, 137),
+                pygame.Rect(214, 839, 39, 67),
+                pygame.Rect(254, 900, 322, 26),
+                pygame.Rect(192, 104, 34, 55),
+                pygame.Rect(262, 78, 17, 69),
+                pygame.Rect(1567, 122, 8, 258),
+            ],
+        "map_06":
+            [
+                pygame.Rect(2349, 525, 41, 182),
+                pygame.Rect(-45, 519, 45, 213),
+                pygame.Rect(799, 1239, 769, 47),
+                pygame.Rect(350, 207, 218, 120),
+                pygame.Rect(0, 0, 605, 165),
+                pygame.Rect(674, 0, 601, 165),
+                pygame.Rect(718, 207, 205, 120),
+                pygame.Rect(604, 0, 125, 81),
+                pygame.Rect(0, 0, 16, 703),
+                pygame.Rect(25, 589, 41, 113),
+                pygame.Rect(71, 611, 40, 700),
+                pygame.Rect(116, 649, 84, 48),
+                pygame.Rect(714, 383, 230, 598),
+                pygame.Rect(0, 700, 1274, 714),
+                pygame.Rect(944, 472, 306, 632),
+                pygame.Rect(1265, 0, 15, 714),
+                pygame.Rect(940, 70, 331, 242),
+                pygame.Rect(351, 432, 212, 608),
+                pygame.Rect(460, 573, 362, 703),
+                pygame.Rect(476, 384, 90, 579),
+                pygame.Rect(20, 323, 72, 91),
+                pygame.Rect(341, 380, 96, 37),
+                pygame.Rect(607, 547, 64, 18),
+                pygame.Rect(942, 376, 19, 97),
+                pygame.Rect(1137, 264, 125, 69),
+                pygame.Rect(1062, 299, 12, 73),
+                pygame.Rect(1068, 294, 15, 63),
+                pygame.Rect(1074, 277, 11, 71),
+                pygame.Rect(951, 260, 130, 73),
+                pygame.Rect(203, 312, 61, 63),
+                pygame.Rect(312, 59, 28, 192),
+            ],
+        "map_07":
+            [
+                pygame.Rect(292, 170, 479, 378),
+                pygame.Rect(297, 682, 479, 347),
+                pygame.Rect(754, 112, 228, 242),
+                pygame.Rect(1371, 110, 233, 161),
+                pygame.Rect(1442, 403, 72, 109),
+                pygame.Rect(841, 412, 72, 111),
+                pygame.Rect(826, 689, 81, 110),
+                pygame.Rect(1451, 705, 54, 88),
+                pygame.Rect(1410, 276, 175, 48),
+                pygame.Rect(1579, 173, 483, 373),
+                pygame.Rect(1579, 680, 485, 347),
+                pygame.Rect(1432, 844, 57, 84),
+                pygame.Rect(1256, 818, 128, 396),
+                pygame.Rect(970, 824, 129, 391),
+                pygame.Rect(865, 856, 50, 87),
+                pygame.Rect(867, 1099, 53, 85),
+                pygame.Rect(1445, 1100, 37, 81),
+                pygame.Rect(2273, 104, 77, 453),
+                pygame.Rect(2271, 646, 86, 596),
+                pygame.Rect(1552, 1173, 722, 71),
+                pygame.Rect(1622, 1144, 651, 28),
+                pygame.Rect(2192, 709, 76, 428),
+                pygame.Rect(2048, 109, 218, 94),
+                pygame.Rect(2183, 199, 86, 326),
+                pygame.Rect(0, 109, 139, 443),
+                pygame.Rect(129, 114, 170, 115),
+                pygame.Rect(0, 658, 130, 588),
+                pygame.Rect(117, 1117, 693, 125),
+                pygame.Rect(134, 292, 52, 141),
+                pygame.Rect(1076, 406, 211, 282),
+                pygame.Rect(0, 0, 1087, 101),
+                pygame.Rect(1084, 0, 184, 30),
+                pygame.Rect(1268, 0, 1084, 112),
+                pygame.Rect(125, 708, 43, 46),
+                pygame.Rect(135, 784, 40, 45),
+                pygame.Rect(137, 875, 34, 63),
+                pygame.Rect(2089, 171, 91, 75),
+                pygame.Rect(2190, 707, 42, 51),
+                pygame.Rect(2184, 783, 45, 46),
+                pygame.Rect(2180, 842, 84, 62),
+                pygame.Rect(1834, 1123, 205, 59),
+                pygame.Rect(1740, 1126, 47, 59),
+                pygame.Rect(1783, 1138, 51, 46),
+            ],
+        "map_08":
+            [
+                pygame.Rect(5, -6, 1192, 112),
+                pygame.Rect(392, 100, 29, 176),
+                pygame.Rect(821, 104, 23, 198),
+                pygame.Rect(381, 373, 22, 276),
+                pygame.Rect(823, 371, 22, 281),
+                pygame.Rect(1065, 102, 128, 180),
+                pygame.Rect(890, 105, 173, 202),
+                pygame.Rect(888, 356, 123, 172),
+                pygame.Rect(921, 311, 106, 62),
+                pygame.Rect(1085, 347, 102, 156),
+                pygame.Rect(1116, 499, 68, 84),
+                pygame.Rect(1123, 581, 64, 86),
+                pygame.Rect(1183, 278, 18, 394),
+                pygame.Rect(3, 109, 10, 564),
+                pygame.Rect(13, 656, 548, 15),
+                pygame.Rect(640, 660, 552, 13),
+                pygame.Rect(100, 388, 242, 60),
+                pygame.Rect(99, 226, 245, 58),
+                pygame.Rect(235, 595, 108, 53),
+                pygame.Rect(103, 488, 240, 58),
+                pygame.Rect(257, 312, 81, 43),
+                pygame.Rect(124, 313, 90, 44),
+                pygame.Rect(248, 159, 93, 39),
+                pygame.Rect(121, 159, 92, 40),
+                pygame.Rect(483, 118, 32, 87),
+                pygame.Rect(700, 114, 30, 87),
+                pygame.Rect(529, 124, 159, 113),
+                pygame.Rect(26, 524, 72, 128),
+                pygame.Rect(107, 615, 42, 42),
+                pygame.Rect(18, 292, 34, 78),
+                pygame.Rect(20, 119, 48, 58),
+                pygame.Rect(1146, 281, 30, 43),
+            ],
+        "map_09":
+            [
+                pygame.Rect(-4, -2, 1334, 164),
+                pygame.Rect(1318, 163, 18, 582),
+                pygame.Rect(4, 168, 11, 574),
+                pygame.Rect(523, 146, 45, 90),
+                pygame.Rect(791, 142, 37, 95),
+                pygame.Rect(574, 181, 26, 103),
+                pygame.Rect(755, 176, 23, 115),
+                pygame.Rect(601, 260, 33, 48),
+                pygame.Rect(722, 261, 35, 47),
+                pygame.Rect(340, 327, 286, 214),
+                pygame.Rect(736, 327, 186, 208),
+                pygame.Rect(743, 657, 383, 73),
+                pygame.Rect(708, 730, 625, 15),
+                pygame.Rect(1174, 249, 145, 97),
+                pygame.Rect(1174, 428, 143, 132),
+                pygame.Rect(1235, 569, 81, 62),
+                pygame.Rect(1252, 649, 62, 69),
+                pygame.Rect(1179, 695, 66, 31),
+                pygame.Rect(248, 647, 348, 84),
+                pygame.Rect(8, 731, 618, 17),
+                pygame.Rect(29, 568, 32, 160),
+                pygame.Rect(71, 641, 37, 78),
+                pygame.Rect(23, 238, 179, 103),
+                pygame.Rect(23, 460, 185, 95),
+                pygame.Rect(73, 559, 89, 37),
+                pygame.Rect(217, 425, 44, 101),
+                pygame.Rect(360, 161, 82, 75),
+                pygame.Rect(995, 225, 106, 52),
+                pygame.Rect(938, 152, 244, 44),
+                pygame.Rect(914, 258, 58, 31),
+                pygame.Rect(1004, 297, 134, 92),
+                pygame.Rect(1001, 444, 119, 134),
+                pygame.Rect(937, 418, 33, 93),
+                pygame.Rect(472, 174, 22, 40),
+                pygame.Rect(870, 180, 28, 33),
+                pygame.Rect(574, 157, 17, 31),
+                pygame.Rect(762, 153, 13, 26),
+                pygame.Rect(205, 162, 121, 30),
+                pygame.Rect(23, 151, 74, 48),
+                pygame.Rect(24, 427, 31, 31),
+                pygame.Rect(16, 334, 37, 43),
+                pygame.Rect(209, 430, 38, 101),
+                pygame.Rect(236, 440, 41, 86),
+                pygame.Rect(275, 476, 27, 45),
+                pygame.Rect(328, 56, 23, 204),
+            ],
+        "map_10":
+            [
+                pygame.Rect(0, 0, 232, 622),
+                pygame.Rect(232, 458, 51, 175),
+                pygame.Rect(0, 620, 118, 665),
+                pygame.Rect(120, 925, 74, 177),
+                pygame.Rect(380, 892, 60, 79),
+                pygame.Rect(1, 1280, 1933, 180),
+                pygame.Rect(453, 509, 16, 608),
+                pygame.Rect(441, 0, 478, 282),
+                pygame.Rect(920, 1, 1689, 196),
+                pygame.Rect(926, 195, 91, 178),
+                pygame.Rect(1076, 197, 197, 150),
+                pygame.Rect(1332, 200, 274, 133),
+                pygame.Rect(1669, 202, 150, 111),
+                pygame.Rect(1715, 304, 137, 73),
+                pygame.Rect(1935, 196, 676, 163),
+                pygame.Rect(1837, 195, 98, 56),
+                pygame.Rect(2365, 366, 245, 274),
+                pygame.Rect(475, 506, 796, 175),
+                pygame.Rect(477, 685, 148, 327),
+                pygame.Rect(1244, 679, 29, 344),
+                pygame.Rect(1244, 679, 29, 344),
+                pygame.Rect(1269, 490, 90, 137),
+                pygame.Rect(1183, 819, 58, 82),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(939, 1015, 334, 127),
+                pygame.Rect(1521, 495, 302, 144),
+                pygame.Rect(1864, 506, 189, 133),
+                pygame.Rect(1880, 653, 105, 142),
+                pygame.Rect(1729, 1240, 160, 42),
+                pygame.Rect(1625, 986, 312, 173),
+                pygame.Rect(1579, 791, 373, 186),
+                pygame.Rect(2193, 964, 411, 489),
+                pygame.Rect(2106, 1061, 69, 136),
+                pygame.Rect(2147, 958, 45, 105),
+                pygame.Rect(473, 1013, 321, 127),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(939, 1015, 334, 127),
+                pygame.Rect(1281, 858, 90, 241),
+                pygame.Rect(926, 195, 91, 178),
+                pygame.Rect(1076, 197, 197, 150),
+                pygame.Rect(1332, 200, 274, 133),
+                pygame.Rect(1669, 202, 150, 111),
+                pygame.Rect(1715, 304, 137, 73)
+            ],
+        "map_11":
+            [
+                pygame.Rect(2353, 512, 83, 267),
+                pygame.Rect(99, -33, 388, 48),
+                pygame.Rect(-38, 539, 38, 261),
+                pygame.Rect(15, 1177, 489, 53),
+                pygame.Rect(-7, 0, 83, 567),
+                pygame.Rect(421, 3, 510, 98),
+                pygame.Rect(566, 96, 174, 225),
+                pygame.Rect(546, 317, 18, 237),
+                pygame.Rect(329, 481, 226, 58),
+                pygame.Rect(552, 376, 237, 178),
+                pygame.Rect(819, 168, 98, 228),
+                pygame.Rect(856, 96, 242, 219),
+                pygame.Rect(980, 314, 109, 90),
+                pygame.Rect(929, -1, 1440, 72),
+                pygame.Rect(1733, 65, 120, 164),
+                pygame.Rect(1467, 120, 125, 149),
+                pygame.Rect(1119, 76, 133, 153),
+                pygame.Rect(1848, 76, 514, 183),
+                pygame.Rect(1933, 261, 102, 175),
+                pygame.Rect(2026, 267, 341, 91),
+                pygame.Rect(2091, 357, 271, 90),
+                pygame.Rect(2140, 645, 152, 174),
+                pygame.Rect(2304, 717, 70, 281),
+                pygame.Rect(1950, 985, 114, 134),
+                pygame.Rect(1961, 859, 274, 175),
+                pygame.Rect(1993, 807, 186, 61),
+                pygame.Rect(2059, 772, 77, 39),
+                pygame.Rect(2119, 1036, 97, 86),
+                pygame.Rect(2345, 996, 24, 9),
+                pygame.Rect(2347, 998, 18, 191),
+                pygame.Rect(2292, 1123, 49, 66),
+                pygame.Rect(389, 1162, 1921, 17),
+                pygame.Rect(825, 801, 417, 360),
+                pygame.Rect(580, 732, 251, 94),
+                pygame.Rect(636, 830, 80, 47),
+                pygame.Rect(321, 790, 160, 78),
+                pygame.Rect(464, 865, 40, 288),
+                pygame.Rect(10, 739, 182, 102),
+                pygame.Rect(23, 850, 78, 319),
+                pygame.Rect(-2, 738, 25, 131),
+                pygame.Rect(97, 920, 54, 262),
+                pygame.Rect(358, 127, 208, 75),
+                pygame.Rect(87, 151, 126, 52),
+                pygame.Rect(63, 13, 106, 132),
+                pygame.Rect(65, 469, 105, 91),
+                pygame.Rect(1718, 483, 87, 57),
+                pygame.Rect(2280, 440, 93, 80),
+                pygame.Rect(508, 771, 77, 42),
+            ],
+        "map_12":
+            [
+                pygame.Rect(85, 233, 145, 82),
+                pygame.Rect(3, 0, 854, 86),
+                pygame.Rect(3, 84, 13, 401),
+                pygame.Rect(852, 85, 19, 392),
+                pygame.Rect(364, 120, 341, 95),
+                pygame.Rect(251, 353, 139, 71),
+                pygame.Rect(387, 400, 158, 57),
+                pygame.Rect(723, 390, 127, 70),
+                pygame.Rect(381, 461, 472, 15),
+                pygame.Rect(807, 185, 46, 130),
+                pygame.Rect(774, 243, 34, 46),
+                pygame.Rect(20, 185, 44, 73),
+                pygame.Rect(14, 324, 10, 146),
+                pygame.Rect(768, 113, 89, 33),
+                pygame.Rect(24, 446, 104, 30),
+                pygame.Rect(251, 429, 133, 48),
+            ],
+        "map_13":
+            [
+                pygame.Rect(1, 130, 4, 249),
+                pygame.Rect(4, 126, 127, 40),
+                pygame.Rect(160, 1, 330, 105),
+                pygame.Rect(575, 3, 54, 103),
+                pygame.Rect(631, -1, 121, 169),
+                pygame.Rect(654, 164, 104, 33),
+                pygame.Rect(684, 199, 64, 31),
+                pygame.Rect(717, 233, 34, 127),
+                pygame.Rect(6, 168, 103, 18),
+                pygame.Rect(8, 184, 90, 27),
+                pygame.Rect(4, 213, 45, 23),
+                pygame.Rect(232, 151, 100, 87),
+                pygame.Rect(199, 242, 289, 114),
+                pygame.Rect(335, 95, 106, 44),
+                pygame.Rect(94, 418, 590, 22),
+                pygame.Rect(686, 371, 72, 59),
+                pygame.Rect(720, 362, 33, 12),
+                pygame.Rect(3, 378, 95, 65),
+                pygame.Rect(566, 2, 11, 103),
+            ],
+        "map_14":
+            [
+                pygame.Rect(-6, -6, 357, 330),
+                pygame.Rect(217, 330, 140, 62),
+                pygame.Rect(0, 325, 106, 70),
+                pygame.Rect(298, 317, 58, 16),
+                pygame.Rect(347, -5, 1124, 160),
+                pygame.Rect(350, 155, 193, 48),
+                pygame.Rect(379, 284, 156, 93),
+                pygame.Rect(451, 256, 50, 29),
+                pygame.Rect(562, 219, 124, 110),
+                pygame.Rect(883, 182, 119, 65),
+                pygame.Rect(689, 440, 111, 146),
+                pygame.Rect(356, 506, 145, 138),
+                pygame.Rect(1207, 165, 58, 98),
+                pygame.Rect(1208, 150, 54, 30),
+                pygame.Rect(1285, 153, 194, 211),
+                pygame.Rect(1414, 364, 63, 81),
+                pygame.Rect(1129, 513, 340, 321),
+                pygame.Rect(999, 538, 118, 205),
+                pygame.Rect(833, 687, 145, 96),
+                pygame.Rect(505, 693, 174, 100),
+                pygame.Rect(409, 657, 96, 69),
+                pygame.Rect(5, 522, 123, 146),
+                pygame.Rect(-3, 672, 97, 159),
+                pygame.Rect(1, 659, 127, 22),
+                pygame.Rect(302, 497, 51, 133),
+                pygame.Rect(194, 556, 104, 60),
+                pygame.Rect(227, 629, 33, 87),
+                pygame.Rect(218, 642, 10, 61),
+                pygame.Rect(326, 770, 99, 69),
+                pygame.Rect(260, 739, 51, 95),
+                pygame.Rect(216, 814, 47, 22),
+                pygame.Rect(356, 810, 778, 28),
+                pygame.Rect(653, 146, 49, 36),
+                pygame.Rect(1451, -9, 905, 362),
+                pygame.Rect(-4, 833, 313, 39),
+                pygame.Rect(1469, 359, 11, 173),
+            ],
+        "map_15":
+            [
+                pygame.Rect(485, -33, 483, 39),
+                pygame.Rect(960, 938, 582, 45),
+                pygame.Rect(5, -2, 520, 169),
+                pygame.Rect(865, 12, 1009, 185),
+                pygame.Rect(671, 253, 180, 78),
+                pygame.Rect(551, 98, 24, 124),
+                pygame.Rect(572, 365, 96, 74),
+                pygame.Rect(669, 332, 17, 167),
+                pygame.Rect(618, 471, 51, 29),
+                pygame.Rect(615, 598, 53, 26),
+                pygame.Rect(1053, 204, 245, 164),
+                pygame.Rect(930, 198, 124, 43),
+                pygame.Rect(858, 238, 280, 213),
+                pygame.Rect(855, 439, 41, 64),
+                pygame.Rect(980, 449, 47, 54),
+                pygame.Rect(1065, 451, 38, 50),
+                pygame.Rect(1208, 382, 71, 73),
+                pygame.Rect(1139, 362, 138, 27),
+                pygame.Rect(1265, 457, 14, 305),
+                pygame.Rect(1067, 574, 197, 186),
+                pygame.Rect(669, 601, 12, 226),
+                pygame.Rect(686, 771, 194, 55),
+                pygame.Rect(678, 773, 10, 51),
+                pygame.Rect(854, 625, 35, 153),
+                pygame.Rect(894, 650, 128, 100),
+                pygame.Rect(890, 745, 177, 30),
+                pygame.Rect(463, 395, 42, 54),
+                pygame.Rect(396, 171, 98, 136),
+                pygame.Rect(-3, 168, 123, 768),
+                pygame.Rect(111, 173, 151, 149),
+                pygame.Rect(301, 254, 25, 42),
+                pygame.Rect(339, 264, 34, 54),
+                pygame.Rect(355, 359, 39, 51),
+                pygame.Rect(188, 478, 103, 62),
+                pygame.Rect(109, 583, 56, 102),
+                pygame.Rect(128, 702, 181, 233),
+                pygame.Rect(316, 913, 13, 6),
+                pygame.Rect(305, 889, 5, 5),
+                pygame.Rect(300, 880, 318, 55),
+                pygame.Rect(487, 800, 86, 82),
+                pygame.Rect(456, 686, 59, 65),
+                pygame.Rect(341, 748, 117, 48),
+                pygame.Rect(420, 586, 54, 80),
+                pygame.Rect(633, 924, 474, 20),
+                pygame.Rect(1276, 929, 600, 5),
+                pygame.Rect(1455, 887, 47, 40),
+                pygame.Rect(1751, 191, 134, 742),
+                pygame.Rect(1307, 229, 265, 134),
+                pygame.Rect(1388, 352, 176, 120),
+                pygame.Rect(1345, 191, 306, 83),
+                pygame.Rect(1669, 355, 72, 226),
+                pygame.Rect(1740, 360, 15, 571),
+                pygame.Rect(1631, 785, 117, 146),
+                pygame.Rect(1489, 618, 33, 59),
+                pygame.Rect(1552, 648, 26, 48),
+                pygame.Rect(1683, 681, 38, 97),
+                pygame.Rect(1387, 592, 46, 56),
+                pygame.Rect(1669, 196, 46, 109),
+                pygame.Rect(848, 0, 1028, 12),
+                pygame.Rect(506, 183, 18, 103),
+            ],
+        "map_16":
+            [
+                pygame.Rect(-1, -2, 614, 102),
+                pygame.Rect(592, -52, 118, 50),
+                pygame.Rect(699, -1, 897, 105),
+                pygame.Rect(1057, 105, 11, 164),
+                pygame.Rect(-3, 102, 14, 636),
+                pygame.Rect(165, 107, 351, 197),
+                pygame.Rect(2, 351, 208, 134),
+                pygame.Rect(2, 309, 186, 41),
+                pygame.Rect(282, 312, 144, 95),
+                pygame.Rect(510, 97, 30, 134),
+                pygame.Rect(739, 102, 22, 76),
+                pygame.Rect(1294, 101, 176, 134),
+                pygame.Rect(1081, 91, 177, 100),
+                pygame.Rect(1585, 103, 19, 637),
+                pygame.Rect(1068, 309, 81, 89),
+                pygame.Rect(649, 275, 229, 368),
+                pygame.Rect(597, 408, 43, 75),
+                pygame.Rect(550, 450, 39, 61),
+                pygame.Rect(477, 474, 69, 58),
+                pygame.Rect(592, 441, 3, 41),
+                pygame.Rect(9, 733, 1595, 21),
+                pygame.Rect(1214, 345, 274, 213),
+                pygame.Rect(1149, 424, 65, 112),
+                pygame.Rect(872, 456, 125, 276),
+                pygame.Rect(1003, 573, 186, 141),
+                pygame.Rect(1249, 548, 162, 97),
+                pygame.Rect(1364, 240, 172, 85),
+                pygame.Rect(9, 567, 77, 78),
+            ],
+        "map_17":
+            [
+                pygame.Rect(1817, 143, 106, 438),
+                pygame.Rect(361, -24, 236, 27),
+                pygame.Rect(-19, 405, 17, 238),
+                pygame.Rect(348, 1017, 284, 37),
+                pygame.Rect(-12, 0, 78, 416),
+                pygame.Rect(63, 0, 60, 151),
+                pygame.Rect(117, -3, 294, 128),
+                pygame.Rect(95, 350, 139, 76),
+                pygame.Rect(375, 355, 176, 100),
+                pygame.Rect(532, 35, 32, 142),
+                pygame.Rect(562, 160, 131, 43),
+                pygame.Rect(579, 0, 31, 40),
+                pygame.Rect(615, 3, 272, 97),
+                pygame.Rect(3, 568, 73, 253),
+                pygame.Rect(-4, 821, 421, 202),
+                pygame.Rect(164, 769, 83, 50),
+                pygame.Rect(121, 606, 117, 70),
+                pygame.Rect(685, 376, 45, 90),
+                pygame.Rect(723, 272, 169, 198),
+                pygame.Rect(900, 378, 36, 73),
+                pygame.Rect(1021, 281, 155, 158),
+                pygame.Rect(922, 115, 106, 73),
+                pygame.Rect(920, -2, 61, 91),
+                pygame.Rect(988, 2, 7, 30),
+                pygame.Rect(1178, 340, 51, 85),
+                pygame.Rect(998, 441, 79, 36),
+                pygame.Rect(1119, 447, 96, 35),
+                pygame.Rect(993, 361, 22, 69),
+                pygame.Rect(1275, 272, 154, 181),
+                pygame.Rect(1473, 277, 12, 195),
+                pygame.Rect(1471, 281, 167, 69),
+                pygame.Rect(1500, 349, 96, 66),
+                pygame.Rect(1570, 413, 43, 53),
+                pygame.Rect(1614, 352, 14, 114),
+                pygame.Rect(1632, 370, 51, 95),
+                pygame.Rect(981, -1, 21, 102),
+                pygame.Rect(1000, 0, 202, 106),
+                pygame.Rect(808, 147, 86, 53),
+                pygame.Rect(893, 116, 29, 61),
+                pygame.Rect(573, 67, 46, 39),
+                pygame.Rect(1146, 99, 66, 56),
+                pygame.Rect(1222, 4, 30, 172),
+                pygame.Rect(1241, 169, 116, 31),
+                pygame.Rect(1265, 6, 42, 72),
+                pygame.Rect(1316, 102, 51, 44),
+                pygame.Rect(1315, -4, 259, 109),
+                pygame.Rect(1444, 101, 121, 39),
+                pygame.Rect(1455, 167, 153, 38),
+                pygame.Rect(1642, 57, 55, 89),
+                pygame.Rect(1695, 2, 126, 156),
+                pygame.Rect(1579, 0, 72, 110),
+                pygame.Rect(1769, 373, 69, 90),
+                pygame.Rect(1745, 606, 74, 258),
+                pygame.Rect(1804, 574, 17, 34),
+                pygame.Rect(521, 865, 1298, 155),
+                pygame.Rect(275, 780, 115, 46),
+                pygame.Rect(520, 790, 140, 73),
+                pygame.Rect(740, 604, 166, 164),
+                pygame.Rect(664, 681, 72, 41),
+                pygame.Rect(647, 731, 80, 44),
+                pygame.Rect(912, 687, 74, 109),
+                pygame.Rect(937, 664, 37, 30),
+                pygame.Rect(1015, 604, 162, 181),
+                pygame.Rect(1187, 696, 31, 79),
+                pygame.Rect(1818, 284, 14, 227),
+                pygame.Rect(1292, 607, 164, 191),
+                pygame.Rect(1243, 705, 54, 75),
+                pygame.Rect(1464, 632, 76, 99),
+                pygame.Rect(1471, 726, 50, 78),
+                pygame.Rect(1465, 810, 225, 59),
+                pygame.Rect(1280, 838, 117, 23),
+                pygame.Rect(1215, 770, 36, 22),
+                pygame.Rect(987, 771, 38, 29),
+                pygame.Rect(633, 778, 17, 14),
+                pygame.Rect(498, -7, 83, 17),
+                pygame.Rect(237, 221, 58, 44),
+                pygame.Rect(274, 128, 127, 47),
+            ],
+        "map_18":
+            [
+                pygame.Rect(1671, 430, 9, 389),
+                pygame.Rect(1148, -70, 537, 70),
+                pygame.Rect(1816, 450, 14, 403),
+                pygame.Rect(-38, 408, 39, 490),
+                pygame.Rect(681, 13, 94, 96),
+                pygame.Rect(424, 126, 58, 204),
+                pygame.Rect(276, 184, 83, 128),
+                pygame.Rect(320, 164, 96, 59),
+                pygame.Rect(193, 280, 81, 144),
+                pygame.Rect(22, 453, 107, 90),
+                pygame.Rect(466, 423, 202, 309),
+                pygame.Rect(423, 517, 46, 174),
+                pygame.Rect(796, 365, 222, 201),
+                pygame.Rect(1045, 160, 275, 167),
+                pygame.Rect(1369, 96, 37, 103),
+                pygame.Rect(1487, 136, 61, 78),
+                pygame.Rect(1560, 126, 50, 97),
+                pygame.Rect(1476, 401, 42, 68),
+                pygame.Rect(1409, 491, 51, 57),
+                pygame.Rect(1803, 16, 17, 552),
+                pygame.Rect(1803, 663, 16, 353),
+                pygame.Rect(-3, 1007, 1807, 9),
+                pygame.Rect(0, 7, 9, 552),
+                pygame.Rect(-4, 722, 12, 290),
+                pygame.Rect(247, 729, 69, 93),
+                pygame.Rect(136, 726, 40, 90),
+                pygame.Rect(548, 826, 91, 94),
+                pygame.Rect(683, 828, 50, 68),
+                pygame.Rect(283, 903, 80, 56),
+                pygame.Rect(432, 892, 49, 81),
+                pygame.Rect(100, 911, 47, 82),
+                pygame.Rect(1619, 446, 75, 60),
+                pygame.Rect(1153, 627, 190, 172),
+                pygame.Rect(1593, 752, 50, 97),
+                pygame.Rect(599, 30, 59, 67),
+                pygame.Rect(1581, 552, 19, 78),
+                pygame.Rect(1742, 437, 60, 72),
+            ],
+        "map_19":
+            [
+                pygame.Rect(2, 783, 1676, 12),
+                pygame.Rect(0, 783, 5, 5),
+                pygame.Rect(1667, 717, 12, 71),
+                pygame.Rect(1568, -5, 112, 680),
+            ],
+        "map_20":
+            [
+                pygame.Rect(743, 1015, 388, 43),
+                pygame.Rect(-38, 741, 39, 194),
+                pygame.Rect(-6, 473, 114, 264),
+                pygame.Rect(0, 433, 236, 25),
+                pygame.Rect(217, 450, 17, 341),
+                pygame.Rect(171, 513, 44, 50),
+                pygame.Rect(350, 436, 17, 356),
+                pygame.Rect(-2, 146, 214, 268),
+                pygame.Rect(-1, 0, 1820, 121),
+                pygame.Rect(221, 191, 13, 204),
+                pygame.Rect(353, 253, 13, 139),
+                pygame.Rect(235, 131, 117, 159),
+                pygame.Rect(370, 251, 219, 24),
+                pygame.Rect(350, 126, 1468, 126),
+                pygame.Rect(475, 271, 82, 49),
+                pygame.Rect(460, 292, 14, 29),
+                pygame.Rect(427, 313, 151, 57),
+                pygame.Rect(381, 455, 88, 64),
+                pygame.Rect(497, 399, 76, 71),
+                pygame.Rect(549, 476, 29, 89),
+                pygame.Rect(526, 573, 53, 58),
+                pygame.Rect(-1, 884, 35, 129),
+                pygame.Rect(30, 903, 98, 111),
+                pygame.Rect(126, 958, 66, 64),
+                pygame.Rect(586, 256, 647, 372),
+                pygame.Rect(590, 629, 281, 87),
+                pygame.Rect(944, 633, 287, 94),
+                pygame.Rect(1230, 643, 150, 96),
+                pygame.Rect(1294, 615, 25, 187),
+                pygame.Rect(355, 962, 479, 50),
+                pygame.Rect(577, 938, 134, 27),
+                pygame.Rect(611, 902, 63, 34),
+                pygame.Rect(994, 971, 12, 40),
+                pygame.Rect(1036, 954, 24, 58),
+                pygame.Rect(994, 1009, 828, 14),
+                pygame.Rect(1059, 963, 757, 45),
+                pygame.Rect(1135, 923, 132, 39),
+                pygame.Rect(1175, 895, 45, 28),
+                pygame.Rect(1374, 672, 127, 36),
+                pygame.Rect(1426, 710, 63, 248),
+                pygame.Rect(1227, 260, 597, 420),
+                pygame.Rect(1479, 671, 337, 303),
+                pygame.Rect(582, 717, 186, 81),
+                pygame.Rect(775, 705, 58, 46),
+                pygame.Rect(190, 1014, 175, 13),
+                pygame.Rect(-3, 399, 31, 79),
+                pygame.Rect(189, 150, 68, 48),
+            ],
+        "map_21":
+            [
+                pygame.Rect(4, 547, 295, 14),
+                pygame.Rect(418, 550, 583, 8),
+                pygame.Rect(697, 452, 24, 101),
+                pygame.Rect(-1, 11, 10, 546),
+                pygame.Rect(3, 6, 698, 114),
+                pygame.Rect(11, 137, 53, 78),
+                pygame.Rect(10, 114, 156, 60),
+                pygame.Rect(223, 115, 186, 25),
+                pygame.Rect(495, 118, 104, 37),
+                pygame.Rect(642, 190, 52, 110),
+                pygame.Rect(655, 307, 37, 43),
+                pygame.Rect(603, 113, 93, 55),
+                pygame.Rect(699, 121, 28, 223),
+                pygame.Rect(723, 322, 107, 22),
+                pygame.Rect(895, 324, 89, 21),
+                pygame.Rect(721, 75, 264, 19),
+                pygame.Rect(967, 95, 19, 235),
+                pygame.Rect(723, 83, 6, 67),
+                pygame.Rect(813, 75, 88, 18),
+                pygame.Rect(986, 318, 17, 234),
+                pygame.Rect(723, 509, 151, 41),
+                pygame.Rect(225, 305, 247, 109),
+                pygame.Rect(235, 406, 218, 47),
+                pygame.Rect(473, 331, 42, 43),
+                pygame.Rect(189, 325, 38, 50),
+                pygame.Rect(242, 247, 209, 53),
+            ],
+        "map_22":
+            [
+                pygame.Rect(-22, -4, 447, 244),
+                pygame.Rect(-5, 239, 110, 28),
+                pygame.Rect(196, 240, 518, 28),
+                pygame.Rect(707, 225, 186, 21),
+                pygame.Rect(901, 242, 228, 29),
+                pygame.Rect(893, 234, 12, 26),
+                pygame.Rect(1132, 248, 77, 16),
+                pygame.Rect(1121, 246, 22, 9),
+                pygame.Rect(0, 393, 238, 274),
+                pygame.Rect(243, 450, 961, 222),
+                pygame.Rect(231, 398, 21, 76),
+                pygame.Rect(444, 415, 761, 35),
+                pygame.Rect(712, 385, 159, 31),
+                pygame.Rect(1087, 405, 117, 14),
+                pygame.Rect(872, 406, 22, 10),
+                pygame.Rect(865, 401, 22, 13),
+                pygame.Rect(495, 398, 219, 39),
+                pygame.Rect(422, 439, 24, 20),
+                pygame.Rect(890, 402, 114, 15),
+                pygame.Rect(915, 369, 91, 38),
+                pygame.Rect(937, 353, 32, 18),
+                pygame.Rect(997, 397, 27, 19),
+                pygame.Rect(1144, 394, 59, 22),
+                pygame.Rect(982, 263, 98, 21),
+                pygame.Rect(709, 241, 22, 12),
+            ],
+        "map_23":
+            [
+                pygame.Rect(-1, -2, 154, 314),
+                pygame.Rect(139, -3, 258, 168),
+                pygame.Rect(147, 155, 47, 161),
+                pygame.Rect(381, 7, 314, 303),
+                pygame.Rect(342, 167, 40, 145),
+                pygame.Rect(362, 309, 283, 14),
+                pygame.Rect(694, 58, 171, 186),
+                pygame.Rect(718, 230, 85, 84),
+                pygame.Rect(691, -12, 798, 20),
+                pygame.Rect(702, 2, 323, 68),
+                pygame.Rect(846, 67, 169, 51),
+                pygame.Rect(849, 122, 160, 30),
+                pygame.Rect(851, 155, 130, 25),
+                pygame.Rect(850, 187, 110, 15),
+                pygame.Rect(1094, 9, 391, 105),
+                pygame.Rect(1095, 109, 394, 40),
+                pygame.Rect(1200, 132, 284, 37),
+                pygame.Rect(1325, 163, 168, 111),
+                pygame.Rect(1167, 178, 67, 41),
+                pygame.Rect(-10, 496, 105, 245),
+                pygame.Rect(100, 520, 171, 228),
+                pygame.Rect(268, 539, 81, 214),
+                pygame.Rect(354, 527, 1132, 213),
+                pygame.Rect(1068, 273, 416, 249),
+                pygame.Rect(890, 310, 82, 225),
+                pygame.Rect(925, 291, 53, 26),
+                pygame.Rect(885, 340, 13, 186),
+                pygame.Rect(865, 393, 21, 134),
+                pygame.Rect(664, 432, 104, 106),
+                pygame.Rect(488, 431, 46, 105),
+                pygame.Rect(524, 439, 44, 93),
+                pygame.Rect(563, 445, 23, 88),
+                pygame.Rect(581, 481, 39, 61),
+                pygame.Rect(426, 446, 58, 96),
+                pygame.Rect(395, 457, 31, 86),
+                pygame.Rect(359, 487, 30, 61),
+                pygame.Rect(384, 482, 14, 70),
+                pygame.Rect(344, 547, 16, 208),
+                pygame.Rect(972, 324, 18, 147),
+                pygame.Rect(852, 421, 17, 105),
+                pygame.Rect(8, 317, 178, 8),
+                pygame.Rect(3, 310, 146, 7),
+                pygame.Rect(193, 254, 12, 48),
+            ],
+        "map_24":
+            [
+                pygame.Rect(-16, 397, 17, 481),
+                pygame.Rect(-4, -5, 341, 478),
+                pygame.Rect(37, 478, 132, 51),
+                pygame.Rect(338, 0, 1941, 108),
+                pygame.Rect(335, 110, 223, 177),
+                pygame.Rect(343, 291, 192, 59),
+                pygame.Rect(335, 349, 135, 37),
+                pygame.Rect(280, 468, 169, 49),
+                pygame.Rect(465, 379, 15, 91),
+                pygame.Rect(566, 293, 26, 105),
+                pygame.Rect(549, 96, 694, 71),
+                pygame.Rect(509, 136, 74, 122),
+                pygame.Rect(574, 119, 38, 114),
+                pygame.Rect(599, 85, 37, 120),
+                pygame.Rect(627, 152, 23, 38),
+                pygame.Rect(703, 146, 184, 57),
+                pygame.Rect(643, 245, 266, 62),
+                pygame.Rect(739, 499, 138, 29),
+                pygame.Rect(697, 520, 17, 40),
+                pygame.Rect(607, 587, 46, 22),
+                pygame.Rect(622, 573, 51, 13),
+                pygame.Rect(653, 549, 41, 26),
+                pygame.Rect(674, 534, 20, 12),
+                pygame.Rect(610, 733, 43, 46),
+                pygame.Rect(639, 755, 34, 48),
+                pygame.Rect(660, 777, 43, 44),
+                pygame.Rect(727, 797, 144, 39),
+                pygame.Rect(908, 778, 44, 40),
+                pygame.Rect(960, 749, 38, 33),
+                pygame.Rect(956, 571, 51, 31),
+                pygame.Rect(911, 534, 48, 28),
+                pygame.Rect(990, 619, 29, 89),
+                pygame.Rect(737, 627, 137, 79),
+                pygame.Rect(0, 787, 331, 291),
+                pygame.Rect(331, 844, 55, 234),
+                pygame.Rect(386, 900, 43, 186),
+                pygame.Rect(432, 939, 40, 149),
+                pygame.Rect(399, 846, 85, 47),
+                pygame.Rect(468, 915, 59, 44),
+                pygame.Rect(470, 1032, 1810, 39),
+                pygame.Rect(1251, 106, 127, 180),
+                pygame.Rect(1180, 104, 98, 92),
+                pygame.Rect(978, 212, 199, 107),
+                pygame.Rect(975, 307, 69, 105),
+                pygame.Rect(1108, 306, 77, 107),
+                pygame.Rect(1167, 211, 62, 144),
+                pygame.Rect(1013, 159, 158, 58),
+                pygame.Rect(1295, 365, 63, 100),
+                pygame.Rect(1263, 381, 27, 110),
+                pygame.Rect(1243, 410, 17, 63),
+                pygame.Rect(1283, 460, 70, 32),
+                pygame.Rect(1334, 286, 57, 142),
+                pygame.Rect(1311, 287, 28, 74),
+                pygame.Rect(1366, 97, 911, 140),
+                pygame.Rect(1361, 225, 77, 63),
+                pygame.Rect(1391, 295, 91, 90),
+                pygame.Rect(1580, 235, 693, 52),
+                pygame.Rect(1603, 289, 674, 50),
+                pygame.Rect(1617, 341, 661, 484),
+                pygame.Rect(1723, 832, 553, 200),
+                pygame.Rect(1225, 832, 281, 215),
+                pygame.Rect(1491, 906, 233, 138),
+                pygame.Rect(1583, 470, 41, 232),
+                pygame.Rect(1533, 524, 60, 82),
+                pygame.Rect(1538, 601, 41, 163),
+                pygame.Rect(1504, 657, 42, 71),
+                pygame.Rect(1581, 703, 36, 53),
+                pygame.Rect(1144, 844, 105, 187),
+                pygame.Rect(1115, 901, 42, 143),
+                pygame.Rect(1072, 955, 39, 93),
+                pygame.Rect(1037, 996, 43, 44),
+                pygame.Rect(1105, 956, 12, 82),
+                pygame.Rect(521, 974, 51, 36),
+                pygame.Rect(306, 670, 23, 114),
+                pygame.Rect(321, 679, 34, 41),
+                pygame.Rect(405, 718, 44, 115),
+                pygame.Rect(355, 700, 55, 30),
+            ],
+        "map_25":
+            [
+                pygame.Rect(40, 32, 725, 232),
+                pygame.Rect(765, 232, 703, 570),
+                pygame.Rect(0, 0, 148, 597),
+                pygame.Rect(703, 570, 643, 612),
+                pygame.Rect(472, 596, 684, 678),
+                pygame.Rect(119, 546, 36, 124),
+                pygame.Rect(147, 546, 29, 136),
+                pygame.Rect(173, 565, 47, 151),
+                pygame.Rect(216, 588, 37, 156),
+                pygame.Rect(249, 610, 32, 162),
+                pygame.Rect(278, 619, 37, 170),
+                pygame.Rect(657, 555, 85, 176),
+                pygame.Rect(680, 536, 159, 229),
+                pygame.Rect(695, 518, 146, 132),
+                pygame.Rect(714, 502, 142, 97),
+                pygame.Rect(727, 490, 187, 104),
+                pygame.Rect(739, 472, 202, 25),
+                pygame.Rect(745, 451, 195, 23),
+                pygame.Rect(246, 365, 28, 60),
+                pygame.Rect(256, 357, 43, 72),
+                pygame.Rect(279, 348, 41, 83),
+                pygame.Rect(313, 356, 18, 75),
+                pygame.Rect(327, 366, 19, 56),
+                pygame.Rect(390, 335, 36, 34),
+                pygame.Rect(93, 237, 69, 47),
+                pygame.Rect(158, 243, 24, 74),
+                pygame.Rect(176, 253, 27, 75),
+                pygame.Rect(199, 258, 19, 71),
+                pygame.Rect(210, 260, 21, 77),
+                pygame.Rect(220, 269, 22, 42),
+                pygame.Rect(235, 273, 20, 23),
+                pygame.Rect(112, 279, 56, 28),
+                pygame.Rect(76, 367, 129, 63),
+                pygame.Rect(143, 527, 83, 24),
+                pygame.Rect(150, 499, 82, 41),
+                pygame.Rect(163, 475, 45, 31),
+                pygame.Rect(222, 509, 32, 76),
+                pygame.Rect(250, 516, 19, 41),
+                pygame.Rect(495, 422, 92, 32),
+                pygame.Rect(510, 401, 24, 87),
+                pygame.Rect(522, 383, 48, 115),
+                pygame.Rect(552, 374, 48, 134),
+                pygame.Rect(589, 372, 35, 127),
+                pygame.Rect(611, 383, 34, 103),
+                pygame.Rect(638, 403, 18, 68)
+            ],
+        "map_26":
+            [
+                pygame.Rect(-19, 9, 1690, 95),
+                pygame.Rect(842, 109, 139, 142),
+                pygame.Rect(-11, 102, 853, 27),
+                pygame.Rect(690, 137, 89, 101),
+                pygame.Rect(703, 126, 155, 19),
+                pygame.Rect(767, 134, 17, 32),
+                pygame.Rect(-9, 122, 702, 112),
+                pygame.Rect(-7, 231, 347, 23),
+                pygame.Rect(1, 251, 97, 635),
+                pygame.Rect(83, 255, 223, 25),
+                pygame.Rect(93, 275, 117, 21),
+                pygame.Rect(96, 293, 96, 24),
+                pygame.Rect(97, 319, 74, 12),
+                pygame.Rect(93, 333, 68, 25),
+                pygame.Rect(94, 354, 41, 28),
+                pygame.Rect(94, 380, 12, 51),
+                pygame.Rect(80, 461, 60, 50),
+                pygame.Rect(96, 516, 40, 78),
+                pygame.Rect(96, 593, 17, 60),
+                pygame.Rect(176, 585, 79, 99),
+                pygame.Rect(87, 732, 88, 154),
+                pygame.Rect(106, 704, 37, 36),
+                pygame.Rect(85, 702, 27, 29),
+                pygame.Rect(94, 683, 13, 29),
+                pygame.Rect(172, 791, 1502, 94),
+                pygame.Rect(1365, 558, 309, 235),
+                pygame.Rect(976, 102, 698, 208),
+                pygame.Rect(870, 249, 77, 40),
+                pygame.Rect(949, 266, 55, 42),
+                pygame.Rect(940, 254, 50, 14),
+                pygame.Rect(1213, 287, 364, 149),
+                pygame.Rect(1570, 282, 39, 51),
+                pygame.Rect(1652, 299, 28, 47),
+                pygame.Rect(1666, 334, 10, 232),
+                pygame.Rect(327, 391, 55, 253),
+                pygame.Rect(379, 470, 16, 184),
+                pygame.Rect(391, 521, 29, 168),
+                pygame.Rect(311, 393, 24, 237),
+                pygame.Rect(255, 488, 59, 80),
+                pygame.Rect(285, 555, 23, 41),
+                pygame.Rect(294, 592, 23, 34),
+                pygame.Rect(285, 468, 39, 27),
+                pygame.Rect(394, 487, 61, 127),
+                pygame.Rect(444, 530, 51, 71),
+                pygame.Rect(221, 745, 48, 52),
+                pygame.Rect(159, 728, 48, 64),
+                pygame.Rect(576, 760, 212, 50),
+                pygame.Rect(592, 477, 204, 122),
+                pygame.Rect(884, 474, 210, 128),
+                pygame.Rect(969, 444, 55, 35),
+                pygame.Rect(907, 595, 69, 34),
+                pygame.Rect(989, 598, 66, 44),
+                pygame.Rect(722, 595, 44, 30),
+                pygame.Rect(518, 234, 239, 66),
+                pygame.Rect(586, 298, 158, 47),
+                pygame.Rect(606, 337, 90, 52),
+                pygame.Rect(744, 267, 45, 41),
+                pygame.Rect(736, 320, 48, 27),
+                pygame.Rect(684, 352, 43, 46),
+                pygame.Rect(877, 293, 60, 44),
+                pygame.Rect(942, 312, 53, 63),
+                pygame.Rect(1021, 320, 92, 96),
+                pygame.Rect(1024, 300, 201, 37),
+                pygame.Rect(1118, 330, 109, 41),
+                pygame.Rect(1098, 377, 135, 18),
+                pygame.Rect(1130, 387, 55, 59),
+                pygame.Rect(1221, 413, 74, 38),
+                pygame.Rect(1276, 606, 61, 40),
+                pygame.Rect(1332, 569, 38, 239),
+                pygame.Rect(1295, 652, 43, 155),
+                pygame.Rect(1270, 684, 35, 144),
+                pygame.Rect(1208, 705, 66, 109),
+                pygame.Rect(1173, 695, 97, 97),
+                pygame.Rect(1202, 684, 67, 17),
+                pygame.Rect(1047, 727, 105, 68),
+                pygame.Rect(984, 763, 62, 31),
+                pygame.Rect(726, 733, 55, 25),
+                pygame.Rect(772, 770, 27, 26),
+                pygame.Rect(1088, 525, 28, 28),
+            ],
+        "map_27":
+            [
+                pygame.Rect(-1, 5, 1675, 41),
+                pygame.Rect(-5, 36, 1674, 134),
+                pygame.Rect(-5, 241, 426, 91),
+                pygame.Rect(418, 251, 39, 56),
+                pygame.Rect(421, 305, 37, 74),
+                pygame.Rect(459, 344, 24, 38),
+                pygame.Rect(-13, 338, 419, 93),
+                pygame.Rect(393, 341, 34, 77),
+                pygame.Rect(425, 375, 32, 35),
+                pygame.Rect(-12, 422, 173, 43),
+                pygame.Rect(158, 429, 33, 25),
+                pygame.Rect(-4, 465, 112, 36),
+                pygame.Rect(110, 465, 18, 16),
+                pygame.Rect(105, 478, 18, 11),
+                pygame.Rect(-23, 495, 118, 32),
+                pygame.Rect(1, 534, 68, 39),
+                pygame.Rect(-14, 529, 77, 8),
+                pygame.Rect(-11, 557, 77, 321),
+                pygame.Rect(485, 165, 190, 28),
+                pygame.Rect(509, 192, 188, 13),
+                pygame.Rect(516, 202, 203, 22),
+                pygame.Rect(546, 217, 137, 26),
+                pygame.Rect(568, 236, 137, 26),
+                pygame.Rect(588, 261, 109, 227),
+                pygame.Rect(555, 428, 36, 121),
+                pygame.Rect(528, 468, 29, 134),
+                pygame.Rect(63, 741, 39, 145),
+                pygame.Rect(58, 678, 27, 67),
+                pygame.Rect(78, 681, 29, 46),
+                pygame.Rect(110, 788, 64, 114),
+                pygame.Rect(97, 754, 77, 40),
+                pygame.Rect(161, 817, 1512, 83),
+                pygame.Rect(1652, 495, 25, 339),
+                pygame.Rect(1605, 565, 58, 113),
+                pygame.Rect(1521, 640, 71, 25),
+                pygame.Rect(1101, 485, 290, 414),
+                pygame.Rect(1381, 479, 84, 239),
+                pygame.Rect(1484, 736, 79, 42),
+                pygame.Rect(1617, 749, 55, 79),
+                pygame.Rect(1535, 794, 91, 30),
+                pygame.Rect(1111, 173, 355, 189),
+                pygame.Rect(1592, 161, 95, 87),
+                pygame.Rect(1552, 248, 27, 18),
+                pygame.Rect(672, 159, 467, 87),
+                pygame.Rect(671, 223, 365, 77),
+                pygame.Rect(677, 287, 254, 49),
+                pygame.Rect(924, 293, 77, 24),
+                pygame.Rect(696, 326, 203, 48),
+                pygame.Rect(891, 332, 41, 24),
+                pygame.Rect(933, 317, 25, 22),
+                pygame.Rect(693, 358, 139, 47),
+                pygame.Rect(684, 402, 112, 58),
+                pygame.Rect(911, 540, 85, 283),
+                pygame.Rect(994, 575, 64, 249),
+                pygame.Rect(864, 570, 60, 257),
+                pygame.Rect(820, 635, 50, 199),
+                pygame.Rect(792, 679, 37, 157),
+                pygame.Rect(742, 707, 55, 127),
+                pygame.Rect(702, 738, 61, 77),
+                pygame.Rect(669, 751, 35, 75),
+                pygame.Rect(597, 783, 66, 52),
+                pygame.Rect(657, 777, 31, 51),
+                pygame.Rect(237, 510, 295, 118),
+                pygame.Rect(206, 524, 40, 78),
+                pygame.Rect(198, 581, 82, 122),
+                pygame.Rect(270, 608, 352, 92),
+                pygame.Rect(247, 693, 291, 18),
+                pygame.Rect(567, 478, 94, 178),
+                pygame.Rect(645, 479, 48, 144),
+                pygame.Rect(677, 467, 47, 128),
+                pygame.Rect(689, 434, 51, 124),
+                pygame.Rect(737, 453, 25, 54),
+                pygame.Rect(1097, 260, 23, 96),
+                pygame.Rect(1551, 626, 35, 21),
+            ],
+        "map_28":
+            [
+                pygame.Rect(2878, 171, 13, 1358),
+                pygame.Rect(-27, 600, 28, 358),
+                pygame.Rect(-1, 0, 2895, 83),
+                pygame.Rect(-4, 78, 180, 609),
+                pygame.Rect(168, 83, 51, 497),
+                pygame.Rect(222, 81, 326, 170),
+                pygame.Rect(547, 374, 100, 165),
+                pygame.Rect(432, 473, 125, 197),
+                pygame.Rect(769, 275, 66, 185),
+                pygame.Rect(577, 544, 206, 144),
+                pygame.Rect(552, 546, 31, 144),
+                pygame.Rect(697, 474, 136, 77),
+                pygame.Rect(647, 502, 51, 41),
+                pygame.Rect(832, 443, 39, 59),
+                pygame.Rect(771, 555, 29, 118),
+                pygame.Rect(454, 837, 217, 221),
+                pygame.Rect(681, 876, 154, 146),
+                pygame.Rect(667, 882, 95, 246),
+                pygame.Rect(0, 841, 188, 251),
+                pygame.Rect(-1, 1084, 116, 112),
+                pygame.Rect(-2, 1195, 40, 328),
+                pygame.Rect(32, 1483, 2852, 44),
+                pygame.Rect(2751, 76, 138, 943),
+                pygame.Rect(857, 421, 87, 168),
+                pygame.Rect(880, 374, 69, 51),
+                pygame.Rect(929, 320, 329, 49),
+                pygame.Rect(1013, 286, 207, 33),
+                pygame.Rect(1047, 257, 136, 30),
+                pygame.Rect(1017, 379, 153, 236),
+                pygame.Rect(1156, 399, 156, 235),
+                pygame.Rect(992, 603, 85, 110),
+                pygame.Rect(823, 776, 48, 352),
+                pygame.Rect(874, 807, 39, 221),
+                pygame.Rect(736, 1122, 129, 136),
+                pygame.Rect(862, 1019, 203, 107),
+                pygame.Rect(499, 1080, 72, 64),
+                pygame.Rect(139, 1117, 236, 272),
+                pygame.Rect(196, 931, 120, 163),
+                pygame.Rect(1218, 78, 279, 98),
+                pygame.Rect(1770, 57, 58, 90),
+                pygame.Rect(1856, 99, 237, 89),
+                pygame.Rect(1810, 95, 61, 84),
+                pygame.Rect(1881, 166, 60, 54),
+                pygame.Rect(1917, 189, 206, 90),
+                pygame.Rect(2073, 81, 96, 107),
+                pygame.Rect(2119, 176, 49, 77),
+                pygame.Rect(2164, 76, 105, 104),
+                pygame.Rect(2270, 72, 46, 68),
+                pygame.Rect(1612, 447, 127, 223),
+                pygame.Rect(1519, 339, 87, 125),
+                pygame.Rect(1660, 204, 41, 199),
+                pygame.Rect(1583, 258, 81, 77),
+                pygame.Rect(1561, 289, 39, 50),
+                pygame.Rect(1605, 333, 28, 117),
+                pygame.Rect(1493, 741, 60, 57),
+                pygame.Rect(1071, 799, 155, 73),
+                pygame.Rect(1124, 864, 76, 108),
+                pygame.Rect(1413, 962, 106, 101),
+                pygame.Rect(1446, 1060, 42, 97),
+                pygame.Rect(1485, 1110, 6, 3),
+                pygame.Rect(1481, 1107, 42, 103),
+                pygame.Rect(1376, 1067, 62, 86),
+                pygame.Rect(1420, 1149, 71, 51),
+                pygame.Rect(1563, 1228, 151, 139),
+                pygame.Rect(1832, 1156, 59, 86),
+                pygame.Rect(1856, 1224, 200, 83),
+                pygame.Rect(1886, 1195, 68, 37),
+                pygame.Rect(1987, 1188, 77, 40),
+                pygame.Rect(1883, 1291, 95, 44),
+                pygame.Rect(1914, 1325, 114, 49),
+                pygame.Rect(1956, 1293, 94, 41),
+                pygame.Rect(2042, 1227, 56, 40),
+                pygame.Rect(1148, 1200, 39, 287),
+                pygame.Rect(1083, 1342, 76, 138),
+                pygame.Rect(1056, 1412, 43, 71),
+                pygame.Rect(986, 1452, 80, 35),
+                pygame.Rect(829, 1456, 85, 37),
+                pygame.Rect(1229, 1345, 110, 147),
+                pygame.Rect(1179, 1376, 73, 123),
+                pygame.Rect(1570, 1348, 152, 48),
+                pygame.Rect(2232, 372, 93, 71),
+                pygame.Rect(2140, 433, 243, 60),
+                pygame.Rect(2183, 485, 192, 63),
+                pygame.Rect(2311, 531, 83, 41),
+                pygame.Rect(2338, 568, 116, 86),
+                pygame.Rect(2391, 549, 50, 23),
+                pygame.Rect(2459, 623, 64, 111),
+                pygame.Rect(2521, 690, 43, 150),
+                pygame.Rect(2040, 666, 84, 206),
+                pygame.Rect(1899, 507, 57, 161),
+                pygame.Rect(2317, 862, 55, 96),
+                pygame.Rect(2367, 880, 47, 89),
+                pygame.Rect(2410, 901, 26, 85),
+                pygame.Rect(2435, 911, 35, 50),
+                pygame.Rect(2284, 896, 46, 34),
+                pygame.Rect(1782, 922, 61, 79),
+                pygame.Rect(613, 84, 150, 26),
+                pygame.Rect(847, 79, 205, 33),
+                pygame.Rect(948, 366, 70, 75),
+                pygame.Rect(2809, 1207, 71, 286),
+                pygame.Rect(2877, 1206, 8, 57),
+                pygame.Rect(2338, 1414, 130, 90),
+            ],
+        "map_29":
+            [
+                pygame.Rect(372, 1522, 950, 74),
+                pygame.Rect(1, 0, 2670, 342),
+                pygame.Rect(2472, 446, 188, 252),
+                pygame.Rect(2506, 351, 165, 110),
+                pygame.Rect(2507, 335, 170, 26),
+                pygame.Rect(2656, 450, 7, 722),
+                pygame.Rect(2661, 704, 10, 471),
+                pygame.Rect(2657, 1363, 13, 159),
+                pygame.Rect(1, 342, 385, 503),
+                pygame.Rect(-8, 838, 146, 692),
+                pygame.Rect(141, 1151, 247, 379),
+                pygame.Rect(487, 440, 392, 291),
+                pygame.Rect(974, 444, 338, 286),
+                pygame.Rect(1298, 453, 21, 273),
+                pygame.Rect(531, 852, 332, 114),
+                pygame.Rect(937, 860, 283, 133),
+                pygame.Rect(1194, 999, 30, 317),
+                pygame.Rect(962, 1201, 234, 121),
+                pygame.Rect(530, 1394, 428, 129),
+                pygame.Rect(943, 1421, 288, 98),
+                pygame.Rect(1210, 1283, 51, 69),
+                pygame.Rect(1145, 1321, 65, 38),
+                pygame.Rect(1257, 1311, 15, 33),
+                pygame.Rect(1324, 1447, 334, 77),
+                pygame.Rect(1656, 1400, 111, 122),
+                pygame.Rect(1748, 732, 153, 792),
+                pygame.Rect(1898, 1354, 25, 180),
+                pygame.Rect(1923, 1378, 22, 150),
+                pygame.Rect(1940, 1397, 26, 128),
+                pygame.Rect(1962, 1418, 29, 103),
+                pygame.Rect(1988, 1418, 303, 105),
+                pygame.Rect(2074, 1339, 183, 83),
+                pygame.Rect(2042, 1396, 46, 24),
+                pygame.Rect(2358, 1352, 220, 163),
+                pygame.Rect(2573, 1417, 26, 108),
+                pygame.Rect(2596, 1482, 20, 43),
+                pygame.Rect(2362, 1504, 213, 17),
+                pygame.Rect(1897, 909, 39, 189),
+                pygame.Rect(1926, 921, 56, 179),
+                pygame.Rect(1981, 950, 59, 155),
+                pygame.Rect(2031, 998, 44, 93),
+                pygame.Rect(1968, 812, 132, 80),
+                pygame.Rect(2045, 773, 25, 52),
+                pygame.Rect(2066, 795, 31, 21),
+                pygame.Rect(2033, 778, 21, 29),
+                pygame.Rect(2018, 797, 18, 8),
+                pygame.Rect(1963, 884, 130, 32),
+                pygame.Rect(2099, 884, 30, 41),
+                pygame.Rect(2048, 915, 65, 22),
+                pygame.Rect(2005, 919, 94, 34),
+                pygame.Rect(2029, 949, 43, 27),
+                pygame.Rect(2104, 744, 136, 122),
+                pygame.Rect(2164, 859, 58, 40),
+                pygame.Rect(2333, 761, 122, 125),
+                pygame.Rect(2308, 819, 28, 63),
+                pygame.Rect(2463, 798, 108, 119),
+                pygame.Rect(2544, 776, 22, 27),
+                pygame.Rect(2417, 885, 43, 40),
+                pygame.Rect(2466, 933, 93, 307),
+                pygame.Rect(2553, 1031, 28, 109),
+                pygame.Rect(2186, 954, 188, 114),
+                pygame.Rect(2164, 979, 24, 182),
+                pygame.Rect(2151, 992, 19, 60),
+                pygame.Rect(2133, 1005, 18, 45),
+                pygame.Rect(2147, 1072, 15, 82),
+                pygame.Rect(2146, 1147, 44, 17),
+                pygame.Rect(1918, 1183, 113, 170),
+                pygame.Rect(2035, 1223, 32, 86),
+                pygame.Rect(2189, 1126, 185, 100),
+                pygame.Rect(2190, 1225, 82, 19),
+                pygame.Rect(2281, 1223, 48, 35),
+                pygame.Rect(2369, 1132, 35, 86),
+                pygame.Rect(2330, 1060, 43, 82),
+                pygame.Rect(1686, 782, 58, 85),
+                pygame.Rect(1328, 1157, 56, 173),
+                pygame.Rect(1386, 1165, 28, 51),
+                pygame.Rect(1394, 1217, 48, 130),
+                pygame.Rect(1421, 1180, 21, 36),
+                pygame.Rect(1572, 1175, 40, 177),
+                pygame.Rect(476, 1201, 62, 64),
+                pygame.Rect(527, 1204, 264, 130),
+                pygame.Rect(472, 971, 62, 54),
+                pygame.Rect(495, 1021, 43, 45),
+                pygame.Rect(479, 1064, 45, 43),
+                pygame.Rect(530, 955, 86, 255),
+                pygame.Rect(604, 954, 73, 104),
+                pygame.Rect(740, 994, 134, 66),
+                pygame.Rect(705, 1034, 96, 75),
+                pygame.Rect(824, 1085, 133, 98),
+                pygame.Rect(947, 982, 143, 70),
+                pygame.Rect(1152, 1000, 45, 217),
+                pygame.Rect(1130, 1040, 41, 162),
+                pygame.Rect(1095, 1107, 31, 96),
+                pygame.Rect(1074, 1176, 95, 22),
+                pygame.Rect(975, 817, 151, 43),
+                pygame.Rect(582, 727, 174, 39),
+                pygame.Rect(631, 760, 132, 42),
+                pygame.Rect(776, 744, 69, 52),
+                pygame.Rect(495, 747, 20, 42),
+                pygame.Rect(510, 741, 62, 39),
+                pygame.Rect(267, 847, 55, 41),
+                pygame.Rect(139, 1010, 68, 102),
+                pygame.Rect(233, 1062, 47, 42),
+                pygame.Rect(439, 515, 47, 56),
+                pygame.Rect(931, 458, 37, 65),
+                pygame.Rect(1070, 332, 132, 109),
+                pygame.Rect(1412, 380, 51, 94),
+                pygame.Rect(1330, 659, 72, 105),
+                pygame.Rect(1419, 618, 45, 95),
+                pygame.Rect(1565, 480, 117, 116),
+                pygame.Rect(1574, 332, 493, 158),
+                pygame.Rect(1679, 491, 139, 146),
+                pygame.Rect(1797, 484, 633, 35),
+                pygame.Rect(1901, 517, 222, 85),
+                pygame.Rect(2114, 529, 97, 154),
+                pygame.Rect(2034, 603, 81, 58),
+                pygame.Rect(1993, 593, 50, 30),
+                pygame.Rect(2204, 531, 180, 55),
+                pygame.Rect(2392, 574, 45, 58),
+                pygame.Rect(2433, 602, 40, 70),
+                pygame.Rect(2370, 514, 57, 57),
+                pygame.Rect(2281, 585, 111, 101),
+                pygame.Rect(1914, 720, 42, 118),
+                pygame.Rect(1737, 699, 171, 31),
+                pygame.Rect(1900, 721, 19, 13),
+                pygame.Rect(1497, 807, 34, 231),
+                pygame.Rect(1528, 814, 31, 232),
+                pygame.Rect(1626, 1191, 37, 165),
+                pygame.Rect(1603, 1193, 23, 149),
+                pygame.Rect(1660, 1198, 31, 136),
+                pygame.Rect(1555, 838, 37, 212),
+                pygame.Rect(1375, 1059, 289, 43),
+                pygame.Rect(1628, 1107, 23, 64),
+                pygame.Rect(1375, 1105, 23, 47),
+                pygame.Rect(1336, 910, 55, 209),
+                pygame.Rect(1443, 842, 65, 215),
+                pygame.Rect(1392, 864, 88, 210),
+                pygame.Rect(1364, 886, 50, 25),
+                pygame.Rect(1468, 826, 43, 29),
+                pygame.Rect(1564, 881, 93, 187),
+                pygame.Rect(1589, 854, 27, 30),
+                pygame.Rect(1609, 867, 29, 16),
+                pygame.Rect(1655, 948, 26, 65),
+                pygame.Rect(1651, 1012, 40, 80),
+                pygame.Rect(384, 339, 56, 57),
+                pygame.Rect(434, 336, 47, 37),
+                pygame.Rect(1042, 730, 223, 32),
+                pygame.Rect(1227, 752, 40, 33),
+                pygame.Rect(973, 724, 66, 38),
+                pygame.Rect(1523, 397, 47, 71),
+                pygame.Rect(1531, 511, 33, 57),
+                pygame.Rect(1537, 589, 28, 33),
+                pygame.Rect(1886, 1170, 46, 19),
+                pygame.Rect(2139, 1177, 46, 50),
+                pygame.Rect(2158, 1228, 31, 20),
+            ],
+        "map_30":
+            [
+                pygame.Rect(-5, 2, 13, 709),
+                pygame.Rect(0, 703, 1272, 20),
+                pygame.Rect(1266, 4, 16, 720),
+                pygame.Rect(1021, 580, 169, 69),
+                pygame.Rect(1076, 646, 52, 36),
+                pygame.Rect(1077, 541, 47, 35),
+                pygame.Rect(7, -1, 304, 83),
+                pygame.Rect(14, 80, 228, 26),
+                pygame.Rect(486, -1, 785, 83),
+                pygame.Rect(553, 79, 242, 26),
+                pygame.Rect(1016, 136, 194, 62),
+                pygame.Rect(1091, 100, 57, 35),
+                pygame.Rect(308, 254, 90, 420),
+                pygame.Rect(95, 263, 92, 418),
+                pygame.Rect(483, 204, 103, 338),
+                pygame.Rect(491, 620, 52, 97),
+                pygame.Rect(793, 649, 52, 71),
+                pygame.Rect(625, 615, 95, 56),
+                pygame.Rect(665, 661, 19, 46),
+                pygame.Rect(477, 206, 366, 75),
+                pygame.Rect(743, 213, 113, 341),
+                pygame.Rect(848, 231, 58, 312),
+                pygame.Rect(801, 539, 104, 28),
+            ],
+        "map_31":
+            [
+                pygame.Rect(461, 1, 7, 683),
+                pygame.Rect(140, 681, 326, 31),
+                pygame.Rect(174, 643, 114, 42),
+                pygame.Rect(287, 651, 67, 29),
+                pygame.Rect(308, 642, 23, 12),
+                pygame.Rect(355, 645, 106, 30),
+                pygame.Rect(-1, 679, 45, 32),
+                pygame.Rect(-6, 3, 5, 712),
+                pygame.Rect(-4, -7, 467, 85),
+                pygame.Rect(5, 68, 41, 30),
+                pygame.Rect(43, 71, 68, 28),
+                pygame.Rect(110, 75, 191, 22),
+                pygame.Rect(-8, 131, 320, 57),
+                pygame.Rect(352, 152, 112, 41),
+                pygame.Rect(336, 59, 87, 34),
+                pygame.Rect(417, 299, 53, 276),
+                pygame.Rect(352, 280, 69, 94),
+                pygame.Rect(262, 366, 89, 29),
+                pygame.Rect(286, 320, 24, 47),
+                pygame.Rect(310, 319, 40, 49),
+                pygame.Rect(252, 346, 34, 28),
+                pygame.Rect(258, 374, 51, 197),
+                pygame.Rect(301, 526, 87, 47),
+                pygame.Rect(392, 523, 24, 44),
+                pygame.Rect(312, 563, 30, 28),
+                pygame.Rect(226, 520, 29, 33),
+                pygame.Rect(226, 400, 31, 29),
+                pygame.Rect(250, 109, 27, 26),
+                pygame.Rect(102, 106, 26, 25),
+                pygame.Rect(2, 107, 13, 20),
+                pygame.Rect(302, 396, 30, 36),
+            ],
+        "map_32":
+            [
+                pygame.Rect(1208, 1237, 1030, 7),
+                pygame.Rect(167, 4, 135, 156),
+                pygame.Rect(-3, -1, 350, 159),
+                pygame.Rect(-3, 150, 122, 1089),
+                pygame.Rect(101, 754, 70, 401),
+                pygame.Rect(167, 838, 92, 405),
+                pygame.Rect(101, 1148, 1420, 98),
+                pygame.Rect(856, 1015, 204, 124),
+                pygame.Rect(864, 996, 194, 23),
+                pygame.Rect(925, 970, 70, 25),
+                pygame.Rect(699, 862, 78, 129),
+                pygame.Rect(682, 868, 18, 68),
+                pygame.Rect(657, 911, 46, 32),
+                pygame.Rect(660, 941, 51, 129),
+                pygame.Rect(625, 967, 34, 80),
+                pygame.Rect(231, 749, 164, 391),
+                pygame.Rect(387, 962, 158, 182),
+                pygame.Rect(537, 979, 52, 166),
+                pygame.Rect(583, 1028, 58, 128),
+                pygame.Rect(654, 1067, 101, 85),
+                pygame.Rect(813, 1055, 47, 89),
+                pygame.Rect(1054, 1055, 38, 83),
+                pygame.Rect(1146, 1014, 179, 139),
+                pygame.Rect(1184, 981, 98, 39),
+                pygame.Rect(761, 784, 121, 124),
+                pygame.Rect(835, 760, 26, 27),
+                pygame.Rect(912, 750, 114, 169),
+                pygame.Rect(863, 808, 63, 116),
+                pygame.Rect(885, 793, 36, 14),
+                pygame.Rect(1017, 844, 44, 46),
+                pygame.Rect(995, 889, 49, 22),
+                pygame.Rect(1173, 758, 116, 144),
+                pygame.Rect(1144, 855, 55, 54),
+                pygame.Rect(1234, 902, 58, 34),
+                pygame.Rect(1304, 739, 20, 141),
+                pygame.Rect(1315, 743, 44, 47),
+                pygame.Rect(1288, 849, 28, 70),
+                pygame.Rect(1305, 825, 56, 72),
+                pygame.Rect(1364, 860, 102, 118),
+                pygame.Rect(1303, 907, 87, 53),
+                pygame.Rect(1397, 970, 71, 76),
+                pygame.Rect(1465, 990, 46, 149),
+                pygame.Rect(1427, 1054, 42, 82),
+                pygame.Rect(1155, 728, 25, 63),
+                pygame.Rect(216, 196, 99, 68),
+                pygame.Rect(114, 447, 42, 161),
+                pygame.Rect(188, 387, 206, 122),
+                pygame.Rect(387, 465, 38, 148),
+                pygame.Rect(184, 505, 55, 135),
+                pygame.Rect(432, 567, 19, 143),
+                pygame.Rect(452, 566, 33, 60),
+                pygame.Rect(304, 265, 86, 36),
+                pygame.Rect(115, 271, 75, 27),
+                pygame.Rect(244, 292, 31, 37),
+                pygame.Rect(301, 161, 77, 22),
+                pygame.Rect(353, 33, 50, 42),
+                pygame.Rect(632, -7, 17, 439),
+                pygame.Rect(640, 424, 255, 91),
+                pygame.Rect(605, 24, 30, 392),
+                pygame.Rect(575, 299, 39, 62),
+                pygame.Rect(879, 498, 146, 76),
+                pygame.Rect(897, 578, 102, 33),
+                pygame.Rect(847, 514, 39, 55),
+                pygame.Rect(749, 504, 36, 49),
+                pygame.Rect(792, 542, 55, 26),
+                pygame.Rect(788, 498, 50, 40),
+                pygame.Rect(713, -9, 744, 226),
+                pygame.Rect(719, 209, 345, 127),
+                pygame.Rect(1150, 212, 296, 129),
+                pygame.Rect(1161, 332, 71, 50),
+                pygame.Rect(969, 335, 72, 43),
+                pygame.Rect(1438, 198, 6, 154),
+                pygame.Rect(1436, 188, 72, 66),
+                pygame.Rect(1499, 15, 733, 322),
+                pygame.Rect(1495, 333, 17, 169),
+                pygame.Rect(1327, 426, 183, 75),
+                pygame.Rect(1357, 493, 113, 26),
+                pygame.Rect(1180, 490, 155, 80),
+                pygame.Rect(1241, 557, 36, 45),
+                pygame.Rect(1622, 1222, 604, 19),
+                pygame.Rect(2040, 771, 191, 50),
+                pygame.Rect(2082, 861, 141, 358),
+                pygame.Rect(2120, 828, 106, 34),
+                pygame.Rect(2128, 816, 89, 16),
+                pygame.Rect(1922, 920, 120, 91),
+                pygame.Rect(1672, 918, 123, 96),
+                pygame.Rect(1694, 1032, 80, 36),
+                pygame.Rect(1931, 1035, 88, 39),
+                pygame.Rect(1700, 762, 234, 83),
+                pygame.Rect(1686, 350, 127, 112),
+                pygame.Rect(1694, 328, 536, 27),
+                pygame.Rect(1654, 433, 44, 104),
+                pygame.Rect(1698, 434, 15, 212),
+                pygame.Rect(1725, 607, 135, 67),
+                pygame.Rect(1771, 588, 61, 18),
+                pygame.Rect(1745, 530, 92, 31),
+                pygame.Rect(1727, 461, 77, 20),
+                pygame.Rect(1870, 363, 54, 100),
+                pygame.Rect(1890, 355, 336, 159),
+                pygame.Rect(1892, 494, 150, 92),
+                pygame.Rect(1932, 581, 88, 44),
+                pygame.Rect(2093, 513, 128, 10),
+                pygame.Rect(2099, 523, 120, 82),
+                pygame.Rect(2114, 604, 108, 27),
+                pygame.Rect(2201, 600, 20, 175),
+                pygame.Rect(2094, 656, 76, 89),
+                pygame.Rect(2169, 671, 30, 78),
+                pygame.Rect(1780, 730, 119, 24),
+                pygame.Rect(2068, 681, 20, 74),
+                pygame.Rect(696, 99, 32, 96),
+                pygame.Rect(401, 799, 20, 137),
+                pygame.Rect(423, 819, 24, 42),
+                pygame.Rect(985, 910, 35, 19),
+                pygame.Rect(1018, 907, 25, 14),
+                pygame.Rect(1025, 731, 13, 115),
+                pygame.Rect(1030, 731, 21, 47),
+                pygame.Rect(1050, 747, 18, 34),
+                pygame.Rect(1422, 555, 20, 20),
+                pygame.Rect(1251, 329, 14, 71),
+                pygame.Rect(942, 330, 10, 68),
+                pygame.Rect(686, 209, 66, 50),
+            ],
+        "map_33":
+            [
+                pygame.Rect(0, 0, 1064, 87),
+                pygame.Rect(1064, 0, 280, 168),
+                pygame.Rect(1344, 0, 273, 124),
+                pygame.Rect(1300, 227, 161, 130),
+                pygame.Rect(760, 141, 140, 77),
+                pygame.Rect(1516, 227, 105, 47),
+                pygame.Rect(1621, 396, 36, 905),
+                pygame.Rect(0, 0, 43, 906),
+                pygame.Rect(210, 274, 386, 109),
+                pygame.Rect(151, 507, 540, 142),
+                pygame.Rect(631, 693, 83, 63),
+                pygame.Rect(68, 816, 705, 906),
+                pygame.Rect(883, 810, 728, 903),
+                pygame.Rect(1455, 540, 80, 104),
+                pygame.Rect(1455, 540, 80, 104),
+            ],
+        "map_34":
+            [
+                pygame.Rect(0, 12, 1539, 110),
+                pygame.Rect(908, 102, 53, 180),
+                pygame.Rect(375, 101, 65, 181),
+                pygame.Rect(435, 203, 474, 78),
+                pygame.Rect(387, 268, 46, 33),
+                pygame.Rect(457, 274, 37, 27),
+                pygame.Rect(526, 274, 31, 27),
+                pygame.Rect(588, 270, 31, 34),
+                pygame.Rect(655, 275, 33, 30),
+                pygame.Rect(713, 272, 36, 25),
+                pygame.Rect(785, 273, 36, 29),
+                pygame.Rect(846, 267, 37, 38),
+                pygame.Rect(905, 271, 40, 26),
+                pygame.Rect(978, 140, 30, 36),
+                pygame.Rect(976, 177, 34, 36),
+                pygame.Rect(968, 221, 40, 32),
+                pygame.Rect(331, 145, 29, 27),
+                pygame.Rect(337, 183, 24, 36),
+                pygame.Rect(328, 231, 37, 23),
+                pygame.Rect(10, 132, 51, 39),
+                pygame.Rect(117, 199, 99, 85),
+                pygame.Rect(76, 223, 38, 46),
+                pygame.Rect(153, 164, 35, 35),
+                pygame.Rect(217, 226, 29, 42),
+                pygame.Rect(149, 283, 45, 38),
+                pygame.Rect(3, 284, 63, 86),
+                pygame.Rect(70, 346, 49, 35),
+                pygame.Rect(1, 115, 9, 749),
+                pygame.Rect(10, 525, 110, 113),
+                pygame.Rect(123, 566, 44, 46),
+                pygame.Rect(316, 538, 447, 95),
+                pygame.Rect(424, 502, 29, 40),
+                pygame.Rect(617, 503, 35, 43),
+                pygame.Rect(415, 632, 46, 41),
+                pygame.Rect(620, 637, 38, 40),
+                pygame.Rect(769, 391, 176, 88),
+                pygame.Rect(858, 363, 37, 32),
+                pygame.Rect(741, 420, 33, 38),
+                pygame.Rect(952, 427, 43, 35),
+                pygame.Rect(841, 482, 40, 37),
+                pygame.Rect(1173, 189, 49, 45),
+                pygame.Rect(1274, 158, 43, 28),
+                pygame.Rect(1223, 179, 128, 70),
+                pygame.Rect(1361, 206, 42, 29),
+                pygame.Rect(1270, 254, 44, 40),
+                pygame.Rect(1362, 280, 123, 78),
+                pygame.Rect(1434, 244, 35, 37),
+                pygame.Rect(1528, 122, 11, 733),
+                pygame.Rect(1028, 844, 506, 10),
+                pygame.Rect(7, 789, 55, 53),
+                pygame.Rect(11, 848, 896, 12),
+                pygame.Rect(124, 673, 113, 85),
+                pygame.Rect(163, 632, 39, 41),
+                pygame.Rect(71, 715, 50, 36),
+                pygame.Rect(235, 719, 51, 28),
+                pygame.Rect(158, 767, 43, 38),
+                pygame.Rect(409, 744, 54, 27),
+                pygame.Rect(382, 765, 191, 74),
+                pygame.Rect(573, 794, 46, 31),
+                pygame.Rect(701, 771, 68, 65),
+                pygame.Rect(708, 726, 52, 48),
+                pygame.Rect(774, 792, 61, 36),
+                pygame.Rect(656, 788, 46, 40),
+                pygame.Rect(331, 790, 45, 41),
+                pygame.Rect(574, 400, 86, 87),
+                pygame.Rect(658, 434, 34, 43),
+                pygame.Rect(539, 435, 38, 43),
+                pygame.Rect(527, 423, 14, 40),
+                pygame.Rect(460, 360, 30, 31),
+                pygame.Rect(424, 403, 87, 77),
+                pygame.Rect(390, 439, 41, 27),
+                pygame.Rect(1037, 526, 130, 43),
+                pygame.Rect(1178, 543, 40, 28),
+                pygame.Rect(1311, 522, 26, 40),
+                pygame.Rect(1364, 530, 116, 33),
+                pygame.Rect(1440, 133, 44, 55),
+                pygame.Rect(1235, 110, 50, 35),
+                pygame.Rect(1297, 115, 62, 29),
+                pygame.Rect(1366, 120, 50, 24),
+                pygame.Rect(1035, 565, 51, 81),
+                pygame.Rect(979, 648, 48, 50),
+                pygame.Rect(984, 697, 51, 46),
+                pygame.Rect(1032, 645, 57, 97),
+                pygame.Rect(1027, 575, 10, 65),
+                pygame.Rect(1082, 577, 450, 119),
+                pygame.Rect(1307, 681, 49, 38),
+                pygame.Rect(1233, 684, 47, 41),
+                pygame.Rect(1394, 714, 31, 28),
+                pygame.Rect(1436, 720, 40, 41),
+                pygame.Rect(1482, 694, 49, 152),
+                pygame.Rect(1098, 801, 182, 32),
+                pygame.Rect(1304, 799, 57, 42),
+                pygame.Rect(1370, 789, 58, 53),
+                pygame.Rect(1435, 776, 49, 67),
+                pygame.Rect(71, 809, 43, 33),
+            ],
+        "map_35":
+            [
+                pygame.Rect(1199, 822, 220, 15),
+                pygame.Rect(-1, -5, 174, 843),
+                pygame.Rect(171, -6, 1417, 9),
+                pygame.Rect(1431, -2, 163, 841),
+                pygame.Rect(176, 825, 1034, 12),
+                pygame.Rect(393, 237, 16, 230),
+                pygame.Rect(1183, 228, 17, 238),
+                pygame.Rect(649, 29, 309, 44),
+                pygame.Rect(960, 43, 75, 56),
+                pygame.Rect(1030, 69, 45, 41),
+                pygame.Rect(1068, 89, 37, 48),
+                pygame.Rect(1105, 110, 25, 52),
+                pygame.Rect(1125, 129, 26, 59),
+                pygame.Rect(1150, 150, 14, 58),
+                pygame.Rect(1162, 177, 23, 48),
+                pygame.Rect(622, 35, 30, 58),
+                pygame.Rect(571, 43, 53, 61),
+                pygame.Rect(536, 55, 38, 50),
+                pygame.Rect(665, 75, 33, 29),
+                pygame.Rect(774, 70, 41, 44),
+                pygame.Rect(519, 66, 15, 60),
+                pygame.Rect(490, 75, 27, 64),
+                pygame.Rect(476, 93, 14, 69),
+                pygame.Rect(451, 116, 29, 71),
+                pygame.Rect(425, 142, 24, 72),
+                pygame.Rect(404, 182, 33, 54),
+                pygame.Rect(475, 157, 45, 35),
+                pygame.Rect(734, 160, 123, 87),
+                pygame.Rect(893, 70, 94, 36),
+                pygame.Rect(697, 180, 29, 23),
+                pygame.Rect(866, 180, 29, 30),
+                pygame.Rect(434, 205, 76, 46),
+                pygame.Rect(416, 257, 141, 128),
+                pygame.Rect(560, 279, 15, 50),
+                pygame.Rect(416, 384, 98, 44),
+                pygame.Rect(415, 428, 62, 30),
+                pygame.Rect(1075, 162, 46, 31),
+                pygame.Rect(1072, 205, 100, 47),
+                pygame.Rect(1031, 200, 25, 53),
+                pygame.Rect(1043, 252, 129, 115),
+                pygame.Rect(1012, 320, 47, 49),
+                pygame.Rect(1071, 379, 103, 60),
+                pygame.Rect(1105, 432, 70, 32),
+                pygame.Rect(390, 541, 15, 286),
+                pygame.Rect(401, 538, 354, 10),
+                pygame.Rect(837, 537, 359, 14),
+                pygame.Rect(1178, 551, 21, 277),
+                pygame.Rect(917, 550, 71, 69),
+                pygame.Rect(916, 606, 39, 29),
+                pygame.Rect(1040, 553, 139, 49),
+                pygame.Rect(1140, 600, 37, 91),
+                pygame.Rect(1107, 600, 36, 24),
+                pygame.Rect(1069, 600, 33, 21),
+                pygame.Rect(1049, 602, 15, 20),
+                pygame.Rect(1090, 715, 81, 90),
+                pygame.Rect(1035, 754, 53, 45),
+                pygame.Rect(924, 743, 106, 60),
+                pygame.Rect(409, 806, 778, 25),
+                pygame.Rect(899, 716, 16, 92),
+                pygame.Rect(901, 546, 13, 104),
+                pygame.Rect(414, 560, 205, 36),
+                pygame.Rect(415, 612, 125, 37),
+                pygame.Rect(416, 654, 37, 35),
+                pygame.Rect(407, 692, 50, 111),
+                pygame.Rect(462, 704, 45, 94),
+                pygame.Rect(518, 755, 324, 50),
+                pygame.Rect(858, 762, 42, 43),
+                pygame.Rect(587, 705, 98, 41),
+                pygame.Rect(690, 716, 45, 34),
+                pygame.Rect(840, 533, 61, 77),
+                pygame.Rect(620, 547, 131, 58),
+                pygame.Rect(1185, -7, 17, 244),
+                pygame.Rect(395, -1, 15, 240),
+            ],
+        "map_36":
+            [
+                pygame.Rect(1363, 548, 104, 131),
+                pygame.Rect(1210, 670, 246, 13),
+                pygame.Rect(1209, 550, 99, 120),
+                pygame.Rect(1147, -2, 915, 105),
+                pygame.Rect(2031, 22, 31, 1177),
+                pygame.Rect(0, 1188, 2037, 17),
+                pygame.Rect(3, 23, 10, 1168),
+                pygame.Rect(12, 23, 982, 88),
+                pygame.Rect(981, -8, 13, 38),
+                pygame.Rect(841, 324, 72, 92),
+                pygame.Rect(852, 410, 54, 65),
+                pygame.Rect(922, 28, 29, 517),
+                pygame.Rect(854, 480, 52, 59),
+                pygame.Rect(361, 331, 377, 135),
+                pygame.Rect(572, 480, 179, 56),
+                pygame.Rect(354, 459, 215, 37),
+                pygame.Rect(685, 132, 226, 58),
+                pygame.Rect(814, 185, 64, 53),
+                pygame.Rect(693, 102, 209, 31),
+                pygame.Rect(369, 110, 177, 73),
+                pygame.Rect(312, 28, 37, 519),
+                pygame.Rect(8, 127, 57, 86),
+                pygame.Rect(62, 118, 67, 65),
+                pygame.Rect(143, 103, 34, 44),
+                pygame.Rect(275, 111, 25, 60),
+                pygame.Rect(9, 281, 51, 221),
+                pygame.Rect(72, 336, 47, 128),
+                pygame.Rect(117, 385, 30, 152),
+                pygame.Rect(90, 469, 29, 66),
+                pygame.Rect(169, 423, 41, 69),
+                pygame.Rect(9, 693, 50, 205),
+                pygame.Rect(68, 705, 56, 199),
+                pygame.Rect(129, 731, 45, 125),
+                pygame.Rect(230, 1047, 208, 141),
+                pygame.Rect(168, 1123, 58, 60),
+                pygame.Rect(443, 1084, 43, 92),
+                pygame.Rect(502, 1128, 366, 58),
+                pygame.Rect(507, 1075, 167, 39),
+                pygame.Rect(759, 1066, 101, 54),
+                pygame.Rect(879, 670, 39, 517),
+                pygame.Rect(344, 704, 325, 211),
+                pygame.Rect(685, 760, 48, 111),
+                pygame.Rect(830, 701, 42, 241),
+                pygame.Rect(814, 770, 16, 172),
+                pygame.Rect(257, 788, 53, 133),
+                pygame.Rect(316, 761, 41, 152),
+                pygame.Rect(662, 697, 26, 175),
+                pygame.Rect(1218, 21, 38, 445),
+                pygame.Rect(1164, 302, 50, 115),
+                pygame.Rect(1168, 96, 40, 132),
+                pygame.Rect(1252, 395, 122, 70),
+                pygame.Rect(1259, 278, 106, 110),
+                pygame.Rect(1491, 322, 154, 66),
+                pygame.Rect(1493, 393, 314, 77),
+                pygame.Rect(1644, 18, 49, 372),
+                pygame.Rect(1914, 397, 145, 67),
+                pygame.Rect(1924, 452, 95, 51),
+                pygame.Rect(1690, 234, 63, 119),
+                pygame.Rect(1928, 347, 99, 40),
+                pygame.Rect(1958, 151, 61, 156),
+                pygame.Rect(1698, 100, 59, 52),
+                pygame.Rect(1781, 120, 44, 37),
+                pygame.Rect(1849, 84, 38, 70),
+                pygame.Rect(1927, 100, 54, 51),
+                pygame.Rect(1912, 169, 29, 55),
+                pygame.Rect(1257, 106, 191, 43),
+                pygame.Rect(1265, 145, 45, 62),
+                pygame.Rect(1458, 105, 187, 55),
+                pygame.Rect(1467, 166, 56, 19),
+                pygame.Rect(1523, 160, 119, 67),
+                pygame.Rect(1148, 803, 69, 93),
+                pygame.Rect(1159, 900, 56, 68),
+                pygame.Rect(1215, 776, 42, 420),
+                pygame.Rect(924, 986, 58, 198),
+                pygame.Rect(979, 1063, 14, 124),
+                pygame.Rect(1164, 1061, 53, 123),
+                pygame.Rect(928, 812, 51, 129),
+                pygame.Rect(943, 777, 19, 40),
+                pygame.Rect(950, 940, 17, 31),
+                pygame.Rect(1246, 775, 125, 149),
+                pygame.Rect(1362, 779, 543, 67),
+                pygame.Rect(2016, 789, 23, 405),
+                pygame.Rect(1730, 779, 41, 413),
+                pygame.Rect(1824, 941, 61, 55),
+                pygame.Rect(1770, 866, 111, 312),
+                pygame.Rect(1868, 1105, 50, 87),
+                pygame.Rect(1878, 975, 35, 67),
+                pygame.Rect(1868, 849, 38, 100),
+                pygame.Rect(1977, 851, 48, 58),
+                pygame.Rect(474, 1130, 26, 52),
+                pygame.Rect(65, 464, 21, 40),
+                pygame.Rect(80, 503, 9, 41),
+                pygame.Rect(560, 99, 122, 28),
+                pygame.Rect(1581, 299, 27, 30),
+            ],
+        "map_37":
+            [
+                pygame.Rect(-25, -10, 573, 575),
+                pygame.Rect(0, 665, 532, 430),
+                pygame.Rect(-9, 565, 518, 105),
+                pygame.Rect(526, 676, 65, 421),
+                pygame.Rect(586, 796, 28, 178),
+                pygame.Rect(550, -1, 170, 123),
+                pygame.Rect(556, 121, 173, 139),
+                pygame.Rect(718, 149, 49, 176),
+                pygame.Rect(760, 178, 21, 109),
+                pygame.Rect(539, 239, 169, 144),
+                pygame.Rect(709, 254, 36, 88),
+                pygame.Rect(701, 337, 22, 25),
+                pygame.Rect(535, 376, 151, 35),
+                pygame.Rect(534, 408, 43, 24),
+                pygame.Rect(741, 418, 146, 94),
+                pygame.Rect(832, 373, 87, 48),
+                pygame.Rect(881, 320, 76, 54),
+                pygame.Rect(928, 278, 62, 46),
+                pygame.Rect(938, 232, 99, 48),
+                pygame.Rect(945, 153, 108, 83),
+                pygame.Rect(830, 1, 216, 88),
+                pygame.Rect(879, 91, 158, 65),
+                pygame.Rect(713, 0, 1228, 19),
+                pygame.Rect(1031, 8, 632, 105),
+                pygame.Rect(1646, 15, 99, 171),
+                pygame.Rect(1712, 126, 72, 126),
+                pygame.Rect(1770, 156, 63, 153),
+                pygame.Rect(1633, 379, 158, 61),
+                pygame.Rect(1711, 356, 150, 67),
+                pygame.Rect(1787, 307, 76, 67),
+                pygame.Rect(1724, 427, 168, 75),
+                pygame.Rect(1862, 447, 71, 89),
+                pygame.Rect(1890, 523, 47, 55),
+                pygame.Rect(1904, 568, 30, 191),
+                pygame.Rect(1879, 654, 20, 108),
+                pygame.Rect(1845, 681, 33, 108),
+                pygame.Rect(1813, 710, 35, 218),
+                pygame.Rect(1773, 915, 41, 149),
+                pygame.Rect(1728, 1019, 47, 61),
+                pygame.Rect(1354, 179, 72, 110),
+                pygame.Rect(1406, 217, 76, 145),
+                pygame.Rect(1474, 299, 56, 164),
+                pygame.Rect(1518, 423, 72, 115),
+                pygame.Rect(1496, 462, 36, 35),
+                pygame.Rect(752, 701, 109, 77),
+                pygame.Rect(840, 726, 65, 92),
+                pygame.Rect(827, 778, 105, 91),
+                pygame.Rect(886, 850, 78, 234),
+                pygame.Rect(851, 990, 45, 95),
+                pygame.Rect(589, 1076, 1180, 7),
+                pygame.Rect(952, 915, 96, 169),
+                pygame.Rect(917, 790, 46, 57),
+                pygame.Rect(909, 734, 33, 48),
+                pygame.Rect(1033, 898, 51, 60),
+                pygame.Rect(1036, 1014, 72, 64),
+                pygame.Rect(1094, 1049, 68, 33),
+                pygame.Rect(1511, 685, 68, 104),
+                pygame.Rect(1483, 744, 66, 68),
+                pygame.Rect(1453, 784, 69, 63),
+                pygame.Rect(1436, 886, 47, 58),
+                pygame.Rect(1404, 908, 63, 60),
+                pygame.Rect(1370, 923, 62, 53),
+                pygame.Rect(1326, 942, 95, 52),
+                pygame.Rect(1307, 996, 66, 33),
+                pygame.Rect(1282, 1017, 52, 61),
+                pygame.Rect(1257, 1039, 31, 38),
+                pygame.Rect(1598, 838, 69, 33),
+                pygame.Rect(1616, 866, 102, 68),
+                pygame.Rect(1668, 847, 30, 38),
+                pygame.Rect(1706, 876, 39, 85),
+                pygame.Rect(1688, 928, 21, 24),
+                pygame.Rect(1737, 888, 42, 89),
+                pygame.Rect(1589, 904, 69, 62),
+            ],
+        "map_38":
+            [
+                pygame.Rect(2392, 1673, 279, 19),
+                pygame.Rect(2999, 564, 25, 422),
+                pygame.Rect(-8, 1417, 7, 304),
+                pygame.Rect(-11, 1671, 452, 29),
+                pygame.Rect(44, 2, 2961, 115),
+                pygame.Rect(1946, 685, 157, 140),
+                pygame.Rect(1920, 723, 30, 80),
+                pygame.Rect(1945, 811, 154, 44),
+                pygame.Rect(2095, 719, 30, 104),
+                pygame.Rect(2010, 662, 27, 33),
+                pygame.Rect(1704, 249, 189, 107),
+                pygame.Rect(1647, 109, 697, 225),
+                pygame.Rect(2329, 111, 721, 355),
+                pygame.Rect(2434, 459, 585, 198),
+                pygame.Rect(2446, 655, 556, 42),
+                pygame.Rect(2343, 947, 33, 48),
+                pygame.Rect(2353, 990, 43, 23),
+                pygame.Rect(2381, 1018, 42, 29),
+                pygame.Rect(2372, 1016, 15, 15),
+                pygame.Rect(2365, 1009, 17, 13),
+                pygame.Rect(2387, 977, 329, 67),
+                pygame.Rect(2703, 1015, 62, 79),
+                pygame.Rect(2750, 1065, 77, 82),
+                pygame.Rect(2823, 1104, 78, 90),
+                pygame.Rect(2904, 964, 115, 737),
+                pygame.Rect(2459, 831, 18, 143),
+                pygame.Rect(2396, 906, 33, 63),
+                pygame.Rect(2567, 851, 9, 138),
+                pygame.Rect(2596, 894, 11, 98),
+                pygame.Rect(2632, 853, 13, 145),
+                pygame.Rect(2758, 903, 14, 153),
+                pygame.Rect(2650, 915, 104, 86),
+                pygame.Rect(2484, 858, 84, 116),
+                pygame.Rect(2839, 1427, 70, 276),
+                pygame.Rect(2639, 1599, 249, 104),
+                pygame.Rect(2781, 1501, 69, 121),
+                pygame.Rect(2807, 1484, 57, 38),
+                pygame.Rect(1959, 1345, 148, 362),
+                pygame.Rect(2088, 1508, 176, 194),
+                pygame.Rect(2244, 1550, 40, 150),
+                pygame.Rect(2278, 1593, 189, 88),
+                pygame.Rect(2276, 1554, 39, 40),
+                pygame.Rect(2090, 1235, 55, 106),
+                pygame.Rect(2124, 1181, 126, 45),
+                pygame.Rect(2113, 1221, 84, 46),
+                pygame.Rect(2103, 1355, 81, 158),
+                pygame.Rect(2189, 1441, 84, 68),
+                pygame.Rect(2154, 1065, 31, 116),
+                pygame.Rect(2193, 1114, 39, 69),
+                pygame.Rect(2137, 1280, 32, 72),
+                pygame.Rect(2169, 1272, 51, 13),
+                pygame.Rect(2167, 333, 164, 90),
+                pygame.Rect(1278, 118, 339, 492),
+                pygame.Rect(1605, 247, 109, 164),
+                pygame.Rect(1616, 406, 87, 25),
+                pygame.Rect(1616, 429, 43, 33),
+                pygame.Rect(1777, 350, 79, 23),
+                pygame.Rect(1637, 471, 22, 103),
+                pygame.Rect(1460, 604, 144, 27),
+                pygame.Rect(1489, 636, 74, 19),
+                pygame.Rect(1158, 474, 118, 122),
+                pygame.Rect(1192, 590, 264, 58),
+                pygame.Rect(1321, 638, 162, 68),
+                pygame.Rect(1461, 632, 41, 24),
+                pygame.Rect(1199, 373, 68, 77),
+                pygame.Rect(1052, 124, 110, 109),
+                pygame.Rect(1167, 163, 73, 89),
+                pygame.Rect(1246, 191, 87, 70),
+                pygame.Rect(891, 142, 95, 85),
+                pygame.Rect(839, 219, 84, 51),
+                pygame.Rect(863, 283, 84, 64),
+                pygame.Rect(926, 235, 49, 62),
+                pygame.Rect(994, 229, 38, 49),
+                pygame.Rect(984, 157, 69, 63),
+                pygame.Rect(1051, 238, 45, 30),
+                pygame.Rect(928, 356, 59, 74),
+                pygame.Rect(925, 447, 124, 152),
+                pygame.Rect(920, 421, 37, 35),
+                pygame.Rect(638, 108, 291, 386),
+                pygame.Rect(1256, 310, 65, 60),
+                pygame.Rect(751, 499, 135, 190),
+                pygame.Rect(820, 450, 104, 167),
+                pygame.Rect(873, 612, 33, 37),
+                pygame.Rect(515, 169, 166, 178),
+                pygame.Rect(482, 220, 195, 112),
+                pygame.Rect(232, 109, 189, 185),
+                pygame.Rect(76, 209, 196, 166),
+                pygame.Rect(75, 372, 133, 46),
+                pygame.Rect(89, 100, 172, 125),
+                pygame.Rect(569, 124, 87, 64),
+                pygame.Rect(580, 416, 159, 87),
+                pygame.Rect(614, 493, 95, 55),
+                pygame.Rect(600, 367, 55, 47),
+                pygame.Rect(704, 498, 42, 36),
+                pygame.Rect(905, 623, 14, 92),
+                pygame.Rect(914, 629, 41, 42),
+                pygame.Rect(26, 1, 58, 1267),
+                pygame.Rect(-23, 1247, 121, 186),
+                pygame.Rect(94, 1646, 1334, 29),
+                pygame.Rect(593, 1309, 205, 370),
+                pygame.Rect(670, 1241, 57, 98),
+                pygame.Rect(634, 1283, 51, 33),
+                pygame.Rect(723, 1273, 53, 62),
+                pygame.Rect(930, 1295, 41, 371),
+                pygame.Rect(893, 1331, 57, 329),
+                pygame.Rect(764, 1481, 629, 208),
+                pygame.Rect(963, 1331, 44, 162),
+                pygame.Rect(982, 1377, 62, 108),
+                pygame.Rect(810, 1378, 87, 99),
+                pygame.Rect(832, 1364, 70, 23),
+                pygame.Rect(870, 1336, 29, 41),
+                pygame.Rect(237, 1585, 360, 63),
+                pygame.Rect(294, 1533, 302, 52),
+                pygame.Rect(389, 1438, 205, 94),
+                pygame.Rect(486, 1337, 105, 99),
+                pygame.Rect(431, 1363, 69, 74),
+                pygame.Rect(348, 1508, 52, 19),
+                pygame.Rect(347, 1520, 44, 19),
+                pygame.Rect(192, 934, 193, 198),
+                pygame.Rect(376, 870, 195, 140),
+                pygame.Rect(438, 995, 94, 53),
+                pygame.Rect(524, 985, 74, 68),
+                pygame.Rect(96, 478, 176, 193),
+                pygame.Rect(86, 394, 57, 58),
+                pygame.Rect(166, 435, 81, 39),
+                pygame.Rect(223, 614, 224, 329),
+                pygame.Rect(364, 543, 58, 79),
+                pygame.Rect(344, 590, 33, 30),
+                pygame.Rect(316, 586, 47, 41),
+                pygame.Rect(408, 667, 207, 238),
+                pygame.Rect(499, 646, 51, 26),
+                pygame.Rect(395, 1003, 40, 26),
+                pygame.Rect(88, 1199, 145, 121),
+                pygame.Rect(131, 1116, 146, 79),
+                pygame.Rect(256, 1124, 58, 49),
+                pygame.Rect(273, 1169, 30, 19),
+                pygame.Rect(307, 1125, 55, 30),
+                pygame.Rect(307, 1154, 30, 11),
+                pygame.Rect(130, 1190, 45, 17),
+                pygame.Rect(85, 1303, 55, 35),
+                pygame.Rect(93, 1374, 39, 49),
+                pygame.Rect(79, 454, 40, 28),
+                pygame.Rect(898, 880, 642, 215),
+                pygame.Rect(1297, 803, 36, 97),
+                pygame.Rect(1321, 845, 115, 76),
+                pygame.Rect(1430, 811, 26, 87),
+                pygame.Rect(1459, 855, 58, 37),
+                pygame.Rect(1177, 825, 57, 111),
+                pygame.Rect(1218, 852, 47, 89),
+                pygame.Rect(1251, 867, 38, 35),
+                pygame.Rect(1145, 850, 52, 58),
+                pygame.Rect(1135, 862, 40, 73),
+                pygame.Rect(1161, 839, 39, 41),
+                pygame.Rect(953, 855, 96, 104),
+                pygame.Rect(991, 822, 34, 136),
+                pygame.Rect(1019, 843, 29, 35),
+                pygame.Rect(833, 968, 175, 204),
+                pygame.Rect(795, 1040, 165, 26),
+                pygame.Rect(817, 1010, 77, 39),
+                pygame.Rect(800, 1067, 51, 32),
+                pygame.Rect(815, 1092, 24, 72),
+                pygame.Rect(845, 1158, 107, 44),
+                pygame.Rect(1213, 1103, 154, 103),
+                pygame.Rect(1382, 1111, 62, 70),
+                pygame.Rect(1450, 1156, 48, 58),
+                pygame.Rect(1411, 1645, 560, 39),
+                pygame.Rect(1539, 910, 45, 178),
+                pygame.Rect(1573, 931, 42, 126),
+                pygame.Rect(1632, 901, 16, 140),
+                pygame.Rect(1599, 971, 40, 73),
+                pygame.Rect(1122, 1398, 121, 93),
+                pygame.Rect(1019, 1414, 65, 57),
+                pygame.Rect(1623, 1472, 340, 206),
+                pygame.Rect(1745, 1434, 204, 58),
+                pygame.Rect(1747, 1160, 192, 168),
+                pygame.Rect(1850, 1315, 90, 75),
+                pygame.Rect(1928, 1256, 50, 122),
+                pygame.Rect(1716, 1193, 50, 116),
+                pygame.Rect(1817, 1108, 101, 73),
+                pygame.Rect(1851, 1068, 56, 52),
+                pygame.Rect(1754, 1119, 68, 49),
+                pygame.Rect(2812, 689, 196, 89),
+                pygame.Rect(73, 484, 43, 160),
+            ],
+        "map_39":
+            [
+                pygame.Rect(0, 0, 136, 417),
+                pygame.Rect(0, 605, 136, 1014),
+                pygame.Rect(136, 0, 1688, 47),
+                pygame.Rect(1726, 46, 1187, 1018),
+                pygame.Rect(136, 966, 1684, 1018),
+                pygame.Rect(869, 47, 411, 313),
+                pygame.Rect(1105, 313, 217, 378),
+            ],
+        "map_40":
+            [
+                pygame.Rect(-10, -11, 1888, 81),
+                pygame.Rect(972, 71, 189, 94),
+                pygame.Rect(1094, 151, 56, 43),
+                pygame.Rect(1158, 59, 150, 161),
+                pygame.Rect(1140, 183, 37, 37),
+                pygame.Rect(1130, 207, 24, 15),
+                pygame.Rect(1174, 214, 33, 39),
+                pygame.Rect(1239, 184, 77, 71),
+                pygame.Rect(1208, 218, 29, 31),
+                pygame.Rect(1296, 72, 49, 182),
+                pygame.Rect(1341, 64, 539, 96),
+                pygame.Rect(1354, 158, 152, 25),
+                pygame.Rect(1580, 161, 65, 24),
+                pygame.Rect(1712, 157, 62, 25),
+                pygame.Rect(1814, 161, 66, 903),
+                pygame.Rect(1799, 177, 24, 83),
+                pygame.Rect(1354, 309, 157, 63),
+                pygame.Rect(1603, 317, 72, 62),
+                pygame.Rect(1604, 301, 69, 39),
+                pygame.Rect(1714, 307, 64, 67),
+                pygame.Rect(1801, 377, 21, 75),
+                pygame.Rect(1773, 411, 28, 49),
+                pygame.Rect(1663, 433, 96, 27),
+                pygame.Rect(1381, 422, 85, 33),
+                pygame.Rect(1245, 355, 71, 415),
+                pygame.Rect(1306, 437, 48, 151),
+                pygame.Rect(1344, 459, 196, 108),
+                pygame.Rect(1313, 588, 83, 28),
+                pygame.Rect(1436, 561, 34, 53),
+                pygame.Rect(1599, 454, 215, 123),
+                pygame.Rect(1655, 569, 33, 35),
+                pygame.Rect(1778, 589, 33, 34),
+                pygame.Rect(1202, 884, 123, 167),
+                pygame.Rect(1323, 986, 496, 73),
+                pygame.Rect(1635, 579, 13, 93),
+                pygame.Rect(1648, 877, 16, 107),
+                pygame.Rect(1430, 886, 13, 98),
+                pygame.Rect(1422, 587, 20, 97),
+                pygame.Rect(1758, 905, 56, 81),
+                pygame.Rect(1321, 947, 44, 37),
+                pygame.Rect(1190, 440, 56, 151),
+                pygame.Rect(1014, 338, 111, 52),
+                pygame.Rect(1081, 322, 37, 27),
+                pygame.Rect(1218, 388, 22, 27),
+                pygame.Rect(1179, 700, 61, 74),
+                pygame.Rect(988, 988, 232, 64),
+                pygame.Rect(1110, 949, 100, 45),
+                pygame.Rect(1181, 900, 25, 53),
+                pygame.Rect(1144, 920, 42, 25),
+                pygame.Rect(1066, 911, 50, 59),
+                pygame.Rect(1037, 947, 23, 36),
+                pygame.Rect(820, 942, 25, 32),
+                pygame.Rect(760, 923, 45, 50),
+                pygame.Rect(0, 988, 877, 53),
+                pygame.Rect(860, 981, 32, 65),
+                pygame.Rect(-1, 952, 774, 31),
+                pygame.Rect(-8, -1, 64, 954),
+                pygame.Rect(52, 896, 38, 65),
+                pygame.Rect(87, 914, 27, 47),
+                pygame.Rect(50, 662, 34, 150),
+                pygame.Rect(76, 680, 29, 131),
+                pygame.Rect(102, 710, 23, 82),
+                pygame.Rect(52, 705, 16, 143),
+                pygame.Rect(40, 709, 199, 92),
+                pygame.Rect(79, 797, 55, 60),
+                pygame.Rect(58, 846, 35, 34),
+                pygame.Rect(70, 876, 29, 27),
+                pygame.Rect(142, 803, 30, 33),
+                pygame.Rect(183, 795, 38, 32),
+                pygame.Rect(305, 716, 326, 85),
+                pygame.Rect(560, 558, 72, 241),
+                pygame.Rect(530, 677, 36, 64),
+                pygame.Rect(510, 689, 28, 43),
+                pygame.Rect(503, 804, 53, 32),
+                pygame.Rect(640, 735, 55, 60),
+                pygame.Rect(634, 604, 41, 99),
+                pygame.Rect(642, 572, 16, 38),
+                pygame.Rect(745, 624, 119, 61),
+                pygame.Rect(1008, 617, 113, 70),
+                pygame.Rect(744, 330, 125, 69),
+                pygame.Rect(524, 60, 382, 100),
+                pygame.Rect(900, 60, 85, 20),
+                pygame.Rect(548, 148, 85, 291),
+                pygame.Rect(613, 132, 108, 44),
+                pygame.Rect(621, 159, 87, 29),
+                pygame.Rect(615, 179, 79, 43),
+                pygame.Rect(620, 214, 46, 38),
+                pygame.Rect(717, 145, 54, 45),
+                pygame.Rect(667, 203, 46, 39),
+                pygame.Rect(632, 242, 49, 36),
+                pygame.Rect(35, 59, 496, 103),
+                pygame.Rect(350, 147, 65, 32),
+                pygame.Rect(163, 146, 73, 31),
+                pygame.Rect(96, 135, 48, 59),
+                pygame.Rect(45, 154, 62, 56),
+                pygame.Rect(460, 146, 27, 41),
+                pygame.Rect(457, 158, 74, 22),
+                pygame.Rect(468, 174, 36, 41),
+                pygame.Rect(519, 208, 31, 38),
+                pygame.Rect(65, 275, 17, 158),
+                pygame.Rect(91, 562, 94, 58),
+                pygame.Rect(435, 605, 35, 33),
+                pygame.Rect(341, 652, 63, 49),
+                pygame.Rect(467, 592, 46, 40),
+                pygame.Rect(449, 625, 77, 47),
+                pygame.Rect(516, 613, 29, 34),
+                pygame.Rect(437, 627, 26, 26),
+                pygame.Rect(685, 777, 24, 31),
+                pygame.Rect(336, 296, 71, 28),
+                pygame.Rect(340, 360, 63, 30),
+                pygame.Rect(337, 426, 72, 33),
+                pygame.Rect(455, 297, 71, 33),
+                pygame.Rect(523, 356, 28, 66),
+                pygame.Rect(460, 364, 62, 28),
+                pygame.Rect(453, 423, 70, 37),
+                pygame.Rect(370, 195, 36, 68),
+                pygame.Rect(274, 203, 41, 59),
+                pygame.Rect(92, 200, 20, 23),
+                pygame.Rect(180, 201, 43, 59),
+                pygame.Rect(92, 294, 57, 35),
+                pygame.Rect(180, 298, 69, 33),
+                pygame.Rect(87, 361, 68, 32),
+                pygame.Rect(184, 363, 63, 28),
+                pygame.Rect(88, 429, 66, 29),
+                pygame.Rect(186, 431, 61, 26),
+                pygame.Rect(904, 75, 15, 17),
+                pygame.Rect(1052, 962, 82, 29),
+                pygame.Rect(1501, 808, 22, 27),
+                pygame.Rect(1569, 720, 12, 22),
+                pygame.Rect(1313, 615, 40, 37),
+                pygame.Rect(1794, 622, 21, 21),
+                pygame.Rect(1787, 622, 12, 17),
+                pygame.Rect(1692, 960, 16, 35),
+                pygame.Rect(630, 381, 34, 41),
+                pygame.Rect(851, 155, 25, 29),
+                pygame.Rect(1003, 149, 27, 37),
+                pygame.Rect(58, 506, 12, 28),
+                pygame.Rect(555, 422, 75, 28),
+            ],
+        "map_41":
+            [
+                pygame.Rect(2, -14, 33, 454),
+                pygame.Rect(1, 600, 31, 451),
+                pygame.Rect(18, 980, 140, 73),
+                pygame.Rect(149, 1038, 105, 15),
+                pygame.Rect(248, 983, 871, 72),
+                pygame.Rect(360, 630, 135, 354),
+                pygame.Rect(493, 662, 444, 327),
+                pygame.Rect(817, 626, 124, 39),
+                pygame.Rect(938, 726, 14, 257),
+                pygame.Rect(947, 753, 27, 234),
+                pygame.Rect(973, 767, 16, 223),
+                pygame.Rect(989, 779, 15, 206),
+                pygame.Rect(1002, 796, 19, 190),
+                pygame.Rect(1021, 821, 20, 164),
+                pygame.Rect(1043, 834, 78, 222),
+                pygame.Rect(32, 674, 98, 79),
+                pygame.Rect(122, 685, 16, 72),
+                pygame.Rect(134, 724, 24, 37),
+                pygame.Rect(64, 730, 31, 60),
+                pygame.Rect(246, 672, 112, 83),
+                pygame.Rect(228, 618, 75, 33),
+                pygame.Rect(74, 611, 81, 45),
+                pygame.Rect(68, 381, 89, 37),
+                pygame.Rect(226, 376, 82, 45),
+                pygame.Rect(34, -10, 118, 130),
+                pygame.Rect(227, -5, 782, 130),
+                pygame.Rect(131, -20, 118, 33),
+                pygame.Rect(354, 117, 581, 282),
+                pygame.Rect(933, 117, 75, 160),
+                pygame.Rect(931, 271, 53, 42),
+                pygame.Rect(920, 298, 45, 61),
+                pygame.Rect(987, -9, 32, 256),
+                pygame.Rect(1010, -4, 875, 144),
+                pygame.Rect(1003, 130, 101, 45),
+                pygame.Rect(993, 170, 73, 31),
+                pygame.Rect(1000, 203, 53, 17),
+                pygame.Rect(997, 217, 31, 17),
+                pygame.Rect(1255, 127, 63, 70),
+                pygame.Rect(1226, 159, 58, 44),
+                pygame.Rect(1247, 193, 62, 22),
+                pygame.Rect(1300, 124, 586, 90),
+                pygame.Rect(1342, 202, 537, 68),
+                pygame.Rect(1324, 232, 44, 41),
+                pygame.Rect(1391, 266, 489, 47),
+                pygame.Rect(1469, 259, 61, 189),
+                pygame.Rect(1402, 311, 69, 52),
+                pygame.Rect(1421, 360, 48, 48),
+                pygame.Rect(1425, 404, 51, 32),
+                pygame.Rect(1520, 272, 334, 114),
+                pygame.Rect(1829, 269, 29, 117),
+                pygame.Rect(1846, 380, 35, 672),
+                pygame.Rect(1309, 828, 571, 220),
+                pygame.Rect(1463, 624, 64, 213),
+                pygame.Rect(1445, 730, 18, 113),
+                pygame.Rect(1421, 762, 25, 85),
+                pygame.Rect(1428, 749, 17, 17),
+                pygame.Rect(1408, 777, 21, 65),
+                pygame.Rect(1380, 805, 31, 31),
+                pygame.Rect(1395, 790, 16, 18),
+                pygame.Rect(1368, 818, 14, 17),
+                pygame.Rect(1521, 730, 335, 113),
+                pygame.Rect(1114, 435, 146, 142),
+                pygame.Rect(753, 551, 37, 96),
+                pygame.Rect(867, 361, 33, 86),
+                pygame.Rect(787, 370, 35, 86),
+                pygame.Rect(462, 359, 33, 90),
+                pygame.Rect(500, 555, 30, 90),
+                pygame.Rect(376, 549, 38, 70),
+                pygame.Rect(378, 387, 31, 100),
+                pygame.Rect(44, 137, 64, 25),
+                pygame.Rect(86, 117, 19, 24),
+                pygame.Rect(41, 149, 29, 31),
+                pygame.Rect(47, 231, 26, 87),
+                pygame.Rect(182, 228, 52, 43),
+                pygame.Rect(233, 240, 27, 42),
+                pygame.Rect(260, 254, 38, 48),
+                pygame.Rect(264, 323, 80, 25),
+                pygame.Rect(42, 871, 24, 58),
+                pygame.Rect(50, 911, 55, 48),
+                pygame.Rect(274, 932, 58, 35),
+                pygame.Rect(309, 915, 47, 35),
+                pygame.Rect(703, 419, 47, 55),
+                pygame.Rect(1638, 466, 104, 98),
+                pygame.Rect(1799, 647, 51, 83),
+                pygame.Rect(1767, 703, 58, 30),
+                pygame.Rect(1537, 681, 49, 55),
+                pygame.Rect(1525, 664, 32, 33),
+                pygame.Rect(1587, 707, 33, 35),
+                pygame.Rect(1530, 697, 31, 40),
+                pygame.Rect(1621, 717, 22, 21),
+                pygame.Rect(292, 121, 46, 66),
+                pygame.Rect(260, 136, 50, 37),
+                pygame.Rect(321, 150, 33, 22),
+                pygame.Rect(314, 755, 39, 64),
+                pygame.Rect(295, 800, 31, 34),
+                pygame.Rect(294, 772, 26, 30),
+                pygame.Rect(303, 828, 38, 32),
+                pygame.Rect(255, 754, 30, 39),
+                pygame.Rect(132, 769, 40, 23),
+                pygame.Rect(247, 781, 43, 38),
+                pygame.Rect(82, 867, 45, 30),
+                pygame.Rect(38, 783, 26, 29),
+            ],
+        "map_42":
+            [
+                pygame.Rect(0, -4, 1627, 4),
+                pygame.Rect(1615, 0, 36, 905),
+                pygame.Rect(0, 904, 1635, 15),
+                pygame.Rect(-6, -4, 64, 401),
+                pygame.Rect(53, 329, 34, 73),
+                pygame.Rect(54, 305, 72, 39),
+                pygame.Rect(-6, 590, 11, 329),
+                pygame.Rect(440, 570, 87, 115),
+                pygame.Rect(370, 621, 24, 57),
+                pygame.Rect(416, 561, 18, 78),
+                pygame.Rect(433, 561, 18, 66),
+                pygame.Rect(604, 655, 21, 91),
+                pygame.Rect(349, 115, 85, 38),
+                pygame.Rect(338, 146, 12, 52),
+                pygame.Rect(337, 233, 19, 81),
+                pygame.Rect(353, 275, 24, 41),
+                pygame.Rect(395, 264, 26, 43),
+                pygame.Rect(411, 283, 58, 27),
+                pygame.Rect(477, 118, 55, 35),
+                pygame.Rect(602, 133, 20, 78),
+                pygame.Rect(1043, 760, 107, 16),
+                pygame.Rect(1092, 691, 12, 52),
+                pygame.Rect(1061, 546, 145, 39),
+                pygame.Rect(1086, 535, 33, 12),
+                pygame.Rect(1245, 632, 20, 57),
+                pygame.Rect(1196, 573, 9, 72),
+                pygame.Rect(1139, 605, 29, 48),
+                pygame.Rect(1191, 703, 14, 60),
+                pygame.Rect(1018, 73, 20, 80),
+                pygame.Rect(1076, 94, 14, 36),
+                pygame.Rect(1094, 94, 150, 18),
+                pygame.Rect(1259, 133, 28, 112),
+                pygame.Rect(1523, 334, 92, 72),
+                pygame.Rect(1496, 278, 34, 69),
+                pygame.Rect(1478, 203, 28, 25),
+                pygame.Rect(1500, 221, 13, 48),
+                pygame.Rect(1507, 264, 8, 15),
+            ],
+        "map_43":
+            [
+                pygame.Rect(0, -4, 1627, 4),
+                pygame.Rect(1615, 0, 36, 905),
+                pygame.Rect(0, 904, 1635, 15),
+                pygame.Rect(-6, -4, 64, 401),
+                pygame.Rect(53, 329, 34, 73),
+                pygame.Rect(54, 305, 72, 39),
+                pygame.Rect(-6, 590, 11, 329),
+                pygame.Rect(440, 570, 87, 115),
+                pygame.Rect(370, 621, 24, 57),
+                pygame.Rect(416, 561, 18, 78),
+                pygame.Rect(433, 561, 18, 66),
+                pygame.Rect(604, 655, 21, 91),
+                pygame.Rect(349, 115, 85, 38),
+                pygame.Rect(338, 146, 12, 52),
+                pygame.Rect(337, 233, 19, 81),
+                pygame.Rect(353, 275, 24, 41),
+                pygame.Rect(395, 264, 26, 43),
+                pygame.Rect(411, 283, 58, 27),
+                pygame.Rect(477, 118, 55, 35),
+                pygame.Rect(602, 133, 20, 78),
+                pygame.Rect(1043, 760, 107, 16),
+                pygame.Rect(1092, 691, 12, 52),
+                pygame.Rect(1061, 546, 145, 39),
+                pygame.Rect(1086, 535, 33, 12),
+                pygame.Rect(1245, 632, 20, 57),
+                pygame.Rect(1196, 573, 9, 72),
+                pygame.Rect(1139, 605, 29, 48),
+                pygame.Rect(1191, 703, 14, 60),
+                pygame.Rect(1018, 73, 20, 80),
+                pygame.Rect(1076, 94, 14, 36),
+                pygame.Rect(1094, 94, 150, 18),
+                pygame.Rect(1259, 133, 28, 112),
+                pygame.Rect(1523, 334, 92, 72),
+                pygame.Rect(1496, 278, 34, 69),
+                pygame.Rect(1478, 203, 28, 25),
+                pygame.Rect(1500, 221, 13, 48),
+                pygame.Rect(1507, 264, 8, 15),
+            ],
+        "map_44":
+            [
+                pygame.Rect(0, 0, 467, 177),
+                pygame.Rect(0, 175, 20, 249),
+                pygame.Rect(133, 515, 47, 39),
+                pygame.Rect(456, 6, 1209, 245),
+                pygame.Rect(1557, 250, 104, 674),
+                pygame.Rect(1273, 685, 382, 78),
+                pygame.Rect(1425, 877, 227, 34),
+                pygame.Rect(968, 803, 393, 102),
+                pygame.Rect(0, 913, 1659, 17),
+                pygame.Rect(0, 570, 23, 350),
+                pygame.Rect(234, 556, 35, 222),
+                pygame.Rect(230, 851, 41, 64),
+                pygame.Rect(236, 275, 38, 147),
+                pygame.Rect(28, 273, 51, 138),
+                pygame.Rect(35, 532, 36, 155),
+                pygame.Rect(908, 722, 35, 192),
+                pygame.Rect(303, 795, 521, 119),
+                pygame.Rect(273, 609, 38, 89),
+                pygame.Rect(325, 595, 95, 70),
+                pygame.Rect(447, 285, 611, 130),
+                pygame.Rect(576, 565, 123, 69),
+                pygame.Rect(719, 610, 20, 112),
+                pygame.Rect(969, 603, 28, 106),
+                pygame.Rect(869, 481, 144, 70),
+                pygame.Rect(753, 532, 108, 42),
+                pygame.Rect(1175, 548, 56, 74),
+                pygame.Rect(1266, 259, 283, 11),
+                pygame.Rect(1308, 326, 251, 278),
+                pygame.Rect(16, 788, 60, 126),
+                pygame.Rect(80, 857, 121, 53),
+                pygame.Rect(745, 598, 20, 98),
+                pygame.Rect(17, 178, 74, 79),
+                pygame.Rect(293, 234, 36, 53),
+                pygame.Rect(234, 165, 217, 83),
+                pygame.Rect(1256, 250, 297, 29),
+                pygame.Rect(139, 482, 36, 39),
+                pygame.Rect(20, 404, 37, 45),
+            ],
+        "map_39":
+            [
+                pygame.Rect(0, 0, 136, 417),
+                pygame.Rect(0, 605, 136, 1014),
+                pygame.Rect(136, 0, 1688, 47),
+                pygame.Rect(1726, 46, 1187, 1018),
+                pygame.Rect(136, 966, 1684, 1018),
+                pygame.Rect(869, 47, 411, 313),
+                pygame.Rect(1105, 313, 217, 378),
+                pygame.Rect(366, 233, 50, 79),
+                pygame.Rect(322, 283, 38, 42),
+                pygame.Rect(622, 28, 51, 99),
+                pygame.Rect(531, 103, 35, 38),
+                pygame.Rect(547, 98, 37, 41),
+                pygame.Rect(558, 84, 43, 43),
+                pygame.Rect(681, 108, 31, 29),
+                pygame.Rect(288, 123, 37, 65),
+                pygame.Rect(170, 233, 62, 83),
+                pygame.Rect(148, 108, 37, 71),
+                pygame.Rect(204, 47, 32, 99),
+                pygame.Rect(189, 79, 27, 68),
+                pygame.Rect(238, 88, 35, 48),
+                pygame.Rect(275, 640, 15, 99),
+                pygame.Rect(285, 634, 18, 102),
+                pygame.Rect(295, 630, 16, 108),
+                pygame.Rect(302, 636, 22, 99),
+                pygame.Rect(330, 714, 24, 36),
+                pygame.Rect(332, 705, 40, 55),
+                pygame.Rect(344, 695, 20, 37),
+                pygame.Rect(369, 710, 21, 45),
+                pygame.Rect(637, 786, 23, 117),
+                pygame.Rect(626, 789, 20, 113),
+                pygame.Rect(616, 821, 14, 72),
+                pygame.Rect(655, 836, 19, 71),
+                pygame.Rect(1247, 820, 21, 46),
+                pygame.Rect(1232, 833, 29, 36),
+                pygame.Rect(1260, 813, 32, 35),
+                pygame.Rect(1345, 796, 23, 97),
+                pygame.Rect(1326, 794, 33, 111),
+                pygame.Rect(1316, 822, 24, 81),
+                pygame.Rect(1302, 859, 23, 46),
+                pygame.Rect(1300, 875, 21, 25),
+                pygame.Rect(1398, 882, 34, 30),
+                pygame.Rect(1571, 774, 18, 89),
+                pygame.Rect(1554, 768, 27, 100),
+                pygame.Rect(1541, 789, 32, 76),
+                pygame.Rect(1524, 830, 25, 33),
+                pygame.Rect(1612, 837, 27, 69),
+                pygame.Rect(1598, 854, 30, 59),
+                pygame.Rect(1589, 883, 11, 23),
+                pygame.Rect(1659, 817, 12, 76),
+                pygame.Rect(1645, 844, 20, 53),
+                pygame.Rect(1628, 700, 11, 86),
+                pygame.Rect(1617, 718, 21, 67),
+                pygame.Rect(1316, 459, 136, 109),
+                pygame.Rect(1321, 568, 86, 55),
+                pygame.Rect(1411, 563, 26, 28),
+                pygame.Rect(1318, 397, 40, 24),
+                pygame.Rect(1323, 424, 48, 33),
+                pygame.Rect(1361, 411, 36, 50),
+                pygame.Rect(1399, 434, 22, 30),
+                pygame.Rect(1360, 363, 35, 25),
+                pygame.Rect(1389, 354, 16, 22),
+                pygame.Rect(1402, 352, 21, 11),
+                pygame.Rect(1412, 346, 33, 6),
+                pygame.Rect(1402, 374, 26, 41),
+                pygame.Rect(1419, 419, 10, 12),
+                pygame.Rect(1583, 248, 32, 96),
+                pygame.Rect(1566, 299, 28, 55),
+                pygame.Rect(1607, 277, 15, 72),
+                pygame.Rect(1646, 255, 32, 61),
+                pygame.Rect(1641, 164, 18, 67),
+                pygame.Rect(1651, 149, 28, 84),
+                pygame.Rect(1658, 138, 10, 14),
+                pygame.Rect(1416, 120, 42, 95),
+                pygame.Rect(1406, 154, 19, 62),
+                pygame.Rect(1505, 249, 37, 43),
+                pygame.Rect(1470, 202, 33, 63),
+                pygame.Rect(1555, 213, 41, 48),
+                pygame.Rect(1515, 94, 24, 68),
+                pygame.Rect(1474, 109, 17, 50),
+                pygame.Rect(1606, 110, 10, 87)
+            ],
+        "map_44":
+            [
+                pygame.Rect(0, 0, 467, 177),
+                pygame.Rect(0, 175, 20, 249),
+                pygame.Rect(133, 515, 47, 39),
+                pygame.Rect(456, 6, 1209, 245),
+                pygame.Rect(1557, 250, 104, 674),
+                pygame.Rect(1273, 685, 382, 78),
+                pygame.Rect(1425, 877, 227, 34),
+                pygame.Rect(968, 803, 393, 102),
+                pygame.Rect(0, 913, 1659, 17),
+                pygame.Rect(0, 570, 23, 350),
+                pygame.Rect(234, 556, 35, 222),
+                pygame.Rect(230, 851, 41, 64),
+                pygame.Rect(236, 275, 38, 147),
+                pygame.Rect(28, 273, 51, 138),
+                pygame.Rect(35, 532, 36, 155),
+                pygame.Rect(908, 722, 35, 192),
+                pygame.Rect(303, 795, 521, 119),
+                pygame.Rect(273, 609, 38, 89),
+                pygame.Rect(325, 595, 95, 70),
+                pygame.Rect(447, 285, 611, 130),
+                pygame.Rect(576, 565, 123, 69),
+                pygame.Rect(719, 610, 20, 112),
+                pygame.Rect(969, 603, 28, 106),
+                pygame.Rect(869, 481, 144, 70),
+                pygame.Rect(753, 532, 108, 42),
+                pygame.Rect(1175, 548, 56, 74),
+                pygame.Rect(1266, 259, 283, 11),
+                pygame.Rect(1308, 326, 251, 278),
+                pygame.Rect(16, 788, 60, 126),
+                pygame.Rect(80, 857, 121, 53),
+                pygame.Rect(745, 598, 20, 98),
+                pygame.Rect(17, 178, 74, 79),
+                pygame.Rect(293, 234, 36, 53),
+                pygame.Rect(234, 165, 217, 83),
+                pygame.Rect(1256, 250, 297, 29),
+                pygame.Rect(139, 482, 36, 39),
+                pygame.Rect(20, 404, 37, 45),
+            ],
+        "map_46":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_47":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_48":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_49":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_50":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_51":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_52":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+        "map_53":
+            [
+                pygame.Rect(0, 0, 1275, 50),
+                pygame.Rect(0, 660, 1275, 50),
+                pygame.Rect(0, 0, 50, 710),
+                pygame.Rect(1225, 0, 50, 710),
+            ],
+    }

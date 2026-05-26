@@ -1,0 +1,669 @@
+        elif state == "map_01":
+            screen.blit(_scaled_images["l_i_inside_the_wall"], (-world_x, -world_y))
+            walls = _get_walls(state)
+            entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map02 = pygame.Rect(447, 541, 122, 16)
+            if p.get_rect().colliderect(warp_map02):
+                p.x = 921
+                p.y = 548
+                state = "map_02"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_02":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            walls = _get_walls(state)
+            entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map01 = pygame.Rect(907, 476, 89, 77)
+            if p.get_rect().colliderect(warp_map01):
+                p.x = 485
+                p.y = 474
+                state = "map_01"
+            warp_to_theocratic_capital1 = pygame.Rect(0, 489, 25, 282)
+            if p.get_rect().colliderect(warp_to_theocratic_capital1):
+                p.x = 1153
+                p.y = 1102
+                state = "map_07"
+            warp_map03 = pygame.Rect(2204, 440, 15, 356)
+            if p.get_rect().colliderect(warp_map03):
+                p = player(user_class, (screen_x / 2) - 36, (screen_y / 2) - 36, 6375, 3550)
+                p.x = 350
+                p.y = 30
+                state = "map_03"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_03":
+            screen.blit(_scaled_images["l_o_inner_military_district"], (-world_x, -world_y))
+            walls = area_walls["map_03"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_map_02 = pygame.Rect(243, 0, 199, 8)
+            if p.get_rect().colliderect(warp_map_02):
+                p.x = 2111
+                p.y = 635
+                state = "map_02"
+            warp_to_barracks1 = pygame.Rect(1023, 213, 56, 64)
+            if p.get_rect().colliderect(warp_to_barracks1):
+                p.x = 1281
+                p.y = 303
+                state = "map_04"
+            warp_to_barracks2 = pygame.Rect(1274, 212, 60, 51)
+            if p.get_rect().colliderect(warp_to_barracks2):
+                p.x = 734
+                p.y = 237
+                state = "map_04"
+            warp_to_barracks3 = pygame.Rect(1609, 210, 57, 53)
+            if p.get_rect().colliderect(warp_to_barracks3):
+                p.x = 172
+                p.y = 281
+                state = "map_04"
+            warp_to_church_outpost = pygame.Rect(2572, 636, 36, 181)
+            if p.get_rect().colliderect(warp_to_church_outpost):
+                p.x = 49
+                p.y = 421
+                state = "map_05"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_04":
+            screen.blit(_scaled_images["l_i_barracks_hall"], (-world_x, -world_y))
+            walls = area_walls["map_04"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_inner_military1 = pygame.Rect(1268, 91, 61, 77)
+            if p.get_rect().colliderect(warp_to_inner_military1):
+                p.x = 1028
+                p.y = 393
+                state = "map_03"
+            warp_to_inner_military2 = pygame.Rect(718, 89, 73, 78)
+            if p.get_rect().colliderect(warp_to_inner_military2):
+                p.x = 1276
+                p.y = 422
+                state = "map_03"
+            warp_to_inner_military3 = pygame.Rect(170, 168, 60, 30)
+            if p.get_rect().colliderect(warp_to_inner_military3):
+                p.x = 1619
+                p.y = 413
+                state = "map_03"
+
+        elif state == "map_05":
+            screen.blit(_scaled_images["l_o_church_outpost"], (-world_x, -world_y))
+            walls = area_walls["map_05"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chapel = pygame.Rect(624, 398, 45, 47)
+            if p.get_rect().colliderect(warp_to_chapel):
+                p.x = 629
+                p.y = 234
+                state = "map_06"
+            warp_to_theocratic_capital2 = pygame.Rect(838, -14, 150, 58)
+            if p.get_rect().colliderect(warp_to_theocratic_capital2):
+                p.x = 1157
+                p.y = 1151
+                state = "map_07"
+
+        elif state == "map_06":
+            screen.blit(_scaled_images["l_i_church_chapel"], (-world_x, -world_y))
+            walls = area_walls["map_06"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_church_outpost2 = pygame.Rect(606, 80, 77, 54)
+            if p.get_rect().colliderect(warp_to_church_outpost2):
+                p.x = 618
+                p.y = 506
+                state = "map_05"
+
+        elif state == "map_07":
+            screen.blit(_scaled_images["l_o_cathedral_plaza"], (-world_x, -world_y))
+            walls = area_walls["map_07"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_walled = pygame.Rect(798, 1210, 762, 11)
+            if p.get_rect().colliderect(warp_to_walled):
+                p.x = 80
+                p.y = 600
+                state = "map_02"
+            warp_to_administrative_wing = pygame.Rect(2, 549, 33, 122)
+            if p.get_rect().colliderect(warp_to_administrative_wing):
+                p.x = 578
+                p.y = 585
+                state = "map_08"
+            warp_to_main_cathedral = pygame.Rect(1084, 107, 177, 22)
+            if p.get_rect().colliderect(warp_to_main_cathedral):
+                p.x = 637
+                p.y = 649
+                state = "map_09"
+            warp_to_home_village1 = pygame.Rect(2301, 553, 51, 115)
+            if p.get_rect().colliderect(warp_to_home_village1):
+                p.x = 53
+                p.y = 645
+                state = "map_11"
+
+        elif state == "map_08":
+            screen.blit(_scaled_images["l_i_church_administrative_wing"], (-world_x, -world_y))
+            walls = area_walls["map_08"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_theocratic_capital3 = pygame.Rect(559, 642, 85, 31)
+            if p.get_rect().colliderect(warp_to_theocratic_capital3):
+                p.x = 101
+                p.y = 579
+                state = "map_07"
+
+        elif state == "map_09":
+            screen.blit(_scaled_images["l_i_main_cathedral"], (-world_x, -world_y))
+            walls = area_walls["map_09"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_theocratic_capital4 = pygame.Rect(626, 725, 82, 20)
+            if p.get_rect().colliderect(warp_to_theocratic_capital4):
+                p.x = 1154
+                p.y = 168
+                state = "map_07"
+
+        elif state == "map_11":
+            screen.blit(_scaled_images["l_o_home_village_entry"], (-world_x, -world_y))
+            walls = area_walls["map_11"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chiefs_office = pygame.Rect(2034, 364, 58, 56)
+            if p.get_rect().colliderect(warp_to_chiefs_office):
+                p.x = 622
+                p.y = 372
+                state = "map_12"
+            warp_to_headmaster_office = pygame.Rect(932, 327, 57, 52)
+            if p.get_rect().colliderect(warp_to_headmaster_office):
+                p.x = 518
+                p.y = 98
+                state = "map_13"
+            warp_to_home_village_center1= pygame.Rect(189, -2, 177, 26)
+            if p.get_rect().colliderect(warp_to_home_village_center1):
+                p.x = 49
+                p.y = 440
+                state = "map_14"
+            warp_to_old_orphanage2 = pygame.Rect(143, 1165, 247, 22)
+            if p.get_rect().colliderect(warp_to_old_orphanage2):
+                p.x = 1159
+                p.y = 869
+                state = "map_15"
+            warp_to_village_market1 = pygame.Rect(2347, 549, 23, 171)
+            if p.get_rect().colliderect(warp_to_village_market1):
+                p.x = 42
+                p.y = 513
+                state = "map_17"
+
+        elif state == "map_12":
+            screen.blit(_scaled_images["l_i_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_12"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_entry3 = pygame.Rect(564, 456, 117, 20)
+            if p.get_rect().colliderect(warp_to_home_village_entry3):
+                p.x = 2034
+                p.y = 440
+                state = "map_11"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_13":
+            screen.blit(_scaled_images["l_i_headmaster_office"], (-world_x, -world_y))
+            walls = area_walls["map_13"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_entry4 = pygame.Rect(491, 6, 82, 44)
+            if p.get_rect().colliderect(warp_to_home_village_entry4):
+                p.x = 944
+                p.y = 466
+                state = "map_11"
+            keys = pygame.key.get_pressed()
+            if keys[controls["inventory"]]:
+                pre_state = state
+                state = "inventory"
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+
+        elif state == "map_14":
+            screen.blit(_scaled_images["l_o_home_village_center"], (-world_x, -world_y))
+            walls = area_walls["map_14"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_old_orphanage1 = pygame.Rect(108, 814, 99, 26)
+            if p.get_rect().colliderect(warp_to_old_orphanage1):
+                p.x = 654
+                p.y = 56
+                state = "map_15"
+            warp_to_home_village_entry2 = pygame.Rect(1060, 920, 238, 34)
+            if p.get_rect().colliderect(warp_to_home_village_entry2):
+                p.x = 236
+                p.y = 1068
+                state = "map_11"
+            warp_to_ext_chiefs_home= pygame.Rect(1432, 449, 41, 75)
+            if p.get_rect().colliderect(warp_to_ext_chiefs_home):
+                p.x = 81
+                p.y = 835
+                state = "map_20"
+
+        elif state == "map_15":
+            screen.blit(_scaled_images["l_o_the_old_orphanage"], (-world_x, -world_y))
+            walls = area_walls["map_15"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_home_village_center2 = pygame.Rect(607, 3, 207, 21)
+            if p.get_rect().colliderect(warp_to_home_village_center2):
+                p.x = 128
+                p.y = 735
+                state = "map_14"
+            warp_to_home_village_entry1= pygame.Rect(1121, 928, 169, 13)
+            if p.get_rect().colliderect(warp_to_home_village_entry1):
+                p.x = 128
+                p.y = 735
+                state = "map_14"
+            warp_to_play_room = pygame.Rect(1143, 394, 63, 60)
+            if p.get_rect().colliderect(warp_to_play_room):
+                p.x = 620
+                p.y = 112
+                state = "map_16"
+
+        elif state == "map_16":
+            screen.blit(_scaled_images["l_i_the_play_room"], (-world_x, -world_y))
+            walls = area_walls["map_16"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_old_orphanage2 = pygame.Rect(607, 6, 94, 67)
+            if p.get_rect().colliderect(warp_to_old_orphanage2):
+                p.x = 1166
+                p.y = 513
+                state = "map_15"
+
+        elif state == "map_17":
+            screen.blit(_scaled_images["f_o_village_market"], (-world_x, -world_y))
+            walls = area_walls["map_17"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_chiefs_office = pygame.Rect(419, -1, 103, 49)
+            if p.get_rect().colliderect(warp_to_chiefs_office):
+                p.x = 890
+                p.y = 930
+                state = "map_20"
+            warp_to_port = pygame.Rect(1805, 168, 15, 127)
+            if p.get_rect().colliderect(warp_to_port):
+                p.x = 1248
+                p.y = 1442
+                state = "map_29"
+            warp_to_deep_terror = pygame.Rect(417, 984, 99, 30)
+            if p.get_rect().colliderect(warp_to_deep_terror):
+                p.x = 77
+                p.y = 587
+                state = "map_18"
+            home_village_entry5 = pygame.Rect(1, 485, 23, 87)
+            if p.get_rect().colliderect(home_village_entry5):
+                p.x = 2243
+                p.y = 605
+                state = "map_11"
+
+        elif state == "map_18":
+            screen.blit(_scaled_images["f_o_deep_terror_zone"], (-world_x, -world_y))
+            walls = area_walls["map_18"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_village_market2 = pygame.Rect(-4, 578, 30, 121)
+            if p.get_rect().colliderect(warp_to_village_market2):
+                p.x = 441
+                p.y = 910
+                state = "map_17"
+
+        elif state == "map_20":
+            screen.blit(_scaled_images["f_o_outside_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_20"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_village_market3 = pygame.Rect(830, 987, 173, 30)
+            if p.get_rect().colliderect(warp_to_village_market3):
+                p.x = 438
+                p.y = 453
+                state = "map_17"
+            warp_to_home_village_center3 = pygame.Rect(872, 636, 75, 54)
+            if p.get_rect().colliderect(warp_to_home_village_center3):
+                p.x = 1316
+                p.y = 49
+                state = "map_14"
+            warp_to_int_chiefs_home1 = pygame.Rect(-13, 788, 55, 107)
+            if p.get_rect().colliderect(warp_to_int_chiefs_home1):
+                p.x = 334
+                p.y = 468
+                state = "map_21"
+
+        elif state == "map_21":
+            screen.blit(_scaled_images["f_i_inside_chief_home"], (-world_x, -world_y))
+            walls = area_walls["map_21"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_out_chief_home = pygame.Rect(296, 543, 126, 17)
+            if p.get_rect().colliderect(warp_to_out_chief_home):
+                p.x = 890
+                p.y = 748
+                state = "map_20"
+            warp_to_tribe_tunnel = pygame.Rect(818, 161, 87, 89)
+            if p.get_rect().colliderect(warp_to_tribe_tunnel):
+                p.x = 42
+                p.y = 320
+                state = "map_22"
+
+        elif state == "map_22":
+            screen.blit(_scaled_images["f_i_tunnel_passage_to_tribe"], (-world_x, -world_y))
+            walls = area_walls["map_22"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_int_chiefs_home2 = pygame.Rect(-9, 280, 29, 101)
+            if p.get_rect().colliderect(warp_to_int_chiefs_home2):
+                p.x = 855
+                p.y = 272
+                state = "map_20"
+            warp_to_tribe_parameter1 = pygame.Rect(-9, 280, 29, 101)
+            if p.get_rect().colliderect(warp_to_tribe_parameter)1:
+                p.x = 91
+                p.y = 344
+                state = "map_20"
+
+        elif state == "map_23":
+            screen.blit(_scaled_images["f_i_tunnel_passage_to_tribe"], (-world_x, -world_y))
+            walls = area_walls["map_23"].copy()
+            # entity_walls = get_entity_walls(npcs, p)
+            while logic_accumulator >= 1.0 / logic_tick:
+                p.update_input()
+                if devkit.apply_noclip():
+                    pass  # no-clip: skip wall collision
+                else:
+                    p.move(walls + entity_walls)
+                p.border()
+                devkit.update_effects(p)
+                devkit.update_ndt(p, walls, world_x, world_y)
+                logic_accumulator -= 1.0 / logic_tick
+            state = _state_ref[0]  # sync if devkit changed state
+            world_x = p.x - screen_x // 2 + p.size // 2
+            world_y = p.y - screen_y // 2 + p.size // 2
+            p.draw(screen, world_x, world_y)
+            warp_to_int_chiefs_home2 = pygame.Rect(-9, 280, 29, 101)
+            if p.get_rect().colliderect(warp_to_int_chiefs_home2):
+                p.x = 855
+                p.y = 272
+                state = "map_20

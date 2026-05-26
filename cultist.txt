@@ -1,0 +1,130 @@
+#map 39
+cult_leader_interact_rect = pygame.Rect(1500, 600, 40, 40)
+            pygame.draw.rect(screen, (0, 255, 0), (cult_leader_interact_rect), 1)
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((cult_leader_interact_rect.x - 18) - world_x,
+                         (cult_leader_interact_rect.y - 36) - world_y))
+
+
+#cult leader
+if user_class == "cultist":
+	elif state == "interact_cult_leader1":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect() - 18) - world_x, (cult_leader_interact_rect() - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_001"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader2"
+	elif state == "interact_cult_leader2":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_002"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader3"
+	elif state == "interact_cult_leader3":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_003"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader4"
+	elif state == "interact_cult_leader4":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_004"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader5"
+	elif state == "interact_cult_leader5":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_005"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader6"
+	elif state == "interact_cult_leader6":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_006"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader7"
+	elif state == "interact_cult_leader7":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_007"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader8"
+	elif state == "interact_cult_leader8":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_008"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader9"
+	elif state == "interact_cult_leader9":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_009"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader10"
+	elif state == "interact_cult_leader10":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_010"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader11"
+	elif state == "interact_cult_leader11":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_011"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader12"
+	elif state == "interact_cult_leader12":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_012"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader13"
+	elif state == "interact_cult_leader13":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_013"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader14"
+	elif state == "interact_cult_leader14":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_014"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = "interact_cult_leader15"
+	elif state == "interact_cult_leader15":
+		screen.blit(_scaled_images["map_39"], (-world_x, -world_y))
+					((cult_leader_interact_rect.x - 18) - world_x, (cult_leader_interact_rect.y - 36) - world_y))
+		p.draw(screen, world_x, world_y)
+		screen.blit(_preloaded_images["cultist_island_funeris_with_cult_leader_015"], (0, 0))
+		for event in events:
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				state = pre_state

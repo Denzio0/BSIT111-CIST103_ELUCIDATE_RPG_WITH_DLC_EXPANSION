@@ -1,0 +1,80 @@
+            draft_officer_interact_rect = pygame.Rect(2121, 530, 40, 40)
+            pygame.draw.rect(screen, (0, 255, 0), (draft_officer_interact_rect), 1)
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x,
+                         (draft_officer_interact_rect.y - 36) - world_y))
+
+            rect = p.get_rect()
+            pygame.draw.rect(screen, (0, 255, 0), (rect.x - world_x, rect.y - world_y, rect.width, rect.height), 1)
+        elif state == "interact_draft_officer1":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_001"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer2"
+        elif state == "interact_draft_officer2":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_002"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer3"
+        elif state == "interact_draft_officer3":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_003"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer4"
+        elif state == "interact_draft_officer4":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_004"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer5"
+        elif state == "interact_draft_officer5":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_005"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer6"
+        elif state == "interact_draft_officer6":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_006"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer7"
+        elif state == "interact_draft_officer7":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_007"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = "interact_draft_officer8"
+        elif state == "interact_draft_officer8":
+            screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+            screen.blit(_scaled_images["elucidate_idle_draft_officer_npc_left"],
+                        ((draft_officer_interact_rect.x - 18) - world_x, (draft_officer_interact_rect.y - 36) - world_y))
+            p.draw(screen, world_x, world_y)
+            screen.blit(_preloaded_images["walled_mercenary_with_draft_officer_008"], (0, 0))
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    state = pre_state
