@@ -1,0 +1,20 @@
+	"mercenary": {
+		"idle": {
+			"up":    _scaled_images["elucidate_mercenary_sprite_idle_1"],
+			"down":  _scaled_images["elucidate_mercenary_sprite_idle_2"],
+			"left":  _scaled_images["elucidate_mercenary_sprite_idle_3"],
+			"right": _scaled_images["elucidate_mercenary_sprite_idle_4"],
+		},
+		"walk": {
+			"up":    [_scaled_images["elucidate_mercenary_sprite_walk_1_1"], _scaled_images["elucidate_mercenary_sprite_walk_1_2"]],
+			"down":  [_scaled_images["elucidate_mercenary_sprite_walk_2_1"], _scaled_images["elucidate_mercenary_sprite_walk_2_2"]],
+			"left":  [_scaled_images["elucidate_mercenary_sprite_walk_3_1"], _scaled_images["elucidate_mercenary_sprite_walk_3_2"]],
+			"right": [_scaled_images["elucidate_mercenary_sprite_walk_4_1"], _scaled_images["elucidate_mercenary_sprite_walk_4_2"]],
+		},
+		"attack": {
+			"up":    [_scaled_images["elucidate_mercenary_sprite_attack_1_1"], _scaled_images["elucidate_mercenary_sprite_attack_1_2"]],
+			"down":  [_scaled_images["elucidate_mercenary_sprite_attack_2_1"], _scaled_images["elucidate_mercenary_sprite_attack_2_2"]],
+			"left":  [_scaled_images["elucidate_mercenary_sprite_attack_3_1"], _scaled_images["elucidate_mercenary_sprite_attack_3_2"]],
+			"right": [_scaled_images["elucidate_mercenary_sprite_attack_4_1"], _scaled_images["elucidate_mercenary_sprite_attack_4_2"]],
+		},
+	},

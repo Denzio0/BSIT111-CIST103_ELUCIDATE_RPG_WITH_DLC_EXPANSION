@@ -1,0 +1,287 @@
+=== REPLACED MAIN CODE (MAIN MENU) ===
+
+import pygame
+import random
+import sys
+import math
+import time
+import binascii
+from datetime import datetime
+
+#key1 : 616c70686120312e30  // Alpha
+#key2 : 6265746120312e30    // Beta
+#key3 : 7465737461726561    // Test Area
+
+#main
+def elucidate(key):
+	#initiation
+	pygame.init()
+	
+	sc_782d61786973, sc_792d61786973 = 1275, 710
+	screen = pygame.display.set_mode((sc_782d61786973, sc_792d61786973))
+	pygame.display.set_caption("Elucidate RPG")
+	
+	
+	#initiation of variables
+	clock = pygame.time.Clock()
+	
+	walls = []
+	
+	fonts = {}
+	
+	sys_bg_color = (0, 0, 0)
+	sys_bd_color_sc_area = (180, 180, 180)
+	
+	#define main functions
+	def tick(n):
+		clock.tick(n)
+		
+	def exit():
+		pygame.quit()
+		sys.exit()
+	
+	def display():
+		pygame.display.flip()
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				exit()
+		tick(30)
+	
+	def get_font(size):
+		if size not in fonts:
+			fonts[size] = pygame.font.SysFont("Times New Roman", size)
+		return fonts[size]
+	
+	def sys_main_746578742d746f2d686578(v74657874):
+		try:
+			v74657874 = v74657874.replace(" ","")
+			bytes_object = bytes.fromhex(v74657874)
+			return bytes_object.decode('utf-8')
+		except ValueError:
+			return "there was an error while generating this text."
+	
+	#define general functions
+	def static_text(text, color, position, size):
+		t = sys_main_746578742d746f2d686578(text)
+		font = get_font(size)
+		text_surface = font.render(t,True,color)
+		screen.blit(text_surface, position)
+	
+	def static_text_center(text, color, position, size):
+		t = sys_main_746578742d746f2d686578(text)
+		font = get_font(size)
+		text_surface = font.render(t,True,color)
+		text_rect = text_surface.get_rect(center = position)
+		screen.blit(text_surface, text_rect)
+	
+	def tuple_static_text(*t, color, position, size):
+		font = get_font(size)
+		text_surface = font.render(" ".join(map(str,t)),True,color)
+		screen.blit(text_surface,position)
+	
+	def ambient(file, loop):
+		pygame.mixer.music.load(file)
+		pygame.mixer.music.play(loop)
+	
+	def sys_gen_706c617974657374():
+		pygame.draw.rect(screen, (80, 80, 80), (0, 0, sc_782d61786973, sc_792d61786973), 1)
+		mouse_782d61786973, mouse_792d61786973 = pygame.mouse.get_pos()
+		pygame.draw.rect(screen, (0, 255, 0),(mouse_782d61786973 - 10, mouse_792d61786973, 20, 1))
+		pygame.draw.rect(screen, (0, 255, 0),(mouse_782d61786973, mouse_792d61786973 - 10, 1, 20))
+		tuple_static_text((mouse_782d61786973, mouse_792d61786973), color = (0, 255, 0),position = (mouse_782d61786973 + 10, mouse_792d61786973),size=15)
+		tuple_static_text((clock), color = (0, 255, 0),position = (mouse_782d61786973 + 10, mouse_792d61786973 + 15),size=15)
+	
+	def sys_gen_loading(n):
+		ambient("music/elucidate_the_wait.wav", -1)
+		screen.fill(sys_bg_color)
+		image = pygame.image.load("images/elucidate_title.png").convert()
+		resized_image = pygame.transform.scale(image, (int(1275), int(710)))
+		screen.blit(resized_image, (0, 0))
+		static_text("4c6f6164696e672e2e2e", (255, 255, 255), (20, sc_792d61786973 - 55), 40)
+		display()
+		time.sleep(n)
+	
+	def resolve_collision(mover, obstacle):
+		if not mover.colliderect(obstacle):
+			return mover.x, mover.y
+		overlap_left = mover.right - obstacle.left
+		overlap_right = obstacle.right - mover.left
+		overlap_top = mover.bottom - obstacle.top
+		overlap_bot = obstacle.bottom - mover.top
+		min_x = overlap_left if overlap_left < overlap_right else -overlap_right
+		min_y = overlap_top if overlap_top < overlap_bot else -overlap_bot
+		if abs(min_x) < abs(min_y):
+			return mover.x - min_x, mover.y
+		else:
+			return mover.x, mover.y - min_y
+	
+	#class template
+	class Player:
+		CLASSES = {
+		"mercenary": (6, (160, 0, 0)),
+		"cultist": (5, (120, 0, 120)),
+		"priest": (4, (220, 220, 220)),
+		"shaman": (4, (0, 120, 120)),
+		"merchant": (3, (120, 80, 0))
+		}
+		def __init__(self, class_name, x=1, y=1):
+			self.class_name = class_name
+			self.x = float(x)
+			self.y = float(y)
+			self.size = 40
+			self.dx = 0
+			self.dy = 0
+			self.speed, self.color = self.CLASSES.get(class_name, (5, (120, 0, 0)))
+		def rect(self):
+			keys = pygame.key.get_pressed()
+			self.dx = (keys[pygame.K_d] - keys[pygame.K_a]) * self.speed
+			self.dy = (keys[pygame.K_s] - keys[pygame.K_w]) * self.speed
+			if keys[pygame.K_RIGHT]:
+				self.dx = self.speed
+			if keys[pygame.K_LEFT]:
+				self.dx = -self.speed
+			if keys[pygame.K_DOWN]:
+				self.dy = self.speed
+			if keys[pygame.K_UP]:
+				self.dy = -self.speed
+		def move(self, walls):
+			self.x += self.dx
+			mover = self.rect()
+			for w in walls:
+				if mover.colliderect(w):
+					overlap_left = mover.right - w.left
+					
+		
+	
+	
+	
+	#define class template
+	def player(class_name,x=1,y=1):
+		return Player(class_name,x,y)
+	
+	#define Game Menus
+	def sys_main():
+		sys_gen_loading(0)
+		ambient("music/elucidate_calm.wav", -1)
+		
+		bg_random = random.randint(1,1)
+		
+		img_656c756369646174655f6d656e755f6267 = pygame.image.load("images/elucidate_menu_bg_001.png").convert()
+		img_656c756369646174655f6d656e755f6267 = pygame.transform.scale(img_656c756369646174655f6d656e755f6267, (int(1275), int(710)))
+		
+		img_73656c656374 = pygame.image.load("images/elucidate_select.png").convert()
+		img_73656c656374 = pygame.transform.scale(img_73656c656374, (int(240), int(40)))
+		
+		img_73656c656374_b1 = pygame.transform.scale(img_73656c656374, (int(60), int(40)))
+		img_73656c656374_b1r = pygame.transform.rotate(img_73656c656374_b1, 180)
+		
+		if key == '7465737461726561':
+			while True:
+				screen.fill(sys_bg_color)
+				pygame.draw.rect(screen, (140, 0, 0), (0, 0, sc_782d61786973, sc_792d61786973), 1)
+				
+				screen.blit(img_656c756369646174655f6d656e755f6267, (0, 0))
+				
+				colide_504c4159 = pygame.draw.rect(screen, (0, 0, 0), (5, 550, 120, 40), 1)
+				colide_53455454494e4753 = pygame.draw.rect(screen, (0, 0, 0), (5, 590, 200, 40), 1)
+				colide_45584954 = pygame.draw.rect(screen, (0, 0, 0), (5, 630, 120, 40), 1)
+				
+				mouse_x,mouse_y = pygame.mouse.get_pos()
+				if colide_504c4159.collidepoint(mouse_x, mouse_y):
+					screen.blit(img_73656c656374, (5, 550))
+					static_text("504c4159", color = (0, 0, 0), position = (25, 550), size = 40)
+				else:
+					static_text("504c4159", color = (230, 230, 230), position = (5, 550), size = 40)
+				
+				if colide_53455454494e4753.collidepoint(mouse_x, mouse_y):
+					screen.blit(img_73656c656374, (5, 590))
+					static_text("53455454494e4753", color = (0, 0, 0), position = (25, 590), size = 40)
+				else:
+					static_text("53455454494e4753", color = (230, 230, 230), position = (5, 590), size = 40)
+				
+				if colide_45584954.collidepoint(mouse_x, mouse_y):
+					screen.blit(img_73656c656374, (5, 630))
+					static_text("45584954", color = (0, 0, 0), position = (25, 630), size = 40)
+					for event in pygame.event.get():
+						if event.type == pygame.MOUSEBUTTONDOWN:
+							for i in range(0, 1375, 55):
+								screen.fill(sys_bg_color)
+								pygame.draw.rect(screen, (140, 0, 0), (0 + i, 0, sc_782d61786973, sc_792d61786973), 1)
+								
+								screen.blit(img_656c756369646174655f6d656e755f6267, (0 + i, 0))
+								
+								static_text("504c4159", color = (230, 230, 230), position = (5 + i, 550), size = 40)
+								static_text("53455454494e4753", color = (230, 230, 230), position = (5 + i, 590), size = 40)
+								screen.blit(img_73656c656374, (5 + i, 630))
+								static_text("45584954", color = (0, 0, 0), position = (25 + i, 630), size = 40)
+								
+								static_text_center("41726520796f75207375726520796f752077616e74206c65617665207468652067616d653f", color = (230, 230, 230), position = ((sc_782d61786973//2) - (1375 - i), 200), size = 40)
+								
+								static_text_center("594553", color = (230, 230, 230), position = (((sc_782d61786973//2)-80) - (1375 - i), 500), size = 40)
+								static_text_center("4e4f", color = (230, 230, 230), position = (((sc_782d61786973//2)+90) - (1375 - i), 500), size = 40)
+								
+								sys_gen_706c617974657374()
+								display()
+							loop = True
+							while loop:
+								screen.fill(sys_bg_color)
+								
+								static_text_center("41726520796f75207375726520796f752077616e74206c65617665207468652067616d653f", color = (230, 230, 230), position = (sc_782d61786973//2, 200), size = 40)
+								
+								colide_594553 = pygame.draw.rect(screen, (0, 255, 0), ((sc_782d61786973//2)-140, 480, 120, 40), 1)
+								colide_4e4f = pygame.draw.rect(screen, (0, 255, 0), ((sc_782d61786973//2)+30, 480, 120, 40), 1)
+								
+								mouse_x,mouse_y = pygame.mouse.get_pos()
+								if colide_594553.collidepoint(mouse_x, mouse_y):
+									screen.blit(img_73656c656374_b1r, ((sc_782d61786973//2)-(140), 480))
+									screen.blit(img_73656c656374_b1, ((sc_782d61786973//2)-(80), 480))
+									static_text_center("594553", color = (0, 0, 0), position = ((sc_782d61786973//2)-80, 500), size = 40)
+									for event in pygame.event.get():
+										if event.type == pygame.MOUSEBUTTONDOWN:
+											exit()
+								else:
+									static_text_center("594553", color = (230, 230, 230), position = ((sc_782d61786973//2)-80, 500), size = 40)
+								
+								if colide_4e4f.collidepoint(mouse_x, mouse_y):
+									screen.blit(img_73656c656374_b1r, ((sc_782d61786973//2)+30, 480))
+									screen.blit(img_73656c656374_b1, ((sc_782d61786973//2)+90, 480))
+									static_text_center("4e4f", color = (0, 0, 0), position = ((sc_782d61786973//2)+90, 500), size = 40)
+									for event in pygame.event.get():
+										if event.type == pygame.MOUSEBUTTONDOWN:
+											loop = False
+								else:
+									static_text_center("4e4f", color = (230, 230, 230), position = ((sc_782d61786973//2)+90, 500), size = 40)
+								
+								sys_gen_706c617974657374()
+								display()
+							for i in range(1375, 0, -55):
+								screen.fill(sys_bg_color)
+								pygame.draw.rect(screen, (140, 0, 0), (0 + i, 0, sc_782d61786973, sc_792d61786973), 1)
+								
+								screen.blit(img_656c756369646174655f6d656e755f6267, (0 + i, 0))
+								
+								static_text("504c4159", color = (230, 230, 230), position = (5 + i, 550), size = 40)
+								static_text("53455454494e4753", color = (230, 230, 230), position = (5 + i, 590), size = 40)
+								static_text("45584954", color = (230, 230, 230), position = (5 + i, 630), size = 40)
+								
+								static_text_center("41726520796f75207375726520796f752077616e74206c65617665207468652067616d653f", color = (230, 230, 230), position = ((sc_782d61786973//2) - (1375 - i), 200), size = 40)
+								
+								static_text_center("594553", color = (230, 230, 230), position = (((sc_782d61786973//2)-80) - (1375 - i), 500), size = 40)
+								static_text_center("4e4f", color = (230, 230, 230), position = (((sc_782d61786973//2)+90) - (1375 - i), 500), size = 40)
+								
+								sys_gen_706c617974657374()
+								display()
+				else:
+					static_text("45584954", color = (230, 230, 230), position = (5, 630), size = 40)
+				
+				sys_gen_706c617974657374()
+				display()
+			
+	#define World Areas
+	
+	
+	#main loop
+	while True:
+		sys_main()
+	
+elucidate('7465737461726561')

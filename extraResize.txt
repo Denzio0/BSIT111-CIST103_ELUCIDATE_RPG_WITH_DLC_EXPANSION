@@ -1,0 +1,8 @@
+	"idle_male_civilian_variant_npc_up":     _sc(_preloaded_images["idle_male_civilian_variant_npc_up"],     (72, 72)),
+	"idle_male_civilian_variant_npc_right":     _sc(_preloaded_images["idle_male_civilian_variant_npc_right"],     (72, 72)),
+	"idle_male_civilian_variant_npc_left":     _sc(_preloaded_images["idle_male_civilian_variant_npc_left"],     (72, 72)),
+	"idle_male_civilian_variant_npc_down":     _sc(_preloaded_images["idle_male_civilian_variant_npc_down"],     (72, 72)),
+	"idle_female_civilian_variant_npc_up":     _sc(_preloaded_images["idle_female_civilian_variant_npc_up"],     (72, 72)),
+	"idle_female_civilian_variant_npc_right":     _sc(_preloaded_images["idle_female_civilian_variant_npc_right"],     (72, 72)),
+	"idle_female_civilian_variant_npc_left":     _sc(_preloaded_images["idle_female_civilian_variant_npc_left"],     (72, 72)),
+	"idle_female_civilian_variant_npc_down":     _sc(_preloaded_images["idle_female_civilian_variant_npc_down"],     (72, 72)),

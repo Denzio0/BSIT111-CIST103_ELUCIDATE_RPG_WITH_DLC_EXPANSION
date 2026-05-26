@@ -658,7 +658,7 @@ def elucidate():
 			static_text_raw_center("BACK", color=(255, 255, 255), position=(screen_x/2, 650), size=(30))
 			static_text_raw_center("Current version doesn't support this settings.", color=(255, 255, 255), position=(screen_x/2, 200), size=(30))
 			static_text_raw_center("[You are currently playing on a stable pre-released version]", color=(255, 255, 255), position=(screen_x/2, 230), size=(15))
-			static_text_raw_center("[ver : Alpha 1.0.162]", color=(255, 255, 255), position=(screen_x/2, 245), size=(15))
+			static_text_raw_center("[ver : Alpha 1.0.204]", color=(255, 255, 255), position=(screen_x/2, 245), size=(15))
 			if colide_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 635))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 650), size=(30))

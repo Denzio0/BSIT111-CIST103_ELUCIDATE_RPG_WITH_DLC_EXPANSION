@@ -1,0 +1,83 @@
+=== MAIN CODE ===
+
+from mwJhiKgF import key_WFnfsMmB_select
+import pygame
+import random
+import sys
+import math
+import time
+from datetime import datetime
+
+pygame.init()
+screen = pygame.display.set_mode((710, 710))
+pygame.display.set_caption("Elucidate RPG (alpha 1.0)")
+
+key_here = 'CNaLBrNiivQOQJqYcIsuXMTQmwdrknVRnToxoGKJkPDBpyZrjSzcPQwZTYHLhuDhQVjQNjowDrSKSYdJlYQmrRoMKaeVbASaqPsGqPrJJLLYTaSwAesCBqfnKnHkYVxKqEwawwBjKYwQtMNQPpBSvcJYzLVPHthswGGIJGJQwbWXuehiBQCfEvrUNTKacdJbWECkxksPdaUNfoqsVjhpvaPTVewRnSPPxBOPDScoXacuRmFViVpaTvrJKEHBXHGYnjTnrlKEezcjegVLFareaDwKkEeWzTGNHoZABXnoVJrNgwLxYFxcxfqWBakbwxpSPwxXgfqogTWcIpBjdKrMXmOBiwWpSlRprwAvnSLMJstTzZxUfxNZGngSMgvlLukoldNrlrnpZGPCXPCakVjqyFQQQBtWvnbWolNjhucHjTGiinGMsqycTZfkLnGGdXixllqVqdWwlUzcMwiSgDSQZgddhHOILWlxlLPhrBxNYtxIUevWWAqE" -- @auth 1 =! 1, then "False"'
+
+def elucidate_main():
+	
+	def display():
+	    for event in pygame.event.get():
+	        if event.type == pygame.QUIT:
+	            pygame.quit()
+	            sys.exit()
+	    pygame.display.flip()
+	
+	def text(*t, color, position, size):
+	    font = pygame.font.SysFont("Times New Roman", size)
+	    text_surface = font.render(" ".join(map(str, t)), True, (color[0], color[1], color[2]))
+	    screen.blit(text_surface, (position[0],position[1]))
+	
+	etcqJHBTicNxRhRIAVOeEImxnwAObkNFHmxtpzta: bool = True
+	qBylAfbgJRNsfDiLcGHrGkVjpKMoOiJcVYOSCQaG: bool = False
+	data_main_sys_loop: bool = etcqJHBTicNxRhRIAVOeEImxnwAObkNFHmxtpzta	
+	if key_WFnfsMmB_select != key_here:
+		while data_main_sys_loop:
+			screen.fill((0, 0, 0))
+			text("system data log »", color=(255, 255, 255), position=(20, 0), size=20)
+			text("system data log » Error, Auth failed", color=(255, 255, 255), position=(20, 20), size=20)
+			text("system data log » Error, Auth key failed to verify", color=(255, 255, 255), position=(20, 40), size=20)
+			text("system data log » Error, Auth key file was identified but the key was invalid", color=(255, 255, 255), position=(20, 60), size=20)
+			text("system data log » auth key:", color=(255, 255, 255), position=(20, 80), size=20)
+			text(key_here, color=(255, 255, 255), position=(20, 100), size=20)
+			
+			
+			display()
+	while data_main_sys_loop:
+		screen.fill((255, 255, 255))
+		pygame.draw.rect(screen, (140, 0, 0), (0, 0, 710, 710), 5)
+		display()
+elucidate_main()
+
+=======================================================
+
+=== MAIN CODE CHANGES ===
+
+03/02/2026
+> screen = pygame.display.set_mode((810, 710))
+> screen = pygame.display.set_mode((810, 1010))
+
+03/03/2026
+> pygame.draw.rect(screen, (140, 0, 0), (0, 0, 1010, 710), 5)
+> screen = pygame.display.set_mode((1310, 710))
+> screen = pygame.display.set_mode((1275, 710))
+> Added rect_a = pygame.draw.rect(screen, (140, 0, 0), (1060, 30, 100, 100), 5)
+> Added:
+  > rect_w = pygame.draw.rect(screen, (140, 0, 0), (1070, 130, 100, 100), 5)
+  > rect_a = pygame.draw.rect(screen, (140, 0, 0), (1020, 230, 100, 100), 5)
+  > rect_d = pygame.draw.rect(screen, (140, 0, 0), (1120, 230, 100, 100), 5)
+  > rect_s = pygame.draw.rect(screen, (140, 0, 0), (1070, 330, 100, 100), 5
+
+=======================================================
+
+=== KEY(?) FILE ===
+
+'''
+elucidate - alpha 1.0
+author : J.A.V. // FGC // unaux
+
+version control key:
+"UcCNXpHwwYLwHWCQYWg = hex.(69206c6f766520796f75), xRtHIddkHlMCoUWcVTeDTiOvFAkCn?=1 + xduVbPberOifHxJoPnrkcfDhLxLSBEBFAVrJxLNbpNWHvxYpZFoRPlOeqbduYeiowWUHqzZxOseFYWYhJuvUdMsCYxPRyaGuAWIyMYfxNxuYIHoXwCfKAMlWjkTideTYjJojkRTCkRnqWjtHuNvvYnLJWkjfCWQdvahCfyGokbUHnXAVFPOMXXAPZcrnVDbFgUqEvtIcgdYpkiyNQZNtECnwSMykTVHIPJOsZVwrwXBhSGRFmXNVxbErzMnDgdPjcglHqXTjTNqsCzQOJLwdvXtLpUykivRvzdJaeYpdsQBjFvUEJwNPtCzbGSCSyRYDVkYFKNRdEFhWkBZRaOvHNNXJTzecCBIQJsnPhCbCRFqsmuHFNUYaZUCMmKESFSBjGRrCoVjRjRuqGXWmBrLCozqFxJOXWvlRUADAOpBrCQQqEtpCKBMIkNdsPxoHrmaGfCaa" -- ! 1 = 1
+'''
+
+key_WFnfsMmB_select = 'dNaLBrNiivQOQJqYcIsuXMTQmwdrknVRnToxoGKJkPDBpyZrjSzcPQwZTYHLhuDhQVjQNjowDrSKSYdJlYQmrRoMKaeVbASaqPsGqPrJJLLYTaSwAesCBqfnKnHkYVxKqEwawwBjKYwQtMNQPpBSvcJYzLVPHthswGGIJGJQwbWXuehiBQCfEvrUNTKacdJbWECkxksPdaUNfoqsVjhpvaPTVewRnSPPxBOPDScoXacuRmFViVpaTvrJKEHBXHGYnjTnrlKEezcjegVLFareaDwKkEeWzTGNHoZABXnoVJrNgwLxYFxcxfqWBakbwxpSPwxXgfqogTWcIpBjdKrMXmOBiwWpSlRprwAvnSLMJstTzZxUfxNZGngSMgvlLukoldNrlrnpZGPCXPCakVjqyFQQQBtWvnbWolNjhucHjTGiinGMsqycTZfkLnGGdXixllqVqdWwlUzcMwiSgDSQZgddhHOILWlxlLPhrBxNYtxIUevWWAqE" -- @auth 1 =! 1, then "False"'

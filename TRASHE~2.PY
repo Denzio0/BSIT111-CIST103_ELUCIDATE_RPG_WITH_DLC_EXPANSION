@@ -8,6 +8,13 @@ import json
 import os
 from datetime import datetime
 
+import assets
+import game
+import player as player_module
+import ui
+
+DEBUG = False
+
 def elucidate():
 # -- elucidate/main/pygame/initiation
 	pygame.init()
@@ -18,12 +25,12 @@ def elucidate():
 	pygame.display.set_caption("Elucidate RPG")
 #[Loading]
 	screen.fill((0, 0, 0))
-	image = pygame.image.load("images/elucidate_title.png")
-	resized_image = pygame.transform.scale(image, (int(1275/2), int(710/2)))
-	screen.blit(resized_image, (int(1275/4), int(710/4)))
-	image = pygame.image.load("images/elucidate_select_full.png")
-	resized_image = pygame.transform.scale(image, (int(1275/2), 30))
-	screen.blit(resized_image, (int(1275/4), int(710-115)))
+	_loading_title = pygame.image.load("images/elucidate_title.png")
+	_loading_title_scaled = pygame.transform.scale(_loading_title, (int(1275/2), int(710/2)))
+	screen.blit(_loading_title_scaled, (int(1275/4), int(710/4)))
+	_loading_bar = pygame.image.load("images/elucidate_select_full.png")
+	_loading_bar_scaled = pygame.transform.scale(_loading_bar, (int(1275/2), 30))
+	screen.blit(_loading_bar_scaled, (int(1275/4), int(710-115)))
 	font = pygame.font.SysFont("Times New Roman", 25)
 	text_surface = font.render("Processing Assets", True, (0, 0, 0))
 	text_rect = text_surface.get_rect(center=(int(1275/2), int(710-100)))
@@ -55,96 +62,7 @@ def elucidate():
 	50: pygame.font.SysFont("Times New Roman", 50),
 	}
 	_hex_decode_cache = {}
-	PLAYER_CLASSES = {
-	"mercenary": 6,
-	"cultist":   5,
-	"priest":    4,
-	"shaman":    4,
-	"merchant":  3
-	}
-	_preloaded_images = {
-	"elucidate_title":       pygame.image.load("images/elucidate_title.png").convert(),
-	"elucidate_menu_bg_001": pygame.image.load("images/elucidate_menu_bg_001.png").convert(),
-	"elucidate_menu_bg_002": pygame.image.load("images/elucidate_menu_bg_002.png").convert(),
-	"elucidate_menu_bg_003": pygame.image.load("images/elucidate_menu_bg_003.png").convert(),
-	"elucidate_menu_bg_004": pygame.image.load("images/elucidate_menu_bg_004.png").convert(),
-	"elucidate_menu_bg_005": pygame.image.load("images/elucidate_menu_bg_005.png").convert(),
-	"elucidate_menu_bg_006": pygame.image.load("images/elucidate_menu_bg_006.png").convert(),
-	"elucidate_menu_bg_007": pygame.image.load("images/elucidate_menu_bg_007.png").convert(),
-	"elucidate_menu_bg_008": pygame.image.load("images/elucidate_menu_bg_008.png").convert(),
-	"elucidate_menu_bg_009": pygame.image.load("images/elucidate_menu_bg_009.png").convert(),
-	"elucidate_select":      pygame.image.load("images/elucidate_select.png").convert(),
-	"elucidate_select_full": pygame.image.load("images/elucidate_select_full.png").convert(),
-	"elucidate_play_bg":     pygame.image.load("images/elucidate_play_bg.png").convert(),
-	"elucidate_no_texture":  pygame.image.load("images/elucidate_no_texture.png").convert(),
-	"elucidate_no_sprite_idle_1":  pygame.image.load("sprites/elucidate_player_sprite_idle_up.png").convert_alpha(),
-	"elucidate_no_sprite_idle_2":  pygame.image.load("sprites/elucidate_player_sprite_idle_down.png").convert_alpha(),
-	"elucidate_no_sprite_idle_3":  pygame.image.load("sprites/elucidate_player_sprite_idle_left.png").convert_alpha(),
-	"elucidate_no_sprite_idle_4":  pygame.image.load("sprites/elucidate_player_sprite_idle_right.png").convert_alpha(),
-	"elucidate_no_sprite_walk_1_1":  pygame.image.load("sprites/elucidate_player_sprite_walking_up_1.png").convert_alpha(),
-	"elucidate_no_sprite_walk_1_2":  pygame.image.load("sprites/elucidate_player_sprite_walking_up_2.png").convert_alpha(),
-	"elucidate_no_sprite_walk_2_1":  pygame.image.load("sprites/elucidate_player_sprite_walking_down_1.png").convert_alpha(),
-	"elucidate_no_sprite_walk_2_2":  pygame.image.load("sprites/elucidate_player_sprite_walking_down_2.png").convert_alpha(),
-	"elucidate_no_sprite_walk_3_1":  pygame.image.load("sprites/elucidate_player_sprite_walking_left_1.png").convert_alpha(),
-	"elucidate_no_sprite_walk_3_2":  pygame.image.load("sprites/elucidate_player_sprite_walking_left_2.png").convert_alpha(),
-	"elucidate_no_sprite_walk_4_1":  pygame.image.load("sprites/elucidate_player_sprite_walking_right_1.png").convert_alpha(),
-	"elucidate_no_sprite_walk_4_2":  pygame.image.load("sprites/elucidate_player_sprite_walking_right_2.png").convert_alpha(),
-	"elucidate_no_sprite_attack_1_1":  pygame.image.load("sprites/elucidate_player_sprite_attack_up_1.png").convert_alpha(),
-	"elucidate_no_sprite_attack_1_2":  pygame.image.load("sprites/elucidate_player_sprite_attack_up_2.png").convert_alpha(),
-	"elucidate_no_sprite_attack_2_1":  pygame.image.load("sprites/elucidate_player_sprite_attack_down_1.png").convert_alpha(),
-	"elucidate_no_sprite_attack_2_2":  pygame.image.load("sprites/elucidate_player_sprite_attack_down_2.png").convert_alpha(),
-	"elucidate_no_sprite_attack_3_1":  pygame.image.load("sprites/elucidate_player_sprite_attack_left_1.png").convert_alpha(),
-	"elucidate_no_sprite_attack_3_2":  pygame.image.load("sprites/elucidate_player_sprite_attack_left_2.png").convert_alpha(),
-	"elucidate_no_sprite_attack_4_1":  pygame.image.load("sprites/elucidate_player_sprite_attack_right_1.png").convert_alpha(),
-	"elucidate_no_sprite_attack_4_2":  pygame.image.load("sprites/elucidate_player_sprite_attack_right_2.png").convert_alpha(),
-	"elucidate_select_bg_001":     pygame.image.load("images/elucidate_select_background.png").convert(),
-	"elucidate_select_bg_002":     pygame.image.load("images/elucidate_empty_bg_001.png").convert(),
-	"elucidate_select_ui_001":     pygame.image.load("images/elucidate_show_selection_002.png").convert(),
-	"elucidate_select_ui_002":     pygame.image.load("images/elucidate_show_selection_001.png").convert_alpha(),
-	"elucidate_mcguy_001":     pygame.image.load("images/elucidate_mcguy_portrait_001.png").convert_alpha(),
-	}
-	_scaled_images = {
-	"elucidate_title_full":  pygame.transform.scale(_preloaded_images["elucidate_title"], (1275, 710)),
-	"elucidate_title_1":     pygame.transform.scale(_preloaded_images["elucidate_title"], (1275/2, 710/2)),
-	"elucidate_select_load": pygame.transform.scale(_preloaded_images["elucidate_select_full"], (1275/2, 30)),
-	"elucidate_select_home": pygame.transform.scale(_preloaded_images["elucidate_select"], (250, 35)),
-	"elucidate_select_exit": pygame.transform.scale(_preloaded_images["elucidate_select_full"], (200, 30)),
-	"elucidate_select_ui_002_play_select": pygame.transform.scale(_preloaded_images["elucidate_select_ui_002"], (500, 300)),
-	"elucidate_mcguy_001_999": pygame.transform.scale(_preloaded_images["elucidate_mcguy_001"], (300, 500)),
-	}
-	_rotated_images = {
-	"elucidate_title_1_r": pygame.transform.rotate(_scaled_images["elucidate_title_1"], 360),
-	"elucidate_select_ui_002_play_select_r": pygame.transform.rotate(_scaled_images["elucidate_select_ui_002_play_select"], 90),
-	}
-	PLAYER_SPRITES = {
-	"mercenary": "no",
-	"cultist": "no",
-	"priest": "no",
-	"shaman": "no",
-	"merchant": "no",
-	}
-	SPRITES = {
-	"no": {
-	"idle": {
-	"up":    _preloaded_images["elucidate_no_sprite_idle_1"],
-	"down":  _preloaded_images["elucidate_no_sprite_idle_2"],
-	"left":  _preloaded_images["elucidate_no_sprite_idle_3"],
-	"right": _preloaded_images["elucidate_no_sprite_idle_4"],
-	},
-	"walk": {
-	"up": [ _preloaded_images["elucidate_no_sprite_walk_1_1"], _preloaded_images["elucidate_no_sprite_walk_1_2"]],
-	"down": [ _preloaded_images["elucidate_no_sprite_walk_2_1"], _preloaded_images["elucidate_no_sprite_walk_2_2"]],
-	"left": [ _preloaded_images["elucidate_no_sprite_walk_3_1"], _preloaded_images["elucidate_no_sprite_walk_3_2"]],
-	"right": [ _preloaded_images["elucidate_no_sprite_walk_4_1"], _preloaded_images["elucidate_no_sprite_walk_4_2"]],
-	},
-	"attack": {
-	"up": [ _preloaded_images["elucidate_no_sprite_attack_1_1"], _preloaded_images["elucidate_no_sprite_attack_1_2"]],
-	"down": [ _preloaded_images["elucidate_no_sprite_attack_2_1"], _preloaded_images["elucidate_no_sprite_attack_2_2"]],
-	"left": [ _preloaded_images["elucidate_no_sprite_attack_3_1"], _preloaded_images["elucidate_no_sprite_attack_3_2"]],
-	"right": [ _preloaded_images["elucidate_no_sprite_attack_4_1"], _preloaded_images["elucidate_no_sprite_attack_4_2"]],
-	},
-	}
-	}
+	_preloaded_images, _scaled_images, _rotated_images, PLAYER_SPRITES, SPRITES = assets.load_all(screen)
 # -- elucidate/main/pygame/ints
 	sys_bg_color         = (0  , 0  , 0  )
 	sys_bd_color_sc_area = (180, 180, 180)
@@ -180,7 +98,7 @@ def elucidate():
 		sys.exit()
 	def display():
 		pygame.display.flip()
-		sys_tick(999)
+		sys_tick(60)
 	def sys_font(size):
 		return fonts[size]
 	def sys_main_hex(text):
@@ -206,34 +124,21 @@ def elucidate():
 		with open(CONTROLS_FILE, "w") as f:
 			json.dump(controls, f)
 	def static_text(text, color, position, size):
-		text = sys_main_hex(text)
-		font = sys_font(size)
-		text_surface = font.render(text, True, color)
-		screen.blit(text_surface, position)
+		ui.static_text(text, color, position, size, screen, sys_font, sys_main_hex)
 	def static_text_center(text, color, position, size):
-		text = sys_main_hex(text)
-		font = sys_font(size)
-		text_surface = font.render(text, True, color)
-		text_rect = text_surface.get_rect(center=position)
-		screen.blit(text_surface, text_rect)
+		ui.static_text_center(text, color, position, size, screen, sys_font, sys_main_hex)
 	def static_text_raw(text, color, position, size):
-		font = sys_font(size)
-		text_surface = font.render(text, True, color)
-		screen.blit(text_surface, position)
+		ui.static_text_raw(text, color, position, size, screen, sys_font)
 	def static_text_raw_center(text, color, position, size):
-		font = sys_font(size)
-		text_surface = font.render(text, True, color)
-		text_rect = text_surface.get_rect(center=position)
-		screen.blit(text_surface, text_rect)
+		ui.static_text_raw_center(text, color, position, size, screen, sys_font)
 	def tuple_static_text(*t, color, position, size):
-		font = sys_font(size)
-		text_surface = font.render(" ".join(map(str, t)), True, color)
-		screen.blit(text_surface, position)
+		ui.tuple_static_text(*t, color=color, position=position, size=size, screen=screen, sys_font_fn=sys_font)
 	def ambient(file, loop):
 		pygame.mixer.music.load(file)
 		pygame.mixer.music.play(loop)
 		sys_apply_audio_settings()
 	def sys_apply_audio_settings():
+		nonlocal sys_audio_muted, sys_audio_volume
 		if sys_audio_muted:
 			pygame.mixer.music.set_volume(0.0)
 		else:
@@ -264,11 +169,13 @@ def elucidate():
 		display()
 		pygame.time.delay(1 * 1000)
 	def sys_gen_update_error():
+		nonlocal sys_audio_muted, sys_audio_volume
 		loop_cytsuwjw = True
 		colide_yes = pygame.Rect((screen_x/2)-100, (screen_y/2)+134, 200, 30)
 		colide_no = pygame.Rect((screen_x/2)-100, (screen_y/2)+174, 200, 30)
 		while loop_cytsuwjw:
 			events = pygame.event.get()
+			mouse_click = any(e.type == pygame.MOUSEBUTTONDOWN for e in events)
 			for event in events:
 				if event.type == pygame.QUIT:
 					elucidate_sys_exit()
@@ -282,131 +189,18 @@ def elucidate():
 			if colide_yes.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+134))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+150), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						loop_cytsuwjw = False
+				if mouse_click:
+					loop_cytsuwjw = False
 			elif colide_no.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+174))
 				static_text_raw_center("CLOSE GAME", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+190), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						elucidate_sys_exit()
-			mouse()
+				if mouse_click:
+					elucidate_sys_exit()
+			if DEBUG:
+				mouse()
 			display()
-# -- elucidate/main/functions/logic
-	def resolve_collision(mover, obstacle):
-		if not mover.colliderect(obstacle):
-			return mover.x, mover.y
-		overlap_left = mover.right - obstacle.left
-		overlap_right = obstacle.right - mover.left
-		overlap_top = mover.bottom - obstacle.top
-		overlap_bot = obstacle.bottom - mover.top
-		min_x = overlap_left if overlap_left < overlap_right else -overlap_right
-		min_y = overlap_top if overlap_top < overlap_bot else -overlap_bot
-		if abs(min_x) < abs(min_y):
-			return mover.x - min_x, mover.y
-		else:
-			return mover.x, mover.y - min_y
-# -- elucidate/main/class/player
-	class Player:
-# -- elucidate/main/class/player/self
-		def __init__(self, class_name, x, y, pw, ph):
-			self.class_name = class_name
-			self.x = float(x)
-			self.y = float(y)
-			self.pw = pw
-			self.ph = ph
-			self.size = 48
-			self.dx = 0
-			self.dy = 0
-			self.speed = PLAYER_CLASSES.get(class_name, 5)
-			self.facing = "down"
-			self.state = "idle"
-			self.is_attacking = False
-			self.sprite_type = PLAYER_SPRITES.get(class_name, "no")
-			self.anim_frame = 0
-			self.anim_timer = 0
-# -- elucidate/main/class/player/self/input
-		def update_input(self):
-			keys = pygame.key.get_pressed()
-			self.dx = 0
-			self.dy = 0
-			if keys[controls["move_left"]]:
-				self.dx = -self.speed
-				self.facing = "left"
-			if keys[controls["move_right"]]:
-				self.dx = self.speed
-				self.facing = "right"
-			if keys[controls["move_up"]]:
-				self.dy = -self.speed
-				self.facing = "up"
-			if keys[controls["move_down"]]:
-				self.dy = self.speed
-				self.facing = "down"
-			if self.dx or self.dy:
-				self.state = "walk"
-			else:
-				self.state = "idle"
-# -- elucidate/main/class/player/self/move
-		def move(self, walls):
-			self.x += self.dx
-			rect = self.get_rect()
-			for wall in walls:
-				if rect.colliderect(wall):
-					if self.dx > 0:
-						self.x = wall.left - self.size
-					elif self.dx < 0:
-						self.x = wall.right
-			self.y += self.dy
-			rect = self.get_rect()
-			for wall in walls:
-				if rect.colliderect(wall):
-					if self.dy > 0:
-						self.y = wall.top - self.size
-					elif self.dy < 0:
-						self.y = wall.bottom
-		def border(self):
-			if self.x < 0:
-				self.x = self.pw - self.size
-			if self.x > self.pw - self.size:
-				self.x = 0
-			if self.y < 0:
-				self.y = self.ph - self.size
-			if self.y > self.ph - self.size:
-				self.y = 0
-# -- elucidate/main/class/player/self/attack
-		def attack(self):
-			self.is_attacking = True
-			self.state = "attack"
-# -- elucidate/main/class/player/self/collisionbox
-		def get_rect(self):
-			return pygame.Rect(int(self.x), int(self.y), self.size, self.size)
-# -- elucidate/main/class/player/self/draw
-		def draw(self, screen):
-			sprite_set = SPRITES[self.sprite_type]
-			if self.state == "idle":
-				sprite = sprite_set["idle"][self.facing]
-			elif self.state == "walk":
-				frames = sprite_set["walk"][self.facing]
-				self.anim_timer += 1
-				if self.anim_timer > 10:
-					self.anim_timer = 0
-					self.anim_frame = (self.anim_frame + 1) % len(frames)
-				sprite = frames[self.anim_frame]
-			elif self.state == "attack":
-				frames = sprite_set["attack"][self.facing]
-				self.anim_timer += 1
-				if self.anim_timer > 8:
-					self.anim_timer = 0
-					self.anim_frame = (self.anim_frame + 1) % len(frames)
-				sprite = frames[self.anim_frame]
-			else:
-				sprite = sprite_set["idle"][self.facing]
-			screen.blit(sprite, (int(self.x), int(self.y)))
-# -- elucidate/main/functions/player
-	def player(class_name, x, y, pw, ph):
-		return Player(class_name, x, y, pw, ph)
-		# to call : p = player("mercenary", 100, 200, 1275, 710)
+	def make_player(class_name, x, y, pw, ph):
+		return player_module.player(class_name, x, y, pw, ph, PLAYER_SPRITES, SPRITES)
 # -- elucidate/main/run
 	load_controls()
 	home_random_bg = random.randint(1,9)
@@ -444,7 +238,9 @@ def elucidate():
 	sys_gen_loading(1)
 	ambient("music/elucidate_calm.wav", -1)
 	while main_game_loop:
+		dt = py_clock.get_time() / 1000.0
 		events = pygame.event.get()
+		mouse_click = any(e.type == pygame.MOUSEBUTTONDOWN for e in events)
 		for event in events:
 			if event.type == pygame.QUIT:
 				elucidate_sys_exit()
@@ -459,15 +255,13 @@ def elucidate():
 			if colide_yes.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+134))
 				static_text_raw_center("YES", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+150), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "home"
+				if mouse_click:
+					state = "home"
 			elif colide_no.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+174))
 				static_text_raw_center("NO", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+190), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						elucidate_sys_exit()
+				if mouse_click:
+					elucidate_sys_exit()
 # -- elucidate/main/run/home/play/select
 		elif state == "play_select":
 			screen.fill(sys_bg_color)
@@ -487,9 +281,8 @@ def elucidate():
 			if elucidate_main_run_home_play_back_select.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 665))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 670), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "play"
+				if mouse_click:
+					state = "play"
 # -- elucidate/main/run/home
 		elif state == "home":
 			screen.fill(sys_bg_color)
@@ -500,21 +293,18 @@ def elucidate():
 			if colide_play.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 561))
 				static_text_raw(text_home_001, color=(0, 0, 0), position=(25, 560), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "play"
+				if mouse_click:
+					state = "play"
 			elif colide_settings.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 596))
 				static_text_raw(text_home_002, color=(0, 0, 0), position=(25, 595), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "settings"
+				if mouse_click:
+					state = "settings"
 			elif colide_exit.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 631))
 				static_text_raw(text_home_003, color=(0, 0, 0), position=(25, 630), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "exit_confirm"
+				if mouse_click:
+					state = "exit_confirm"
 		elif state == "settings":
 # -- elucidate/main/run/home/settings
 			screen.fill(sys_bg_color)
@@ -528,44 +318,39 @@ def elucidate():
 			if colide_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 635))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 650), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "home"
+				if mouse_click:
+					state = "home"
 			elif colide_authors.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 290))
 				static_text_raw_center("CREDITS", color=(0, 0, 0), position=(screen_x/2, 305), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						credits_player = player("mercenary", (screen_x/2)-24, 560, 1275, 710)
-						state = "settings_credits"
+				if mouse_click:
+					credits_player = make_player("mercenary", (screen_x/2)-24, 560, 1275, 710)
+					state = "settings_credits"
 			elif colide_controls.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 255))
 				static_text_raw_center("CONTROLS", color=(0, 0, 0), position=(screen_x/2, 270), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						waiting_for_key = None
-						state = "settings_controls"
+				if mouse_click:
+					waiting_for_key = None
+					state = "settings_controls"
 			elif colide_audio.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 220))
 				static_text_raw_center("AUDIO", color=(0, 0, 0), position=(screen_x/2, 235), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						dragging_slider = False
-						state = "settings_audio"
+				if mouse_click:
+					dragging_slider = False
+					state = "settings_audio"
 			elif colide_graphics.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 185))
 				static_text_raw_center("GRAPHICS", color=(0, 0, 0), position=(screen_x/2, 200), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "settings_graphics"
+				if mouse_click:
+					state = "settings_graphics"
 		elif state == "settings_credits":
 # -- elucidate/main/run/home/settings/credits
 			screen.fill(sys_bg_color)
 			screen.blit(_preloaded_images["elucidate_select_bg_002"], (0, 0))
-			credits_player.update_input()
+			credits_player.update_input(controls)
 			credits_player.move(walls)
 			credits_player.border()
-			credits_player.draw(screen)
+			credits_player.draw(screen, dt)
 			static_text_raw_center("CREDITS", color=(255, 255, 255), position=(screen_x/2, 80), size=(50))
 			static_text_raw_center("Baterbonia, Jose Gabriel", color=(255, 255, 255), position=(screen_x/2, 200), size=(30))
 			static_text_raw_center("Capulong, Ivan Rafael", color=(255, 255, 255), position=(screen_x/2, 235), size=(30))
@@ -577,9 +362,8 @@ def elucidate():
 			if colide_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 635))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 650), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "settings"
+				if mouse_click:
+					state = "settings"
 		elif state == "settings_controls":
 # -- elucidate/main/run/home/settings/controls
 			for event in events:
@@ -587,19 +371,19 @@ def elucidate():
 					controls[waiting_for_key] = event.key
 					save_controls()
 					waiting_for_key = None
-				if event.type == pygame.MOUSEBUTTONDOWN:
-					if colide_up.collidepoint(event.pos):
-						waiting_for_key = "move_up"
-					elif colide_down.collidepoint(event.pos):
-						waiting_for_key = "move_down"
-					elif colide_left.collidepoint(event.pos):
-						waiting_for_key = "move_left"
-					elif colide_right.collidepoint(event.pos):
-						waiting_for_key = "move_right"
-					elif colide_attack.collidepoint(event.pos):
-						waiting_for_key = "attack"
-					elif colide_back.collidepoint(event.pos):
-						state = "settings"
+			if mouse_click:
+				if colide_up.collidepoint(mouse_x, mouse_y):
+					waiting_for_key = "move_up"
+				elif colide_down.collidepoint(mouse_x, mouse_y):
+					waiting_for_key = "move_down"
+				elif colide_left.collidepoint(mouse_x, mouse_y):
+					waiting_for_key = "move_left"
+				elif colide_right.collidepoint(mouse_x, mouse_y):
+					waiting_for_key = "move_right"
+				elif colide_attack.collidepoint(mouse_x, mouse_y):
+					waiting_for_key = "attack"
+				elif colide_back.collidepoint(mouse_x, mouse_y):
+					state = "settings"
 			screen.fill(sys_bg_color)
 			screen.blit(_preloaded_images["elucidate_select_bg_002"], (0, 0))
 			static_text_raw_center("CONTROLS", color=(255, 255, 255), position=(screen_x/2, 80), size=(50))
@@ -647,10 +431,8 @@ def elucidate():
 			if colide_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 635))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 650), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "settings"
-# -- elucidate/main/run/home/settings/graphics
+				if mouse_click:
+					state = "settings"
 		elif state == "settings_graphics":
 			screen.fill(sys_bg_color)
 			screen.blit(_preloaded_images["elucidate_select_bg_002"], (0, 0))
@@ -658,13 +440,12 @@ def elucidate():
 			static_text_raw_center("BACK", color=(255, 255, 255), position=(screen_x/2, 650), size=(30))
 			static_text_raw_center("Current version doesn't support this settings.", color=(255, 255, 255), position=(screen_x/2, 200), size=(30))
 			static_text_raw_center("[You are currently playing on a stable pre-released version]", color=(255, 255, 255), position=(screen_x/2, 230), size=(15))
-			static_text_raw_center("[ver : Alpha 1.0.162]", color=(255, 255, 255), position=(screen_x/2, 245), size=(15))
+			static_text_raw_center("[ver : Alpha 1.0.159]", color=(255, 255, 255), position=(screen_x/2, 245), size=(15))
 			if colide_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, 635))
 				static_text_raw_center("BACK", color=(0, 0, 0), position=(screen_x/2, 650), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "settings"
+				if mouse_click:
+					state = "settings"
 # -- elucidate/main/run/home/exit
 		elif state == "exit_confirm":
 			screen.fill(sys_bg_color)
@@ -675,15 +456,13 @@ def elucidate():
 			if colide_yes.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+134))
 				static_text_raw_center("YES", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+150), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						elucidate_sys_exit()
+				if mouse_click:
+					elucidate_sys_exit()
 			elif colide_no.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_exit"], ((screen_x/2)-100, (screen_y/2)+174))
 				static_text_raw_center("NO", color=(0, 0, 0), position=(screen_x/2, (screen_y/2)+190), size=(30))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "home"
+				if mouse_click:
+					state = "home"
 # -- elucidate/main/run/home/play
 		elif state == "play":
 			screen.fill(sys_bg_color)
@@ -694,25 +473,23 @@ def elucidate():
 			if elucidate_main_run_home_play_newgame.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 202))
 				static_text_raw("NEW GAME", color=(0, 0, 0), position=(5, 200), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "play_select"
+				if mouse_click:
+					state = "play_select"
 			if elucidate_main_run_home_play_more.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 237))
 				static_text_raw("MORE", color=(0, 0, 0), position=(5, 235), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						sys_gen_update_error()
+				if mouse_click:
+					sys_gen_update_error()
 			if elucidate_main_run_home_play_back.collidepoint(mouse_x, mouse_y):
 				screen.blit(_scaled_images["elucidate_select_home"], (5, 272))
 				static_text_raw("BACK", color=(0, 0, 0), position=(5, 270), size=(35))
-				for event in events:
-					if event.type == pygame.MOUSEBUTTONDOWN:
-						state = "home"
+				if mouse_click:
+					state = "home"
 
 # -- elucidate/main/run/else_state
 		else:
 			state = "home"
-		mouse()
+		if DEBUG:
+			mouse()
 		display()
 elucidate()

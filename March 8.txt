@@ -1,0 +1,361 @@
+=== REPLACED MAIN CODE (BACKGROUND MUSIC) ===
+
+import pygame
+import random
+import sys
+import math
+import time
+import binascii
+from datetime import datetime
+
+#key1 : 616c70686120312e30  // Alpha
+#key2 : 6265746120312e30    // Beta
+
+def elucidate(key):
+
+    pygame.init()
+
+    screen_x, screen_y = 1275, 710
+    screen = pygame.display.set_mode((screen_x, screen_y))
+    pygame.display.set_caption("Elucidate RPG (alpha 1.0.87)")
+    clock = pygame.time.Clock()
+
+    sys_bg_color = (0,0,0)
+
+    walls = []
+
+    def wall(x,y,w,h):
+        walls.append(pygame.Rect(x,y,w,h))
+
+    def exit_game():
+        pygame.quit()
+        sys.exit()
+
+    def display():
+        pygame.display.flip()
+
+    def gametick(n):
+        clock.tick(n)
+
+    def JAV_001(text):
+        try:
+            text = text.replace(" ","")
+            bytes_object = bytes.fromhex(text)
+            return bytes_object.decode('utf-8')
+        except ValueError:
+            return "there was an error while generating this text."
+
+    def static_text(text,color,position,size):
+        t=str(text)
+        t=JAV_001(t)
+        font=pygame.font.SysFont("Times New Roman",size)
+        text_surface=font.render(t,True,color)
+        screen.blit(text_surface,position)
+
+    def touple_static_text(*t,color,position,size):
+        font=pygame.font.SysFont("Times New Roman",size)
+        text_surface=font.render(" ".join(map(str,t)),True,color)
+        screen.blit(text_surface,position)
+
+    def music(file,loop):
+        pygame.mixer.music.load(file)
+        if loop:
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.play(1)
+
+    def sys_function_screen_border():
+        pygame.draw.rect(screen,(80,80,80),(0,0,screen_x,screen_y),1)
+
+    def sys_function_playable_screen_border():
+        pygame.draw.rect(screen,(120,120,120),(0,0,1010,710),1)
+
+    def sys_function_mouse_loc():
+        mouse_x,mouse_y=pygame.mouse.get_pos()
+        pygame.draw.rect(screen,(0,255,0),(mouse_x,0,1,10000))
+        pygame.draw.rect(screen,(0,255,0),(0,mouse_y,10000,1))
+
+    def sys_function_data():
+        mouse_x,mouse_y=pygame.mouse.get_pos()
+        touple_static_text((mouse_x,mouse_y),color=(0,255,0),position=(mouse_x,mouse_y),size=15)
+        touple_static_text(clock,color=(0,255,0),position=(mouse_x,mouse_y+15),size=15)
+
+    def sys_function_loading():
+        screen.fill(sys_bg_color)
+        sys_function_screen_border()
+        sys_function_playable_screen_border()
+        static_text("4c6f6164696e672e2e2e",(255,255,255),(20,screen_y-55),40)
+        display()
+        time.sleep(1)
+        music("music/elucidate_end.wav",True)
+
+    def handle_quit_event(event):
+        if event.type==pygame.QUIT:
+            exit_game()
+
+    def resolve_collision(mover, obstacle):
+
+        if not mover.colliderect(obstacle):
+            return mover.x, mover.y
+
+        overlap_left  = mover.right   - obstacle.left
+        overlap_right = obstacle.right - mover.left
+        overlap_top   = mover.bottom  - obstacle.top
+        overlap_bot   = obstacle.bottom - mover.top
+
+        min_x = overlap_left if overlap_left < overlap_right else -overlap_right
+        min_y = overlap_top if overlap_top < overlap_bot else -overlap_bot
+
+        if abs(min_x) < abs(min_y):
+            return mover.x - min_x, mover.y
+        else:
+            return mover.x, mover.y - min_y
+
+
+    class Player:
+
+        def __init__(self,class_name,x=1,y=1):
+
+            self.class_name = class_name
+            self.x=float(x)
+            self.y=float(y)
+
+            self.size=40
+            self.dx=0
+            self.dy=0
+
+            if class_name=="mercenary":
+                self.speed=6
+                self.color=(160,0,0)
+
+            elif class_name=="cultist":
+                self.speed=5
+                self.color=(120,0,120)
+
+            elif class_name=="priest":
+                self.speed=4
+                self.color=(220,220,220)
+
+            elif class_name=="shaman":
+                self.speed=5
+                self.color=(0,120,120)
+
+            elif class_name=="merchant":
+                self.speed=3
+                self.color=(120,80,0)
+
+            else:
+                self.speed=5
+                self.color=(120,0,0)
+
+        def rect(self):
+            return pygame.Rect(int(self.x),int(self.y),self.size,self.size)
+
+        def input(self):
+
+            keys=pygame.key.get_pressed()
+            self.dx=0
+            self.dy=0
+
+            if keys[pygame.K_w]: self.dy-=self.speed
+            if keys[pygame.K_s]: self.dy+=self.speed
+            if keys[pygame.K_a]: self.dx-=self.speed
+            if keys[pygame.K_d]: self.dx+=self.speed
+
+            if keys[pygame.K_UP]: self.dy-=self.speed
+            if keys[pygame.K_DOWN]: self.dy+=self.speed
+            if keys[pygame.K_LEFT]: self.dx-=self.speed
+            if keys[pygame.K_RIGHT]: self.dx+=self.speed
+
+        def move(self):
+
+            self.x+=self.dx
+            for w in walls:
+                self.x,self.y=resolve_collision(self.rect(),w)
+
+            self.y+=self.dy
+            for w in walls:
+                self.x,self.y=resolve_collision(self.rect(),w)
+
+        def border(self,PLAY_W,PLAY_H):
+
+            if self.x<1:
+                self.x=PLAY_W-self.size-1
+            elif self.x+self.size>PLAY_W-1:
+                self.x=1
+
+            if self.y<1:
+                self.y=PLAY_H-self.size-1
+            elif self.y+self.size>PLAY_H-1:
+                self.y=1
+
+        def draw(self):
+            pygame.draw.rect(screen,self.color,self.rect())
+
+
+    def player(class_name,x=1,y=1):
+        return Player(class_name,x,y)
+
+
+    sys_function_loading()
+
+    if key == '616c70686120312e30':
+
+        while True:
+
+            screen.fill(sys_bg_color)
+            sys_function_mouse_loc()
+            sys_function_playable_screen_border()
+            sys_function_mouse_loc()
+            sys_function_data()
+
+            for event in pygame.event.get():
+                handle_quit_event(event)
+
+            display()
+            gametick(60)
+
+    else:
+
+        music("music/elucidate_menu.wav",True)
+
+        while True:
+
+            screen.fill(sys_bg_color)
+            sys_function_screen_border()
+            sys_function_playable_screen_border()
+
+            static_text("7379732e6c6f6720c2bb202e2e2e",(255,255,255),(20,20),15)
+            static_text("7379732e6c6f6720c2bb206572726f72203a206b657920697320696e76616c69642e",(255,255,255),(20,35),15)
+
+            font_small = pygame.font.SysFont("Times New Roman",15)
+            key_surf = font_small.render(f"  key = '{key}'",True,(180,80,80))
+            screen.blit(key_surf,(20,50))
+
+            rect_exit = pygame.draw.rect(screen,(120,120,120),(1010,0,265,20),1)
+            static_text("45786974",(255,255,255),(1020,2),15)
+
+            rect_mobility = pygame.draw.rect(screen,(120,120,120),(1010,20,265,20),1)
+            static_text("4d6f62696c69747920546573742041726561",(255,255,255),(1020,22),15)
+
+            rect_collision = pygame.draw.rect(screen,(120,120,120),(1010,40,265,20),1)
+            static_text("436f6c6c6973696f6e20546573742041726561",(255,255,255),(1020,42),15)
+
+            for event in pygame.event.get():
+
+                handle_quit_event(event)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    if rect_exit.collidepoint(event.pos):
+
+                        for countdown,y_off in [
+                        ("7379732e6c6f6720c2bb20636c6f73696e672067616d6520696e20332e2e2e",65),
+                        ("7379732e6c6f6720c2bb20636c6f73696e672067616d6520696e20322e2e2e",80),
+                        ("7379732e6c6f6720c2bb20636c6f73696e672067616d6520696e20312e2e2e",95)
+                        ]:
+                            static_text(countdown,(255,255,255),(20,y_off),15)
+                            display()
+                            time.sleep(1)
+
+                        exit_game()
+
+
+                    elif rect_collision.collidepoint(event.pos):
+
+                        sys_function_loading()
+
+                        PLAY_W=1010
+                        PLAY_H=710
+
+                        p = player("mercenary",1,305)
+
+                        music("music/elucidate_tense.wav",True)
+
+                        running=True
+
+                        while running:
+
+                            screen.fill(sys_bg_color)
+                            sys_function_screen_border()
+                            sys_function_playable_screen_border()
+
+                            for w in walls:
+                                pygame.draw.rect(screen,(80,80,80),w)
+
+                            p.input()
+                            p.move()
+                            p.border(PLAY_W,PLAY_H)
+                            p.draw()
+
+                            rect_exit_col = pygame.draw.rect(screen,(120,120,120),(1010,0,265,20),1)
+                            static_text("4578697420436f6c6c6973696f6e2054657374",(255,255,255),(1020,2),15)
+
+                            rect_map1_col = pygame.draw.rect(screen,(120,120,120),(1010,60,265,20),1)
+                            static_text("6d61702031",(255,255,255),(1020,62),15)
+
+                            rect_map2_col = pygame.draw.rect(screen,(120,120,120),(1010,80,265,20),1)
+                            static_text("6d61702032",(255,255,255),(1020,82),15)
+
+                            rect_map3_col = pygame.draw.rect(screen,(120,120,120),(1010,100,265,20),1)
+                            static_text("6d61702033",(255,255,255),(1020,102),15)
+
+                            rect_map4_col = pygame.draw.rect(screen,(120,120,120),(1010,120,265,20),1)
+                            static_text("6d61702034",(255,255,255),(1020,122),15)
+
+                            for event in pygame.event.get():
+
+                                handle_quit_event(event)
+
+                                if event.type==pygame.MOUSEBUTTONDOWN:
+
+                                    if rect_exit_col.collidepoint(event.pos):
+                                        running=False
+
+                                    elif rect_map1_col.collidepoint(event.pos):
+                                        walls.clear()
+                                        wall(0,0,1010,50)
+                                        wall(0,660,1010,50)
+                                        p.x,p.y=1,325
+
+                                    elif rect_map2_col.collidepoint(event.pos):
+                                        walls.clear()
+                                        wall(200,200,600,50)
+                                        wall(200,450,600,50)
+                                        p.x,p.y=1,325
+
+                                    elif rect_map3_col.collidepoint(event.pos):
+                                        walls.clear()
+                                        wall(300,150,50,400)
+                                        wall(650,150,50,400)
+                                        p.x,p.y=1,325
+
+                                    elif rect_map4_col.collidepoint(event.pos):
+                                        walls.clear()
+                                        wall(0,0,300,50)
+                                        wall(0,0,50,300)
+                                        wall(0,660,300,50)
+                                        wall(0,360,50,300)
+                                        wall(710,0,300,50)
+                                        wall(960,0,50,300)
+                                        wall(710,660,300,50)
+                                        wall(960,360,50,300)
+                                        p.x,p.y=1,325
+
+                            sys_function_mouse_loc()
+                            sys_function_data()
+
+                            display()
+                            gametick(60)
+
+                        sys_function_loading()
+                        music("music/elucidate_menu.wav",True)
+
+
+            sys_function_mouse_loc()
+            sys_function_data()
+            display()
+            gametick(60)
+
+
+elucidate('b616c70686120312e30')

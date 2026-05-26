@@ -1,0 +1,47 @@
+        "l_o_outer_gate_district": _sc(_preloaded_images["l_o_outer_gate_district"], (int(5997 / 2.7), int(3350 / 2.7))),
+
+        "l_i_inside_the_wall": _sc(_preloaded_images["l_i_inside_the_wall"], (int(5997 / 6), int(3350 / 6))),
+
+        "l_o_inner_military_district": _sc(_preloaded_images["l_o_inner_military_district"], (int(5997 / 2.3), int(3350 / 2.3))),
+
+        "l_i_barracks_hall": _sc(_preloaded_images["l_i_barracks_hall"], (int(5997 / 4), int(3350 / 4))),
+
+        "l_i_ship_lower_part": _sc(_preloaded_images["l_i_ship_lower_part"], (int(5769 / 2.8), int(3350 / 2.8))),
+
+        "l_i_the_play_room": _sc(_preloaded_images["l_i_the_play_room"], (int(6375 / 4), int(2942 / 4))),
+
+        "l_i_the_ship": _sc(_preloaded_images["l_i_the_ship"], (int(6345 / 4), int(3350 / 4))),
+
+        "l_i_tutorial_ground": _sc(_preloaded_images["l_i_tutorial_ground"], (int(6352 / 4), int(3350 / 4))),
+
+        "l_i_tutorial_ground_dlc": _sc(_preloaded_images["l_i_tutorial_ground_dlc"], (int(6352 / 6), int(3350 / 6))),
+
+        "l_o_cathedral_plaza": _sc(_preloaded_images["l_o_cathedral_plaza"], (int(6345 / 2.7), int(3350 / 2.7))),
+
+        "l_o_church_outpost": _sc(_preloaded_images["l_o_church_outpost"], (int(6352 / 3.7), int(3350 / 3.7))),
+
+        "l_o_corrupted_frontier": _sc(_preloaded_images["l_o_corrupted_frontier"], (int(6345 / 2.2), int(3350 / 2.2))),
+
+        "l_o_harbor_district": _sc(_preloaded_images["l_o_harbor_district"], (int(5876 / 2.2), int(3350 / 2.2))),
+
+        "l_o_home_village_center": _sc(_preloaded_images["l_o_home_village_center"], (int(5876 / 4), int(3350 / 4))),
+
+        "l_o_home_village_entry": _sc(_preloaded_images["l_o_home_village_entry"], (int(6375 / 2.7), int(3188 / 2.7))),
+
+        "l_o_rare_nexus_points": _sc(_preloaded_images["l_o_rare_nexus_points"], (int(6345 / 1.5), int(3550 / 1.5))),
+
+        "l_o_the_old_orphanage": _sc(_preloaded_images["l_o_the_old_orphanage"], (int(6375 / 3.4), int(3188 / 3.4))),
+
+        "t_i_escape_route": _sc(_preloaded_images["t_i_escape_route"], (int(6345 / 3.8), int(3350 / 3.8))),
+
+        "t_i_healing_hut": _sc(_preloaded_images["t_i_healing_hut"], (int(3863 / 4.8), int(3350 / 4.8))),
+
+        "t_i_storage_cave": _sc(_preloaded_images["t_i_storage_cave"], (int(6345 / 3.8), int(3350 / 3.8))),
+
+        "t_o_anomaly_forest": _sc(_preloaded_images["t_o_anomaly_forest"], (int(6375 / 3.8), int(2994 / 3.8))),
+
+        "t_o_tribe_perimeter": _sc(_preloaded_images["t_o_tribe_perimeter"], (int(6375 / 4.3), int(3176 / 4.3))),
+
+        "t_o_tribe_settlement": _sc(_preloaded_images["t_o_tribe_settlement"], (int(6375 / 2.8), int(3013 / 2.8))),
+
+        "t_o_tutorial_ground_shaman": _sc(_preloaded_images["t_o_tutorial_ground_shaman"], (int(6352 / 6), int(3350 / 6))),

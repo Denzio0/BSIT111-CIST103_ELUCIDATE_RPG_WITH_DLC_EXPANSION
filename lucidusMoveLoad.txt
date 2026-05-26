@@ -1,0 +1,24 @@
+        "elucidate_mercenary_sprite_walk_1_1": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_up_001.png",
+            True),
+        "elucidate_mercenary_sprite_walk_1_2": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_up_002.png",
+            True),
+        "elucidate_mercenary_sprite_walk_2_1": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_down_001.png",
+            True),
+        "elucidate_mercenary_sprite_walk_2_2": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_down_002.png",
+            True),
+        "elucidate_mercenary_sprite_walk_3_1": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_left_001.png",
+            True),
+        "elucidate_mercenary_sprite_walk_3_2": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_left_002.png",
+            True),
+        "elucidate_mercenary_sprite_walk_4_1": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_right_001.png",
+            True),
+        "elucidate_mercenary_sprite_walk_4_2": _load(
+            "sprites/player_mercenary/elucidate_mercenary_move_right_002.png",
+            True),

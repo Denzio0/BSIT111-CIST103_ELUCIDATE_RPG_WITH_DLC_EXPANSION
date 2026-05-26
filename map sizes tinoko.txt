@@ -1,0 +1,48 @@
+"c_i_cult_leader_fortress": _sc(_preloaded_images["c_i_cult_leader_fortress"], (int(5997 / 3.2), int(3350 / 3.2))),
+
+"c_i_inner_sanctum": _sc(_preloaded_images["c_i_inner_sanctum"], (int(5997 / 3.2), int(3350 / 3.2))),
+
+"c_o_coastal_landing": _sc(_preloaded_images["c_o_coastal_landing"], (int(5997 / 3.1), int(3350 / 3.1))),
+
+"c_o_cult_funeris_encounter": _sc(_preloaded_images["c_o_cult_funeris_encounter"], (int(5997 / 3.3), int(3350 / 3.3))),
+
+"c_o_cult_village": _sc(_preloaded_images["c_o_cult_village"], (int(5997 / 2), int(3350 / 2))),
+
+"c_o_cultist_battleground": _sc(_preloaded_images["c_o_cultist_battleground"], (int(5997 / 3.7), int(3350 / 3.7))),
+
+"c_o_lowms_cultist_battleground": _sc(_preloaded_images["c_o_lowms_cultist_battleground"], (int(5997 / 3.7), int(3350 / 3.7))),
+
+"f_i_inside_chief_home": _sc(_preloaded_images["f_i_inside_chief_home"], (int(5997 / 6), int(3350 / 6))),
+
+"f_i_inside_elder_house": _sc(_preloaded_images["f_i_inside_elder_house"], (int(5997 / 7), int(3350 / 7))),
+
+f_i_tunnel_passage_to_tribe": _sc(_preloaded_images["f_i_tunnel_passage_to_tribe"], (int(5997 / 5), int(3350 / 5))),
+
+"f_o_deep_terror_zone": _sc(_preloaded_images["f_o_deep_terror_zone"], (int(5997 / 3.3), int(3350 / 3.3))),
+
+"f_o_outside_chief_home": _sc(_preloaded_images["f_o_outside_chief_home"], (int(5997 / 3.3), int(3350 / 3.3))),
+
+"f_o_outside_chief_home": _sc(_preloaded_images["f_o_outside_chief_home"], (int(5997 / 3.3), int(3350 / 3.3))),
+
+"f_o_village_market": _sc(_preloaded_images["f_o_village_market"], (int(5997 / 3.3), int(3350 / 3.3))),
+
+"l_i_chief_home": _sc(_preloaded_images["l_i_chief_home"], (int(5997 / 7), int(3350 / 7))),
+
+"l_i_church_administrative_wing": _sc(_preloaded_images["l_i_church_administrative_wing"], (int(5997 / 5), int(3350 / 5))),
+
+"l_i_church_chapel": _sc(_preloaded_images["l_i_church_chapel"], (int(5997 / 4.7), int(3350 / 4.7))),
+
+"l_i_clearance_office": _sc(_preloaded_images["l_i_clearance_office"], (int(2167 / 4.7), int(3350 / 4.7))),
+
+"l_i_headmaster_office": _sc(_preloaded_images["l_i_headmaster_office"], (int(5997 / 8), int(3350 / 8))),
+
+"l_i_lumen_spy_merchant_guild": _sc(_preloaded_images["l_i_lumen_spy_merchant_guild"], (int(5997 / 5.1), int(3350 / 5.1))),
+
+"l_i_main_cathedral": _sc(_preloaded_images["l_i_main_cathedral"], (int(5997 / 4.5), int(3350 / 4.5)))
+
+"l_i_merchant_bank": _sc(_preloaded_images["l_i_merchant_bank"], (int(5997 / 5.1), int(3350 / 5.1))),
+
+"l_i_merchant_guild_hall": _sc(_preloaded_images["l_i_merchant_guild_hall"], (int(5997 / 3.7), int(3350 / 3.7))),
+
+"l_i_merchant_tavern": _sc(_preloaded_images["l_i_merchant_tavern"], (int(5997 / 3.9), int(3350 / 3.9))),
+

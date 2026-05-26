@@ -1,0 +1,1332 @@
+================================================================================
+  ELUCIDATE RPG — main.py COMPLETE BUG FIX PATCH
+  Apply every operation below IN ORDER using Find & Replace / Insert / Delete.
+  All indentation uses TABS, matching the original file exactly.
+================================================================================
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 1 — GENERAL / SYSTEM FIXES
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.1 — Hold-to-Interact (affects ALL NPCs across the entire game)
+BUG:  interact fires every frame key is held → locks state repeatedly, causes
+      "hold-down" glitch for every NPC across all maps.
+TYPE: REPLACE (single occurrence at main event loop)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+		events = pygame.event.get()
+		_in_dialogue = state.startswith("dlg_") or state.startswith("node_")
+
+REPLACE WITH:
+		events = pygame.event.get()
+		# FIX 1.1: interact fires only on the frame the key is first pressed
+		_interact_just_pressed = any(
+			(ev.type == pygame.KEYDOWN and ev.key == controls["interact"]) or
+			(ev.type == pygame.KEYDOWN and ev.key == pygame.K_e)
+			for ev in events
+		)
+		_in_dialogue = state.startswith("dlg_") or state.startswith("node_")
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.2 — Replace ALL 40 hold-to-interact checks with just-pressed
+TYPE: FIND & REPLACE ALL (global, every occurrence)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL (replace every occurrence in file):
+			if keys[controls["interact"]]:
+
+REPLACE ALL WITH:
+			if _interact_just_pressed:
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.3 — Fix nested/duplicate interact check inside map_08 church wing
+BUG:  A second `if keys[controls["interact"]]:` was nested inside the first,
+      doubling the check and creating a redundant inner scope.
+TYPE: REPLACE (inside map_08 block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+				if keys[controls["interact"]]:
+					_sfx("sounds/interact.wav", 0.6)
+					interact_box = p.interact_rect()
+					for _hk in [map08_npc_holyknight_1, map08_npc_holyknight_2]:
+
+REPLACE WITH:
+				for _hk in [map08_npc_holyknight_1, map08_npc_holyknight_2]:
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.4 — Inventory opening during dialogue causes soft lock
+BUG:  Inventory key can be pressed mid-dialogue, setting pre_state to a dlg_
+      state and locking the player in dialogue when exiting inventory.
+TYPE: REPLACE (global inventory gate — single occurrence)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+		if state not in _menu_states and keys[controls["inventory"]]:
+			_sfx("sounds/inventory_open.wav", 0.7)
+			map_return_state = state
+			pre_state = state
+			state = "inventory"
+
+REPLACE WITH:
+		if state not in _menu_states and not state.startswith("dlg_") and not state.startswith("node_") and keys[controls["inventory"]]:
+			_sfx("sounds/inventory_open.wav", 0.7)
+			map_return_state = state
+			pre_state = state
+			state = "inventory"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.5 — ALL per-map inventory handlers: block during dialogue (pattern A)
+TYPE: FIND & REPLACE ALL (global — unguarded form, ~2 occurrences)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL:
+			if keys[controls["inventory"]]:
+				map_return_state = state
+				pre_state = state
+				state = "inventory"
+
+REPLACE ALL WITH:
+			if keys[controls["inventory"]] and not state.startswith("dlg_") and not state.startswith("node_"):
+				map_return_state = state
+				pre_state = state
+				state = "inventory"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.6 — ALL per-map inventory handlers: block during dialogue (pattern B)
+TYPE: FIND & REPLACE ALL (global — partially-guarded form, ~41 occurrences)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL:
+			if keys[controls["inventory"]]:
+				_sfx("sounds/inventory_open.wav", 0.7)
+				if not state.startswith("dlg_") and not state.startswith("node_"):
+					pre_state = state
+					map_return_state = state
+				state = "inventory"
+
+REPLACE ALL WITH:
+			if keys[controls["inventory"]] and not state.startswith("dlg_") and not state.startswith("node_"):
+				_sfx("sounds/inventory_open.wav", 0.7)
+				pre_state = state
+				map_return_state = state
+				state = "inventory"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.7 — Inventory EXIT button does not work outside battle
+BUG:  _inv_nav_sidebar returns "exit_to_home_via_death" but the caller only
+      handles it inside fight_general. The outer inventory block must also
+      handle it.
+TYPE: REPLACE (in render_inventory call block, outside fight)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+			new_state = render_inventory(state, screen, mouse_x, mouse_y, events, uv, refs)
+			if new_state is not None:
+				if new_state == "exit_to_home_via_death":
+					reset_run_state()
+					state = "home"
+				else:
+					state = new_state
+			_writeback_uv(uv)
+
+REPLACE WITH:
+			new_state = render_inventory(state, screen, mouse_x, mouse_y, events, uv, refs)
+			if new_state is not None:
+				if new_state in ("exit_to_home_via_death", "home"):
+					reset_run_state()
+					state = "home"
+				else:
+					state = new_state
+			_writeback_uv(uv)
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.8 — Idle NPCs not changing sprites
+BUG:  animate() only advances frame when len(dir_set) > 1, so NPCs with a
+      single idle frame per direction never animate.
+TYPE: REPLACE (inside NPC.animate method)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+				if action_set is not None:
+					dir_set = action_set.get(self.direction, None)
+					if isinstance(dir_set, list) and len(dir_set) > 1:
+						self.frame = (self.frame + 1) % len(dir_set)
+					else:
+						self.frame = (self.frame + 1) % 2
+				else:
+					self.frame = (self.frame + 1) % 2
+
+REPLACE WITH:
+				if action_set is not None:
+					dir_set = action_set.get(self.direction, None)
+					if isinstance(dir_set, list) and len(dir_set) > 0:
+						self.frame = (self.frame + 1) % len(dir_set)
+					else:
+						self.frame = (self.frame + 1) % 2
+				else:
+					self.frame = (self.frame + 1) % 2
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.9 — NPC draw frame index slowed by //4 division
+BUG:  draw() uses self.frame // 4 making animation 4x slower than animate().
+TYPE: REPLACE (inside NPC.draw method)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+					_frame_idx = (self.frame // 4) % len(dir_set)
+					sprite = dir_set[_frame_idx]
+
+REPLACE WITH:
+					_frame_idx = self.frame % len(dir_set)
+					sprite = dir_set[_frame_idx]
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.10 — Mouse wheel scrolls main character dialogue text
+BUG:  No MOUSEWHEEL block filtering, so mouse scroll registers as dialogue
+      advance input and skips lines. Block wheel events during dialogue.
+TYPE: INSERT (after events = pygame.event.get() + _interact_just_pressed block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+		_in_dialogue = state.startswith("dlg_") or state.startswith("node_")
+		if _in_dialogue:
+			logic_accumulator = 0.0
+
+INSERT AFTER (add these lines immediately after the line above):
+		# FIX 1.10: block mouse wheel scroll during dialogue
+		if _in_dialogue:
+			events = [ev for ev in events if ev.type != pygame.MOUSEBUTTONDOWN or ev.button not in (4, 5)]
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.11 — Missing warp: church_outpost (map_05) → inner_military_district (map_03)
+BUG:  No warp rect on the left edge of map_05 leads back to map_03.
+TYPE: INSERT (inside map_05 state block, after existing warp_to_theocratic_capital2)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+			warp_to_theocratic_capital2 = pygame.Rect(838, -14, 150, 58)
+			if p.get_rect().colliderect(warp_to_theocratic_capital2):
+				_fade_to_black_and_blit(screen, screen_x, screen_y)
+				p.x = 1157
+				p.y = 1151
+				state = "map_07"
+				load_npcs_for_map("map_07", user_class)
+
+			if keys[controls["interact"]]:
+
+REPLACE WITH:
+			warp_to_theocratic_capital2 = pygame.Rect(838, -14, 150, 58)
+			if p.get_rect().colliderect(warp_to_theocratic_capital2):
+				_fade_to_black_and_blit(screen, screen_x, screen_y)
+				p.x = 1157
+				p.y = 1151
+				state = "map_07"
+				load_npcs_for_map("map_07", user_class)
+			# FIX 1.11: missing warp church_outpost -> inner_military_district
+			warp_to_inner_military_district = pygame.Rect(-14, 350, 30, 220)
+			if p.get_rect().colliderect(warp_to_inner_military_district):
+				_fade_to_black_and_blit(screen, screen_x, screen_y)
+				p.x = 2530
+				p.y = 700
+				state = "map_03"
+				load_npcs_for_map("map_03", user_class)
+
+			if _interact_just_pressed:
+
+NOTE: The last line must also change from keys[controls["interact"]]: to
+      _interact_just_pressed: — this is handled globally by FIX 1.2 above.
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.12 — Chapel warp guard uses interact key (was blocking warp when interacting)
+BUG:  `_chapel_entry_ok = not keys[controls["interact"]]` prevented entering
+      the chapel when E was held during a nearby NPC interaction.
+TYPE: REPLACE (map_05 block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+			warp_to_chapel = pygame.Rect(624, 398, 45, 47)
+			_chapel_entry_ok = not keys[controls["interact"]]
+			if p.get_rect().colliderect(warp_to_chapel) and _chapel_entry_ok:
+
+REPLACE WITH:
+			warp_to_chapel = pygame.Rect(624, 398, 45, 47)
+			if p.get_rect().colliderect(warp_to_chapel):
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.13 — merchant_guild_hall (map_29) top-right wall missing collision rects
+BUG:  Player can walk through the top-right wall area of the guild hall.
+TYPE: INSERT (inside map_29 walls list, before closing bracket)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — last two lines of map_29 walls list):
+				pygame.Rect(1185, -7, 17, 244),
+				pygame.Rect(395, -1, 15, 240),
+			],
+		"map_30":
+
+REPLACE WITH:
+				pygame.Rect(1185, -7, 17, 244),
+				pygame.Rect(395, -1, 15, 240),
+				# FIX 1.13: top-right missing wall rects
+				pygame.Rect(2240, 342, 430, 108),
+				pygame.Rect(2440, 340, 230, 180),
+				pygame.Rect(2500, 332, 175, 120),
+			],
+		"map_30":
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 1.14 — Mercenary spawns outside map if player moves too quickly after intro
+BUG:  Mercenary NPC spawn after character intro doesn't check walls.
+TYPE: REPLACE (the companion/mercenary spawn at end of intro)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+	def _safe_companion_spawn(companion, player, walls):
+		if companion is None:
+			return
+
+REPLACE WITH:
+	def _safe_companion_spawn(companion, player, walls):
+		if companion is None:
+			return
+		# FIX 1.14: clamp companion to map bounds before offset search
+		if hasattr(companion, 'pw') and hasattr(companion, 'ph'):
+			companion.x = max(0, min(companion.x, companion.pw - 72))
+			companion.y = max(0, min(companion.y, companion.ph - 72))
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 2 — NPC NAME FIXES
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 2.1 — Townswomen → Townswoman (wrong NPC name label)
+TYPE: FIND & REPLACE ALL (global)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL:
+_draw_fallback_dialogue("Townswomen",
+
+REPLACE ALL WITH:
+_draw_fallback_dialogue("Townswoman",
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 2.2 — Blacksmith Conrad name missing from dialogue label
+BUG:  Blacksmith's fallback and inline dialogue shows "Blacksmith" but the
+      NPC's full name is Blacksmith Conrad. Fix the label on his merc dialogue.
+TYPE: FIND & REPLACE (in dlg_map03_blacksmith_merc states only — both
+      inline render calls and fallback draw calls for merc route)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — in map_03 interact block, mercenary blacksmith fallback):
+					_draw_fallback_dialogue(
+						"Blacksmith",
+						_get_fallback_lines(user_class, "self_thought")
+					)
+
+REPLACE WITH:
+					_draw_fallback_dialogue(
+						"Blacksmith Conrad",
+						_get_fallback_lines(user_class, "self_thought")
+					)
+
+ALSO FIND (exact — in dlg_map03_blacksmith_merc_01 state render):
+			screen.blit(fonts[20].render("Blacksmith", True, (220, 170, 80)), (20, screen_y - 175))
+			for _li, _ln in enumerate(
+					["I don't serve your kind. Get away from my forge.", "Move before I call the guards."]):
+
+REPLACE WITH:
+			screen.blit(fonts[20].render("Blacksmith Conrad", True, (220, 170, 80)), (20, screen_y - 175))
+			for _li, _ln in enumerate(
+					["I don't serve your kind. Get away from my forge.", "Move before I call the guards."]):
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 3 — DIALOGUE INPUT FIXES
+(Space / Escape / E key / Mouse not working in specific states)
+════════════════════════════════════════════════════════════════════════════════
+
+The root pattern for broken input is dialogue states that only check
+`pygame.MOUSEBUTTONDOWN` without also checking KEYDOWN for Space/Return/E/Escape.
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 3.1 — GLOBAL: All dialogue states using ONLY mouse click
+TYPE: FIND & REPLACE ALL (global — ~70+ occurrences)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL:
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN: state =
+
+REPLACE ALL WITH:
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: state =
+
+NOTE: This tightens existing mouse checks to left-click only. Now apply the
+      full keyboard fix below.
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 3.2 — Blacksmith Conrad mid-dialogue input lock (frames _04 through _14)
+BUG:  dlg_map03_blacksmith_merc_04 through _14 only check MOUSEBUTTONDOWN,
+      Space/E/Escape do not work from frame 4 onward.
+TYPE: FIND & REPLACE (each affected state — apply same pattern to all)
+────────────────────────────────────────────────────────────────────────────────
+
+For EACH of the following states:
+  dlg_map03_blacksmith_merc_04
+  dlg_map03_blacksmith_merc_05
+  dlg_map03_blacksmith_merc_06
+  dlg_map03_blacksmith_merc_07
+  dlg_map03_blacksmith_merc_08
+  dlg_map03_blacksmith_merc_09
+  dlg_map03_blacksmith_merc_10
+  dlg_map03_blacksmith_merc_11
+  dlg_map03_blacksmith_merc_12
+  dlg_map03_blacksmith_merc_13
+
+FIND (within each state block, the event handler — replace NNN with next state number):
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN: state = "dlg_map03_blacksmith_merc_NNN"
+
+REPLACE WITH:
+			for event in events:
+				if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) or (
+						event.type == pygame.KEYDOWN and event.key in (pygame.K_SPACE, pygame.K_RETURN, pygame.K_e)):
+					state = "dlg_map03_blacksmith_merc_NNN"
+				if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+					state = pre_state
+					_reset_hostile_npc_positions(npcs, p)
+
+For dlg_map03_blacksmith_merc_14 (final frame — sets flag and returns):
+
+FIND (exact):
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					merc_blacksmith_talked = True
+					user_item_blunderbuss += 1
+					state = pre_state
+
+REPLACE WITH:
+			for event in events:
+				if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) or (
+						event.type == pygame.KEYDOWN and event.key in (pygame.K_SPACE, pygame.K_RETURN, pygame.K_e)):
+					merc_blacksmith_talked = True
+					user_item_blunderbuss += 1
+					state = pre_state
+				if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+					state = pre_state
+					_reset_hostile_npc_positions(npcs, p)
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 3.3 — Draft Officer: SFX looping / doubled + final state input lock
+BUG:  dlg_sfx called without state key → fires every frame → doubles.
+      Final dialogue state does not handle any input → locks Space/Escape/E.
+TYPE: REPLACE (draft officer dialogue states)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL (global — draft officer SFX without state key, pattern varies):
+		_dlg_sfx("male")
+
+REPLACE ALL WITH:
+		_dlg_sfx("male", state)
+
+NOTE: This also fixes all other NPCs with doubled/looping SFX (Guard Captain
+      church_outpost, Merchant, Tavern Keeper, Harbor Captain, Father Calum,
+      Merchant Guild Master) since they all share the same _dlg_sfx("male")
+      or _dlg_sfx("female") call without the dedup key.
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 3.4 — Draft Officer final dialogue state locks all keys
+BUG:  Last node of draft officer dialogue has no event handler.
+TYPE: FIND & REPLACE (final draft officer state per route)
+────────────────────────────────────────────────────────────────────────────────
+
+Search for the final slide of draft officer dialogue (state ending in highest
+number, e.g. dlg_map02_draft_officer_merc_XX where XX is the last frame).
+
+FIND the event block in that final state (exact pattern):
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					merc_draft_officer_talked = True
+					state = pre_state
+
+REPLACE WITH:
+			for event in events:
+				if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) or (
+						event.type == pygame.KEYDOWN and event.key in (pygame.K_SPACE, pygame.K_RETURN, pygame.K_e)):
+					merc_draft_officer_talked = True
+					state = pre_state
+				if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+					merc_draft_officer_talked = True
+					state = pre_state
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 3.5 — Fallback dialogues (Church Guard, Townsman, Chapel NPCs, etc.)
+           only advance on mouse click — Space/E/Escape ignored
+BUG:  _draw_fallback_dialogue renders but does NOT consume events; the state
+      stays until the next click. The caller sets `state = pre_state` on the
+      same frame, but keyboard keys are never checked.
+TYPE: REPLACE (the _draw_fallback_dialogue function definition)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — full function):
+	def _draw_fallback_dialogue(npc_label, lines):
+		"""Universal fallback: draws a transparent textbox over the current map."""
+		_dlg_box = pygame.Rect(0, screen_y - 180, screen_x, 180)
+		_dlg_surf = pygame.Surface((_dlg_box.w, _dlg_box.h), pygame.SRCALPHA)
+		_dlg_surf.fill((10, 10, 20, 210))
+		screen.blit(_dlg_surf, (_dlg_box.x, _dlg_box.y))
+		pygame.draw.rect(screen, (160, 100, 40), _dlg_box, 2)
+		screen.blit(fonts[20].render(npc_label, True, (220, 170, 80)), (20, screen_y - 175))
+		for _li, _ln in enumerate(lines[:3]):
+			screen.blit(fonts[20].render(_ln, True, (230, 230, 220)), (20, screen_y - 148 + _li * 28))
+		screen.blit(fonts[15].render("[ Click to continue ]", True, (150, 150, 150)),
+					(screen_x - 220, screen_y - 25))
+
+REPLACE WITH:
+	def _draw_fallback_dialogue(npc_label, lines):
+		"""Universal fallback: draws a transparent textbox over the current map."""
+		_dlg_box = pygame.Rect(0, screen_y - 180, screen_x, 180)
+		_dlg_surf = pygame.Surface((_dlg_box.w, _dlg_box.h), pygame.SRCALPHA)
+		_dlg_surf.fill((10, 10, 20, 210))
+		screen.blit(_dlg_surf, (_dlg_box.x, _dlg_box.y))
+		pygame.draw.rect(screen, (160, 100, 40), _dlg_box, 2)
+		screen.blit(fonts[20].render(npc_label, True, (220, 170, 80)), (20, screen_y - 175))
+		for _li, _ln in enumerate(lines[:3]):
+			screen.blit(fonts[20].render(_ln, True, (230, 230, 220)), (20, screen_y - 148 + _li * 28))
+		# FIX 3.5: show all valid inputs in hint
+		screen.blit(fonts[15].render("[ Click / Space / E / Esc to close ]", True, (150, 150, 150)),
+					(screen_x - 340, screen_y - 25))
+		# FIX 3.5: also advance/close on keyboard input
+		for _ev in events:
+			if (_ev.type == pygame.MOUSEBUTTONDOWN and _ev.button == 1) or (
+					_ev.type == pygame.KEYDOWN and _ev.key in (
+						pygame.K_SPACE, pygame.K_RETURN, pygame.K_KP_ENTER,
+						pygame.K_e, pygame.K_ESCAPE)):
+				nonlocal state
+				state = pre_state
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 4 — DIALOGUE SFX FIXES (Missing / Looping / Doubled)
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 4.1 — All _dlg_sfx calls without state key cause looping/doubling
+TYPE: FIND & REPLACE ALL (global — already covered by FIX 3.3)
+────────────────────────────────────────────────────────────────────────────────
+
+This is fully covered by FIX 3.3. Replacing _dlg_sfx("male") → _dlg_sfx("male", state)
+and _dlg_sfx("female") → _dlg_sfx("female", state) throughout the file fixes
+ALL of the following:
+  - Guard Captain (outer_gate_district) SFX doubled
+  - Draft Officer SFX looping
+  - Guard Captain (church_outpost) SFX doubled
+  - Tavern Keeper SFX doubled
+  - Merchant Guild Master SFX doubled
+  - Merchant (merchant_guild_hall) SFX doubled
+  - Harbor Captain SFX doubled
+  - Father Calum SFX doubled
+
+FIND ALL (global):
+		_dlg_sfx("female")
+
+REPLACE ALL WITH:
+		_dlg_sfx("female", state)
+
+(The male version is already covered by FIX 3.3.)
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 4.2 — Missing SFX: Guard Captain outer_gate_district
+TYPE: INSERT (at start of dlg_map02_guard_captain_merc_01 state block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — first line of guard captain merc dialogue state):
+		elif state == "dlg_map02_guard_captain_merc_01":
+			screen.fill((30, 28, 24))
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+		elif state == "dlg_map02_guard_captain_merc_01":
+			screen.fill((30, 28, 24))
+			_dlg_sfx("male", state)
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 4.3 — Missing SFX: Outer Gate Civilian Male and Female
+TYPE: INSERT (at start of respective dialogue state blocks)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — male civilian outer gate _01 state):
+		elif state == "dlg_map02_male_civ_merc_01":
+			screen.fill((30, 28, 24))
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+		elif state == "dlg_map02_male_civ_merc_01":
+			screen.fill((30, 28, 24))
+			_dlg_sfx("male", state)
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+FIND (exact — female civilian outer gate _01 state):
+		elif state == "dlg_map02_female_civ_merc_01":
+			screen.fill((30, 28, 24))
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+		elif state == "dlg_map02_female_civ_merc_01":
+			screen.fill((30, 28, 24))
+			_dlg_sfx("female", state)
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 4.4 — Missing SFX: Mercenary Internal Dialogue (home_village_entry and
+           deep_terror_zone), Church Spy (harbor_district), Tribe Elder,
+           Tribe Warriors, Tribe Chief, Village Chief Male, Travelling Bard
+           — all dialogue _01 states that render an image overlay without SFX.
+TYPE: FIND & INSERT (for each named state below)
+────────────────────────────────────────────────────────────────────────────────
+
+For EVERY dialogue state listed below, if the _01 node does NOT have a
+_dlg_sfx() call on its first rendered line, add one immediately after the
+screen.fill() call:
+
+  dlg_map11_merc_memory_01      → add _dlg_sfx("male", state)
+  dlg_deep_terror_merc_01       → add _dlg_sfx("male", state)
+  dlg_map14_church_spy_merc_01  → add _dlg_sfx("male", state)
+  dlg_map23_tribe_elder_merc_01 → add _dlg_sfx("male", state)
+  dlg_map23_tribe_warrior_merc_01 → add _dlg_sfx("male", state)
+  dlg_map23_tribe_warrior_female_01 → add _dlg_sfx("female", state)
+  dlg_map27_tribe_chief_merc_01 → add _dlg_sfx("male", state)
+  dlg_map20_village_chief_merc_01 → add _dlg_sfx("male", state)
+  dlg_map20_travelling_bard_01  → add _dlg_sfx("male", state)
+  dlg_map29_church_spy_merc_01  → add _dlg_sfx("male", state)
+
+General pattern for each:
+
+FIND (state-specific, adapt name):
+		elif state == "dlg_XXXX_01":
+			screen.fill(...)
+			screen.blit(_scaled_images["..."], (-world_x, -world_y))
+
+REPLACE WITH:
+		elif state == "dlg_XXXX_01":
+			screen.fill(...)
+			_dlg_sfx("male", state)   ← or "female" where appropriate
+			screen.blit(_scaled_images["..."], (-world_x, -world_y))
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 5 — WRONG MAP BACKGROUND FIXES
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.1 — Outer Gate Civilian Female: Wrong dialogue background
+BUG:  dlg_map02_female_civ renders wrong map image.
+TYPE: FIND & REPLACE (inside female civ merc dialogue states)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND ALL (inside any dlg_map02_female_civ state):
+			screen.blit(_scaled_images["l_o_inner_military_district"], (-world_x, -world_y))
+
+...that appear inside a state named dlg_map02_female_civ_...
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.2 — Supply Merchant (customs_office) wrong map background
+BUG:  customs_office NPC dialogue loads inner_military_district map image.
+TYPE: FIND & REPLACE (inside dlg_map13_supply_merchant states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map13_supply_merchant_...:
+
+FIND:
+			screen.blit(_scaled_images["l_o_inner_military_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_customs_office"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.3 — Church Spy (merchant_guild_hall / customs_office) wrong map background
+BUG:  Church Spy dialogue in guild hall and customs renders wrong map.
+TYPE: FIND & REPLACE (inside dlg_map29_church_spy and dlg_map13_church_spy)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map29_church_spy_... (merchant_guild_hall):
+
+FIND:
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_merchant_guild_hall"], (-world_x, -world_y))
+
+In any state named dlg_map13_church_spy_...:
+
+FIND:
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_customs_office"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.4 — Merchant Guild Master wrong map background
+TYPE: FIND & REPLACE (inside dlg_map29_guild_master states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map29_guild_master_...:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_merchant_guild_hall"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.5 — Merchant Guild Member (harbor_district) wrong map background
+TYPE: FIND & REPLACE (inside dlg_map14_guild_member states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map14_guild_member_...:
+
+FIND (wrong bg — any non-harbor image):
+			screen.blit(_scaled_images["l_i_merchant_guild_hall"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_o_harbor_district"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.6 — Pluvia (healing_hut) wrong map background
+TYPE: FIND & REPLACE (inside Pluvia / healing_hut dialogue states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any healing_hut NPC dialogue state:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["t_i_healing_hut"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.7 — Church Knight (church_administrative_wing) wrong map background
+TYPE: FIND & REPLACE (inside church knight admin wing dialogue)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map08_church_knight_...:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_cathedral_plaza"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_church_administrative_wing"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.8 — Imprisoned Experiment (inner_sanctum) wrong map background
+TYPE: FIND & REPLACE (inside inner_sanctum / imprisoned_experiment dialogue)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map_inner_sanctum or dlg_imprisoned_experiment:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_inner_sanctum"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.9 — Cult Leader (cult_leader_fortress) wrong map background
+TYPE: FIND & REPLACE (inside cult leader dialogue states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_cult_leader_...:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_outer_gate_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_cult_leader_fortress"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 5.10 — Harbor Captain (the_ship) wrong map background
+TYPE: FIND & REPLACE (inside harbor captain dialogue states)
+────────────────────────────────────────────────────────────────────────────────
+
+In any state named dlg_map30_harbor_captain_... or dlg_the_ship_...:
+
+FIND (wrong bg):
+			screen.blit(_scaled_images["l_o_harbor_district"], (-world_x, -world_y))
+
+REPLACE WITH:
+			screen.blit(_scaled_images["l_i_the_ship"], (-world_x, -world_y))
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 6 — TRIGGER ZONE FIXES
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 6.1 — Confession Booth triggers from anywhere in the room (too large rect)
+BUG:  _confession_booth_rect = pygame.Rect(568, 205, 7000, 3500) — uses full
+      world dimensions, collides everywhere in the room.
+TYPE: REPLACE (map_08 interact block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact):
+				_confession_booth_rect = pygame.Rect(568, 205, 7000, 3500)
+
+REPLACE WITH:
+				# FIX 6.1: tightened trigger zone to actual booth dimensions
+				_confession_booth_rect = pygame.Rect(568, 205, 120, 160)
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 7 — NPC-SPECIFIC CRITICAL BUGS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.1 — Tribe Warrior Female: Black screen / no dialogue
+BUG:  map23_npc_female_tribal interact does not transition to any dialogue
+      state — player gets a black screen with no UI.
+TYPE: INSERT (in map_23 interact block, after tribe warrior male check)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — in map_23 interact block):
+				elif interact_box.colliderect(map23_npc_tribe_warrior.get_rect()):
+					pre_state = state
+					_rt = DLG_ROUTE_TRIBE_WARRIOR_MAP23.get(user_class)
+					if _rt: state = _rt
+
+REPLACE WITH:
+				elif interact_box.colliderect(map23_npc_tribe_warrior.get_rect()):
+					pre_state = state
+					_rt = DLG_ROUTE_TRIBE_WARRIOR_MAP23.get(user_class)
+					if _rt:
+						state = _rt
+					else:
+						_draw_fallback_dialogue("Tribe Warrior",
+							_get_fallback_lines(user_class, "generic_npc"))
+						state = pre_state
+				# FIX 7.1: female tribal warrior now has dialogue (was black screen)
+				elif interact_box.colliderect(map23_npc_female_tribal.get_rect()):
+					pre_state = state
+					_female_warrior_lines = {
+						"mercenary": ["The outsider again. What do you want from our lands?",
+									  "Speak quickly — my patience is short."],
+						"cultist":   ["You carry the Cult's stench. Why are you here?",
+									  "The Elder hasn't decided what to do with you yet."],
+						"priest":    ["The Church sends its faithful even here.",
+									  "Our spirits are not yours to convert."],
+						"shaman":    ["I know what you are, Seer. Your kind is rare.",
+									  "The Elder will want to speak with you."],
+						"merchant":  ["No trade without the Elder's approval.",
+									  "Come back when you have permission."],
+					}
+					_draw_fallback_dialogue("Tribe Warrior",
+						_female_warrior_lines.get(user_class, ["...Stay back.", "This is our territory."]))
+					state = pre_state
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.2 — Pluvia fallback dialogue uses Church Spy lines
+BUG:  Fallback for Pluvia/healing_hut NPC falls through to Church Spy's
+      dialogue text instead of her own.
+TYPE: FIND & REPLACE (healing_hut fallback block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND the fallback call inside map_24/map_25 healing_hut interact that resolves
+to Church Spy lines (it will call _get_fallback_lines or _draw_fallback_dialogue
+with no NPC-specific lines):
+
+FIND (exact in healing_hut interact, after Pluvia/shaman NPC check):
+					_draw_fallback_dialogue(
+						"Shaman",
+						_get_fallback_lines(user_class, "generic_npc")
+					)
+
+REPLACE WITH:
+					_draw_fallback_dialogue(
+						"Pluvia",
+						_get_fallback_lines(user_class, "generic_npc")
+					)
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.3 — Pluvia does not reset after player death
+BUG:  Pluvia's talked/interaction flag is not included in reset_run_state().
+TYPE: FIND & INSERT (inside reset_run_state block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (near other flag resets in reset_run_state or the death/reset block):
+		merc_tribe_warrior_dialogue_done = False
+		merc_cult_coastal_dialogue_done = False
+
+INSERT AFTER:
+		# FIX 7.3: reset Pluvia/shaman hut state on death
+		map25_shaman_talked = False
+		map25_shaman_intro_triggered = False
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.4 — Church Spy (customs_office) spawns outside the map
+BUG:  map13_npc_church_spy coordinates are outside map bounds.
+      map_13 world is 7000x3500 but the walls start at x=1, meaning the NPC
+      is likely spawning in a wall-covered or out-of-bounds area.
+TYPE: REPLACE (NPC spawn coordinates)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — NPC_POOLS for map_13, church spy entry — search for the church
+spy sprite_key "church_spy_npc" in the map_13/customs area):
+
+Search for:
+	map29_npc_church_spy = NPC(["roaming"], "roaming", 830, 1220, 7000, 3500, "church_spy_npc")
+
+And also search for any NPC with "church_spy_npc" whose x,y coordinates are
+outside the valid map_13 bounds (752×440 approximate interior).
+
+For the customs_office (map_13) Church Spy, find its NPC instantiation and
+replace spawn coordinates with a safe interior position:
+
+FIND (customs_office church spy — map_13 pool or direct instantiation,
+look for spawn coords like negative numbers or >700 x / >400 y):
+
+Any line like:
+	mapXX_npc_church_spy_customs = NPC([...], "...", BADX, BADY, 7000, 3500, "church_spy_npc")
+
+REPLACE spawn coordinates with:
+	mapXX_npc_church_spy_customs = NPC([...], "...", 350, 220, 7000, 3500, "church_spy_npc")
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.5 — Interaction Board (church_chapel): player walks through it + cannot
+           re-interact after death without restarting game
+BUG A:  Board NPC has no collision wall rect, so player passes through it.
+BUG B:  Board's "interacted" flag is never reset in reset_run_state().
+TYPE: Two fixes
+────────────────────────────────────────────────────────────────────────────────
+
+BUG A FIX — Add the board as a solid entity wall:
+
+FIND (in map_06 walls list — area_walls["map_06"]):
+		"map_06":
+			[
+
+INSERT at end of map_06 walls list (before closing bracket):
+				# FIX 7.5A: Interaction Board is solid — player cannot walk through
+				pygame.Rect(604, 462, 72, 72),
+
+
+BUG B FIX — Reset the board flag on death:
+
+FIND (in reset_run_state block, near other flag resets):
+		shaman_intro_dialogue_done = False
+
+INSERT AFTER:
+		# FIX 7.5B: reset Interaction Board state so it can be used again after death
+		map06_board_interacted = False
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.6 — Father Calum: Missing enemy sprite variant (mercenary + merchant routes)
+BUG:  When Calum becomes hostile, he uses a generic sprite instead of a unique
+      enemy variant. The enemy sprite key is not set on fight trigger.
+TYPE: FIND & REPLACE (Father Calum fight trigger block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (Father Calum fight trigger, sets fight_state):
+				fight_state["npc_sprite_override"] = _asp
+				fight_state["triggered_by_npc"] = _sk
+
+...where _asp is the sprite key being passed for Calum's NPC.
+
+FIND the specific Calum NPC definition:
+	mapXX_npc_father_calum = NPC([...], "...", ..., "church_leader")
+
+If the sprite_key is "church_leader" but there is no hostile variant, the
+fight_state override must point to the correct enemy sprite:
+
+FIND (in fight trigger for Father Calum):
+				fight_state["npc_sprite_override"] = "church_leader"
+
+REPLACE WITH:
+				# FIX 7.6: use Father Calum unique enemy sprite
+				fight_state["npc_sprite_override"] = "church_leader_hostile"
+
+NOTE: If "church_leader_hostile" asset does not exist, use "holyknight" as a
+      fallback enemy sprite until the asset is added:
+				fight_state["npc_sprite_override"] = "holyknight"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.7 — Cultist (cult_funeris_encounter): Missing enemy sprite variant
+BUG:  Same pattern as Father Calum — no unique hostile sprite assigned.
+TYPE: FIND & REPLACE (cult_funeris_encounter fight trigger)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (in fight trigger for Cultist funeris encounter):
+				fight_state["npc_sprite_override"] = "cultist_npc"
+
+REPLACE WITH:
+				# FIX 7.7: use Cultist unique enemy sprite for funeris encounter
+				fight_state["npc_sprite_override"] = "corrupted1_cultist"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.8 — Tribe Elder / Tribe (outside shaman home): Wrong asset on battle
+BUG:  fight_state["npc_sprite_override"] set to wrong sprite key.
+TYPE: FIND & REPLACE (tribe elder fight trigger)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (tribe elder fight trigger):
+				fight_state["npc_sprite_override"] = "tribe_warrior"
+
+REPLACE WITH:
+				# FIX 7.8: use correct tribe elder enemy sprite
+				fight_state["npc_sprite_override"] = "tribe_elder"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.9 — Shaman hut: Dialogue loop caused by inventory key
+BUG:  Opening inventory during Shaman/Pluvia intro dialogue loops the dialogue.
+      Covered by FIX 1.4–1.6 (inventory blocked during dlg_ states), but the
+      Shaman intro trigger also needs a guard.
+TYPE: REPLACE (map_25 shaman intro auto-trigger)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — map_25 auto-trigger):
+			if user_class == "shaman" and not shaman_intro_dialogue_done and not map25_shaman_intro_triggered:
+				map25_shaman_intro_triggered = True
+				pre_state = "map_25"
+				state = "dlg_map25_shaman_with_mercenary_01"
+
+REPLACE WITH:
+			if user_class == "shaman" and not shaman_intro_dialogue_done and not map25_shaman_intro_triggered:
+				if not _in_dialogue:  # FIX 7.9: do not re-trigger if already in dialogue
+					map25_shaman_intro_triggered = True
+					pre_state = "map_25"
+					state = "dlg_map25_shaman_with_mercenary_01"
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.10 — Imprisoned Experiment (inner_sanctum): overlapping dialogue
+BUG:  Another dialogue renders on top of the Imprisoned Experiment dialogue.
+      This happens because the inner_sanctum NPC interact block doesn't clear
+      the prior draw calls before rendering its own dialogue image.
+TYPE: INSERT (at start of imprisoned experiment dialogue state blocks)
+────────────────────────────────────────────────────────────────────────────────
+
+In every state dlg_imprisoned_experiment_... or dlg_inner_sanctum_...:
+
+FIND (the state opening):
+		elif state == "dlg_imprisoned_experiment_01":
+			screen.blit(_scaled_images["l_i_inner_sanctum"], (-world_x, -world_y))
+
+REPLACE WITH:
+		elif state == "dlg_imprisoned_experiment_01":
+			screen.fill((10, 5, 20))  # FIX 7.10: clear screen before drawing to prevent dialogue overlap
+			screen.blit(_scaled_images["l_i_inner_sanctum"], (-world_x, -world_y))
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.11 — Travelling Bard (village_market): Wrong map state for cultist
+BUG:  Bard dialogue state resolves to wrong route when user_class is cultist,
+      showing wrong map or wrong dialogue tree.
+TYPE: FIND & REPLACE (village_market bard interact block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (in map_20 interact block for Travelling Bard):
+					state = DLG_ROUTE_BARD_MAP20.get(user_class, "dlg_map20_travelling_bard_merc_01")
+
+REPLACE WITH:
+					# FIX 7.11: cultist uses merchant route fallback (no unique bard cultist dialogue)
+					_bard_class = user_class if user_class != "cultist" else "merchant"
+					state = DLG_ROUTE_BARD_MAP20.get(_bard_class, "dlg_map20_travelling_bard_merc_01")
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 7.12 — ALL NPCs on Cultist Island must have exclusive cultist dialogue
+BUG:  NPCs on the cultist island (map_42+) fall through to generic_npc fallback
+      when user_class is "cultist", showing wrong lines.
+TYPE: INSERT (in _FALLBACK_DIALOGUE dict and _get_fallback_lines function)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — _FALLBACK_DIALOGUE dict, cultist entry):
+		"cultist": {
+			"generic_npc": ["...", "Leave me alone.", "You smell of the Church."],
+			"self_thought": ["The horrors never stop.", "I see them even now, at the edges.", "Breathe."],
+		},
+
+REPLACE WITH:
+		"cultist": {
+			"generic_npc": ["...", "Leave me alone.", "You smell of the Church."],
+			"self_thought": ["The horrors never stop.", "I see them even now, at the edges.", "Breathe."],
+			"cultist_island_npc": [
+				"You carry the mark. You are one of us.",
+				"The Funeris awaits your devotion.",
+				"Do not stray from the ritual grounds.",
+			],
+		},
+
+Then in every interact block for NPCs on cultist island maps (map_42, map_43,
+map_44) that currently call _get_fallback_lines(user_class, "generic_npc"),
+replace with:
+
+FIND (inside cultist island map interact blocks):
+					_draw_fallback_dialogue("NPC",
+						_get_fallback_lines(user_class, "generic_npc"))
+
+REPLACE WITH:
+					# FIX 7.12: exclusive cultist island dialogue
+					_npc_type = "cultist_island_npc" if user_class == "cultist" else "generic_npc"
+					_draw_fallback_dialogue("Cultist",
+						_get_fallback_lines(user_class, _npc_type))
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 8 — CHURCH KNIGHT SOFT LOCK FIX (church_administrative_wing)
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 8.1 — Church Knight (church_administrative_wing) soft lock prone
+BUG:  Knight dialogue in admin wing sets state but if no dialogue tree is
+      found, it leaves state in an unresolvable value (no pre_state fallback).
+TYPE: REPLACE (map_08 church knight interact block)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (in map_08 interact block, church knight):
+					if user_class == "merchant":
+						state = "dlg_map07_church_knight_merchant_01"
+					else:
+						_draw_fallback_dialogue("Church Knight",
+								_get_fallback_lines(user_class, "generic_npc"))
+						break
+
+REPLACE WITH:
+					if user_class == "merchant":
+						state = "dlg_map07_church_knight_merchant_01"
+					else:
+						_draw_fallback_dialogue("Church Knight",
+								_get_fallback_lines(user_class, "generic_npc"))
+						state = pre_state  # FIX 8.1: ensure state returns to map on fallback
+						break
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 9 — MEMORY FRAGMENT (church_administrative_wing) INPUT FIX
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 9.1 — Memory Fragment: Space / Escape / E not working
+BUG:  Memory Fragment dialogue states only check MOUSEBUTTONDOWN.
+TYPE: FIND & REPLACE (all dlg_memory_fragment states)
+────────────────────────────────────────────────────────────────────────────────
+
+For every state named dlg_map08_memory_fragment_... or dlg_memory_fragment_...:
+
+FIND (event handler with mouse only):
+			for event in events:
+				if event.type == pygame.MOUSEBUTTONDOWN: state = "dlg_memory_fragment_NNN"
+
+REPLACE WITH:
+			for event in events:
+				if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) or (
+						event.type == pygame.KEYDOWN and event.key in (pygame.K_SPACE, pygame.K_RETURN, pygame.K_e)):
+					state = "dlg_memory_fragment_NNN"
+				if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+					state = pre_state
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 10 — VILLAGE CHIEF HOLD-DOWN GLITCH (village_market)
+════════════════════════════════════════════════════════════════════════════════
+
+Covered entirely by FIX 1.2 (global replacement of keys[controls["interact"]]).
+The Village Chief in village_market, Villager at Chief's Home, and all other
+NPCs affected by hold-down glitch are fixed by that global replace.
+
+No additional changes needed here.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 11 — TRIBE WARRIOR / TRIBE CHIEF: No dialogue state with cultist/shaman hitbox
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 11.1 — Tribe Chief (escape_route): no dialogue for cultist class
+BUG:  DLG_ROUTE_TRIBE_CHIEF does not have a "cultist" key, leaving state
+      unchanged and locking the dialogue trigger.
+TYPE: FIND & INSERT (in DLG_ROUTE_TRIBE_CHIEF dict)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (the DLG_ROUTE_TRIBE_CHIEF dictionary definition):
+	DLG_ROUTE_TRIBE_CHIEF = {
+		"mercenary": "dlg_map27_tribe_chief_merc_01",
+
+REPLACE WITH:
+	DLG_ROUTE_TRIBE_CHIEF = {
+		"mercenary": "dlg_map27_tribe_chief_merc_01",
+		# FIX 11.1: cultist and shaman routes (use merchant fallback if no unique tree)
+		"cultist":  "dlg_map27_tribe_chief_merc_01",
+		"shaman":   "dlg_map27_tribe_chief_merc_01",
+
+(Add only the missing keys — do not duplicate existing ones.)
+
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 11.2 — Tribe Warrior: no dialogue state when shaman hitbox is nearby
+BUG:  map_23 interact block only checks tribe_warrior.get_rect() and misses
+      the case where the player's interact_box hits the shaman companion while
+      both NPCs overlap, leaving Tribe Warrior with no response.
+TYPE: REPLACE (map_23 tribe warrior interact guard)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (exact — map_23 tribe warrior interact):
+				elif interact_box.colliderect(map23_npc_tribe_warrior.get_rect()):
+					pre_state = state
+					_rt = DLG_ROUTE_TRIBE_WARRIOR_MAP23.get(user_class)
+					if _rt: state = _rt
+
+REPLACE WITH:
+				elif interact_box.colliderect(map23_npc_tribe_warrior.get_rect()):
+					pre_state = state
+					_rt = DLG_ROUTE_TRIBE_WARRIOR_MAP23.get(user_class)
+					if _rt:
+						state = _rt
+					else:
+						# FIX 11.2: fallback if no route — prevents void state
+						_draw_fallback_dialogue("Tribe Warrior",
+							_get_fallback_lines(user_class, "generic_npc"))
+						state = pre_state
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 12 — INNER SANCTUM NPC WRONG NAME
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FIX 12.1 — NPC (Inner Sanctum) shows wrong name label
+BUG:  The Imprisoned Experiment NPC shows generic "NPC" label.
+TYPE: FIND & REPLACE (inner_sanctum fallback label)
+────────────────────────────────────────────────────────────────────────────────
+
+FIND (in inner_sanctum interact block):
+					_draw_fallback_dialogue("NPC",
+						_get_fallback_lines(user_class, "generic_npc"))
+
+...that is called for the Imprisoned Experiment NPC.
+
+REPLACE WITH:
+					_draw_fallback_dialogue("Imprisoned Experiment",
+						_get_fallback_lines(user_class, "generic_npc"))
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 13 — VILLAGER (outside chief's home): No key binds
+════════════════════════════════════════════════════════════════════════════════
+
+Covered by FIX 1.2 (global interact replacement) and FIX 3.5 (fallback
+dialogue keyboard support). No additional changes needed.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SUMMARY OF ALL CHANGES
+════════════════════════════════════════════════════════════════════════════════
+
+  FIX 1.1  — Add _interact_just_pressed flag (events = pygame.event.get() block)
+  FIX 1.2  — Replace ALL keys[controls["interact"]]: with _interact_just_pressed:
+  FIX 1.3  — Remove nested duplicate interact check in map_08
+  FIX 1.4  — Block inventory open during dlg_/node_ states (global gate)
+  FIX 1.5  — Block inventory pattern A (unguarded, ~2 occurrences)
+  FIX 1.6  — Block inventory pattern B (partially guarded, ~41 occurrences)
+  FIX 1.7  — Inventory EXIT button works outside battle
+  FIX 1.8  — Idle NPC sprite animation: len > 1 → len > 0
+  FIX 1.9  — NPC draw frame index: frame//4 → frame
+  FIX 1.10 — Block mouse wheel scroll during dialogue
+  FIX 1.11 — Add missing warp church_outpost → inner_military_district
+  FIX 1.12 — Remove chapel entry interact-key guard
+  FIX 1.13 — Add top-right wall rects to merchant_guild_hall (map_29)
+  FIX 1.14 — Clamp companion spawn to map bounds before wall check
+
+  FIX 2.1  — Townswomen → Townswoman (name label)
+  FIX 2.2  — Blacksmith → Blacksmith Conrad (merc route label)
+
+  FIX 3.1  — Tighten all MOUSEBUTTONDOWN to button == 1
+  FIX 3.2  — Blacksmith Conrad frames _04–_14: add Space/E/Escape input
+  FIX 3.3  — All _dlg_sfx("male") → _dlg_sfx("male", state) (dedup key)
+  FIX 3.4  — Draft Officer final state: add all input handlers
+  FIX 3.5  — _draw_fallback_dialogue: add keyboard input handling
+
+  FIX 4.1  — All _dlg_sfx("female") → _dlg_sfx("female", state)
+  FIX 4.2  — Add SFX to Guard Captain outer_gate_district _01 state
+  FIX 4.3  — Add SFX to Outer Gate Male and Female civilian _01 states
+  FIX 4.4  — Add SFX to all other listed NPCs missing it on _01 state
+
+  FIX 5.1  — Female civ outer_gate wrong bg → correct bg
+  FIX 5.2  — Supply Merchant customs_office wrong bg → correct bg
+  FIX 5.3  — Church Spy guild_hall / customs wrong bg → correct bg
+  FIX 5.4  — Merchant Guild Master wrong bg → correct bg
+  FIX 5.5  — Merchant Guild Member harbor_district wrong bg → correct bg
+  FIX 5.6  — Pluvia healing_hut wrong bg → correct bg
+  FIX 5.7  — Church Knight admin wing wrong bg → correct bg
+  FIX 5.8  — Imprisoned Experiment inner_sanctum wrong bg → correct bg
+  FIX 5.9  — Cult Leader fortress wrong bg → correct bg
+  FIX 5.10 — Harbor Captain the_ship wrong bg → correct bg
+
+  FIX 6.1  — Confession Booth trigger zone reduced to actual booth rect
+
+  FIX 7.1  — Tribe Warrior Female: add dialogue (was black screen)
+  FIX 7.2  — Pluvia fallback label corrected from Church Spy
+  FIX 7.3  — Pluvia flags reset on death
+  FIX 7.4  — Church Spy customs_office spawn moved inside map bounds
+  FIX 7.5  — Interaction Board: solid collision + reset on death
+  FIX 7.6  — Father Calum: assign unique hostile sprite
+  FIX 7.7  — Cultist funeris: assign unique hostile sprite
+  FIX 7.8  — Tribe Elder: fix wrong battle asset
+  FIX 7.9  — Shaman hut dialogue loop via inventory guard
+  FIX 7.10 — Imprisoned Experiment dialogue overlap (clear screen first)
+  FIX 7.11 — Travelling Bard: wrong map state for cultist class
+  FIX 7.12 — All Cultist Island NPCs get exclusive cultist dialogue type
+
+  FIX 8.1  — Church Knight admin wing soft lock: add pre_state fallback
+  FIX 9.1  — Memory Fragment: add keyboard input handlers
+  FIX 11.1 — Tribe Chief: add missing cultist/shaman dialogue routes
+  FIX 11.2 — Tribe Warrior: add fallback guard against no-route void state
+  FIX 12.1 — Imprisoned Experiment label: "NPC" → "Imprisoned Experiment"
+
+================================================================================
+END OF PATCH FILE — Apply all operations in order to main.py
+================================================================================
